@@ -1,6 +1,6 @@
 ---
-name: Pedro
-avatar: /uploads/llama-6.avif
+name: Alisa Cherniaeva
+avatar: ''
 ---
 
 
