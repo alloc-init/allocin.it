@@ -1,6 +1,12 @@
 ---
 title: '[[alloc] init]'
 blocks:
+  - tagline: ''
+    headline: '[[alloc] init]'
+    text: ''
+    text2: ''
+    color: default
+    _template: hero
   - items:
       - icon:
           name: ''
@@ -27,11 +33,5 @@ blocks:
           This is where you might talk about the feature, if this wasn't just
           filler text.
     _template: features
-  - tagline: ''
-    headline: '[[alloc] init]'
-    text: ''
-    text2: ''
-    color: default
-    _template: hero
 ---
 
