@@ -5,7 +5,7 @@ blocks:
     headline: '[[alloc] init]'
     text: ''
     text2: ''
-    color: default
+    color: tint
     _template: hero
   - items:
       - icon:
