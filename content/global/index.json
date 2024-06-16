@@ -25,9 +25,10 @@
   "footer": {
     "color": "default",
     "social": {
-      "facebook": "/",
-      "twitter": "/",
-      "instagram": "/"
+      "facebook": "",
+      "twitter": "https://twitter.com/alloc_init_",
+      "instagram": "",
+      "github": "https://github.com/alloc-init"
     }
   },
   "theme": {
