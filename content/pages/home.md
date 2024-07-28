@@ -2,7 +2,7 @@
 title: '[[alloc] init]'
 blocks:
   - body: |
-      ![](/uploads/logoshort.png)
+      ![](/uploads/logotransparent.png)
     color: default
     _template: content
 ---
