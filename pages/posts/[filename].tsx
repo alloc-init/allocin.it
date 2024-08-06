@@ -55,6 +55,6 @@ export const getStaticPaths = async () => {
   };
 };
 
-export type PostType = InferGetStaticPropsType<
+export type ResearchType = InferGetStaticPropsType<
   typeof getStaticProps
 >["data"]["post"];
