@@ -19,7 +19,7 @@ import format from "date-fns/format";
 import { TinaMarkdown } from "tinacms/dist/rich-text";
 import { Prism } from "tinacms/dist/rich-text/prism";
 import type { TinaMarkdownContent, Components } from "tinacms/dist/rich-text";
-import { ResearchType } from "../../pages/posts/[filename]";
+import { ResearchType } from "../../pages/papers/[filename]";
 import { tinaField } from "tinacms/dist/react";
 
 const components: Components<{

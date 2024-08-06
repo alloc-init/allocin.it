@@ -1,5 +1,5 @@
 ---
-title: Research
+title: Papers
 blocks:
   - body: |
       ![](/uploads/logotransparent.png)

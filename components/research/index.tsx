@@ -1,1 +1,1 @@
-export { Research } from "./research";
+export { Papers } from "./papers";

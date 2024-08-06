@@ -1,41 +1,40 @@
-import { Post } from "../../components/posts/post";
+import { Paper } from "../../components/research/paper";
 import { client } from "../../tina/__generated__/client";
 import { useTina } from "tinacms/dist/react";
 import { Layout } from "../../components/layout";
 import { InferGetStaticPropsType } from "next";
 
 // Use the props returned by get static props
-export default function BlogPostPage(
+export default function PaperPage(
   props: InferGetStaticPropsType<typeof getStaticProps>
 ) {
   const { data } = useTina({
     query: props.query,
     variables: props.variables,
-    data: props.data
+    data: props.data,
   });
-  if (data && data.post) {
+  if (data && data.research) {
     return (
       <Layout rawData={data} data={data.global}>
-        <Post {...data.post} />
+        <Paper {...data.research} />
       </Layout>
     );
   }
   return (
     <Layout>
-      <div>No data</div>
-      ;
+      <div>No data</div>;
     </Layout>
   );
 }
 
 export const getStaticProps = async ({ params }) => {
-  const tinaProps = await client.queries.blogPostQuery({
-    relativePath: `${params.filename}.mdx`
+  const tinaProps = await client.queries.paperQuery({
+    relativePath: `${params.filename}.mdx`,
   });
   return {
     props: {
-      ...tinaProps
-    }
+      ...tinaProps,
+    },
   };
 };
 
@@ -47,15 +46,15 @@ export const getStaticProps = async ({ params }) => {
  * be viewable at http://localhost:3000/posts/hello
  */
 export const getStaticPaths = async () => {
-  const postsListData = await client.queries.postConnection();
+  const papersListData = await client.queries.researchConnection();
   return {
-    paths: postsListData.data.postConnection.edges.map((post) => ({
-      params: { filename: post.node._sys.filename }
+    paths: papersListData.data.researchConnection.edges.map((post) => ({
+      params: { filename: post.node._sys.filename },
     })),
-    fallback: "blocking"
+    fallback: "blocking",
   };
 };
 
-export type PostType = InferGetStaticPropsType<
+export type ResearchType = InferGetStaticPropsType<
   typeof getStaticProps
->["data"]["post"];
+>["data"]["research"];

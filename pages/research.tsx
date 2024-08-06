@@ -1,6 +1,6 @@
 import { Container } from "../components/util/container";
 import { Section } from "../components/util/section";
-import { Research } from "../components/research";
+import { Papers } from "../components/research";
 import { client } from "../tina/__generated__/client";
 import { Layout } from "../components/layout";
 import { InferGetStaticPropsType } from "next";
@@ -12,7 +12,7 @@ export default function HomePage(props: InferGetStaticPropsType<typeof getStatic
     <Layout>
       <Section className="flex-1">
         <Container size="large" width="small">
-          <Research data={papers} />
+          <Papers data={papers} />
         </Container>
       </Section>
     </Layout>

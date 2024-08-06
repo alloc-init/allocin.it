@@ -58,7 +58,7 @@ query blogPostQuery($relativePath: String!) {
     }
 }
 
-query researchQuery($relativePath: String!) {
+query paperQuery($relativePath: String!) {
     ...LayoutQueryFragment
     research(relativePath: $relativePath) {
         ...ResearchParts

@@ -6,7 +6,7 @@ import { useTheme } from "../layout";
 import format from "date-fns/format";
 import { ResearchType } from "../../pages/research";
 
-export const Research = ({ data }: { data: ResearchType[] }) => {
+export const Papers = ({ data }: { data: ResearchType[] }) => {
   const theme = useTheme();
   const titleColorClasses = {
     blue: "group-hover:text-blue-600 dark:group-hover:text-blue-300",
