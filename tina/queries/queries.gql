@@ -30,6 +30,7 @@ query pageQuery {
                         ...AuthorParts
                     }
                 }
+                filename
                 _sys {
                     filename
                 }

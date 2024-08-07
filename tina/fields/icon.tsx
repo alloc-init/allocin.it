@@ -61,7 +61,8 @@ export const IconPickerInput = wrapFieldsWithMeta(({ input }) => {
                 leaveFrom="transform opacity-100 translate-y-0"
                 leaveTo="transform opacity-0 -translate-y-2"
               >
-                <Popover.Panel className="relative overflow-hidden rounded-lg shadow-lg bg-white border border-gray-150 z-50">
+                <Popover.Panel
+                  className="relative overflow-hidden rounded-lg shadow-lg bg-white border border-gray-150 z-50">
                   {({ close }) => (
                     <div className="max-h-[24rem] flex flex-col w-full h-full">
                       <div className="bg-gray-50 p-2 border-b border-gray-100 z-10 shadow-sm">
@@ -112,7 +113,7 @@ export const IconPickerInput = wrapFieldsWithMeta(({ input }) => {
                                   data={{
                                     name: name,
                                     size: "custom",
-                                    color: "blue",
+                                    color: "blue"
                                   }}
                                   className="w-7 h-auto"
                                 />

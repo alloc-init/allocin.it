@@ -19,6 +19,12 @@ const Research: Collection = {
       required: true
     },
     {
+      type: "string",
+      label: "Filename",
+      name: "filename",
+      required: true
+    },
+    {
       type: "image",
       name: "heroImg",
       label: "Hero Image"

@@ -30,8 +30,8 @@ export const Papers = ({ data }: { data: ResearchType[] }) => {
         }
         return (
           <Link
-            key={research._sys.filename}
-            href={`/research/` + research._sys.filename}
+            key={research.filename}
+            href={`/research/` + research.filename}
             className="group block px-6 sm:px-8 md:px-10 py-10 mb-8 last:mb-0 bg-gray-50 bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-1000 rounded-md shadow-sm transition-all duration-150 ease-out hover:shadow-md hover:to-gray-50 dark:hover:to-gray-800"
           >
             <h3
