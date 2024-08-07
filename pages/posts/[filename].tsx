@@ -6,7 +6,7 @@ import { InferGetStaticPropsType } from "next";
 
 // Use the props returned by get static props
 export default function BlogPostPage(
-  props: InferGetStaticPropsType<typeof getStaticProps>
+  props: InferGetStaticPropsType<typeof getStaticPostProps>
 ) {
   const { data } = useTina({
     query: props.query,
@@ -28,7 +28,7 @@ export default function BlogPostPage(
   );
 }
 
-export const getStaticProps = async ({ params }) => {
+export const getStaticPostProps = async ({ params }) => {
   const tinaProps = await client.queries.blogPostQuery({
     relativePath: `${params.filename}.mdx`
   });
@@ -57,5 +57,5 @@ export const getStaticPaths = async () => {
 };
 
 export type PostType = InferGetStaticPropsType<
-  typeof getStaticProps
+  typeof getStaticPostProps
 >["data"]["post"];

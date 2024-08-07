@@ -6,7 +6,7 @@ import { InferGetStaticPropsType } from "next";
 
 // Use the props returned by get static props
 export default function PaperPage(
-  props: InferGetStaticPropsType<typeof getStaticProps>
+  props: InferGetStaticPropsType<typeof getStaticPaperProps>
 ) {
   const { data } = useTina({
     query: props.query,
@@ -27,7 +27,7 @@ export default function PaperPage(
   );
 }
 
-export const getStaticProps = async ({ params }) => {
+export const getStaticPaperProps = async ({ params }) => {
   const tinaProps = await client.queries.paperQuery({
     relativePath: `${params.filename}.mdx`,
   });
@@ -56,5 +56,5 @@ export const getStaticPaths = async () => {
 };
 
 export type ResearchType = InferGetStaticPropsType<
-  typeof getStaticProps
+  typeof getStaticPaperProps
 >["data"]["research"];
