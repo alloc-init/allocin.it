@@ -35,7 +35,7 @@
     }
   },
   "theme": {
-    "color": "white",
+    "color": "yellow",
     "font": "sans",
     "darkMode": "dark"
   }
