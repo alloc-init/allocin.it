@@ -1,5 +1,5 @@
 ---
 name: Karthik Raju
-avatar: /uploads/logoshort.png
+avatar: /uploads/icon.png
 ---
 
