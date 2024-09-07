@@ -1,5 +1,5 @@
 ---
 name: Misha Komarov
-avatar: /uploads/logotransparent.png
+avatar: /uploads/icon.png
 ---
 
