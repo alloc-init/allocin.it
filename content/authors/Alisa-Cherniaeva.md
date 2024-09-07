@@ -1,6 +1,5 @@
 ---
 name: Alisa Cherniaeva
-avatar: ''
+avatar: /uploads/s1FqIvlD_400x400.jpg
 ---
-
 
