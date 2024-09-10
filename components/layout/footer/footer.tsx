@@ -42,7 +42,7 @@ export const Footer = ({ data, icon }) => {
       : footerColor.default;
 
   return (
-    <footer className={`bg-gradient-to-br ${footerColorCss}`}>
+    <footer className={`bg-gray-900 ${footerColorCss}`}>
       <Container className="relative" size="small">
         <div className="flex justify-between items-center gap-6 flex-wrap">
           <Link

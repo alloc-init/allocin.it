@@ -63,7 +63,7 @@ export const Header = ({ data }: { data: GlobalHeader }) => {
 
   return (
     <div
-      className={`relative overflow-hidden bg-gradient-to-b ${headerColorCss}`}
+      className={`relative overflow-hidden bg-gray-900 ${headerColorCss}`}
     >
       <Container size="custom" className="py-0 relative z-10 max-w-8xl">
         <div className="flex items-center justify-between gap-6">
