@@ -18,7 +18,7 @@ With covenants, Bitcoin can unlock a range of advanced features:
 
 Covenants can make Bitcoin much more versatile but require upgrades to the network, making them increasingly unlikely.
 
-Polynomial Inner Product Encryption (PIPE (FH-MIPE)) is a cryptographic technique that enables developers to implement advanced covenants without altering Bitcoin’s core protocol. It is possible to emulate missing opcodes (e.g. OP\_CAT or OP\_CTV) via establishing a PIPE for a particular opcode desired, avoiding the need for a soft fork or the use of trusted solutions.
+Polynomial Inner Product Encryption (PIPE (FH-MIPE)) is a cryptographic technique that enables developers to implement advanced covenants without altering Bitcoin’s core protocol. It is possible to emulate missing opcodes (e.g. `OP_CAT` or `OP_CTV`) via establishing a PIPE for a particular opcode desired, avoiding the need for a soft fork or the use of trusted solutions.
 
 With PIPEs, Bitcoin can support:
 
@@ -38,8 +38,8 @@ Covenants enhance Bitcoin's functionality by enabling more complex transaction r
 
 Covenants can be applied to various scenarios, both simple and complex, to enhance security, privacy, and functionality in the Bitcoin ecosystem.
 
-* Advanced Transaction Structuring with OP\_CAT:  OP\_CAT  allows for the concatenation of two or more elements on the stack, enabling more complex transaction structures. For example, OP\_CAT could be used to combine a user’s address with a unique identifier, ensuring that the transaction is only valid if the combined data matches a specific pattern.
-* Batch Payments and Congestion Control with OP\_CTV: The CheckTemplateVerify (OP\_CTV) opcode allows users to predefine a specific set of transaction outputs, ensuring that a transaction can only be executed if it matches this predefined template. This reduces the need for multiple individual transactions, lowering fees and reducing network congestion.
+* Advanced Transaction Structuring with `OP_CAT`:  `OP_CAT`  allows for the concatenation of two or more elements on the stack, enabling more complex transaction structures. For example, OP\_CAT could be used to combine a user’s address with a unique identifier, ensuring that the transaction is only valid if the combined data matches a specific pattern.
+* Batch Payments and Congestion Control with `OP_CTV`: The CheckTemplateVerify (\`OP\_CTV\`) opcode allows users to predefine a specific set of transaction outputs, ensuring that a transaction can only be executed if it matches this predefined template. This reduces the need for multiple individual transactions, lowering fees and reducing network congestion.
 * Restaking Mechanisms: Covenants could be used to enable restaking, where users can lock up their bitcoins to participate in staking-like mechanisms without needing to move their funds off-chain. For example, a covenant could be designed to define a slashing condition for a protocol - a withdrawal can be enabled only in case the covenant is not satisfied.
 * ZKP Verification (zkRollup Support): Zero-Knowledge Rollups (zkRollups) are a scaling solution that aggregates many computations into a single proof, which is then submitted to the blockchain. Covenants could be designed to enforce that only transactions within a zkRollup are valid, ensuring that large numbers of transactions can be processed off-chain while maintaining security on-chain.
 
@@ -53,7 +53,7 @@ One of the challenges in enhancing Bitcoin’s scripting capabilities is the abs
 
 Polynomial Inner Product Encryption (PIPE) is a FH-MIPE (full-hiding multi-input inner product encryption) scheme that enables the creation of predicates - logical statements that can sign Bitcoin transactions using the encrypted signing key in case certain logic is satisfied without revealing the key itself.
 
-By embedding IPA-based proof system verifier inside of FH-MIPE inner product computation process, it is, for example, possible to enforce the execution of complex logic and emulate the behavior of missing opcodes, such as OP\_CAT (which concatenates elements on the stack) or OP\_CTV (which predefines specific transaction templates).
+By embedding IPA-based proof system verifier inside of FH-MIPE inner product computation process, it is, for example, possible to enforce the execution of complex logic and emulate the behavior of missing opcodes, such as `OP_CAT` (which concatenates elements on the stack) or `OP_CTV` (which predefines specific transaction templates).
 
 Bitcoin PIPE allows transactions to be signed with Schnorr signatures (Taproot signatures), without the need for protocol upgrades or new opcodes in case the verification was completed successfully.
 
