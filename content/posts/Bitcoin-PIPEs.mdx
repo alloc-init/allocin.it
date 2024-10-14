@@ -30,7 +30,7 @@ This way Bitcoin PIPEs offer a way to introduce new features to Bitcoin without 
 
 # Preliminaries
 
-Bitcoin’s scripting language is known for its simplicity and security. However, this simplicity comes with limitations, particularly when it comes to handling complex transaction types or advanced cryptographic operations.
+Bitcoin’s scripting language is known for its simplicity and security. Unfortunately this simplicity comes with limitations, particularly when it comes to handling complex transaction types or advanced cryptographic operations.
 
 To address these limitations, covenants have been proposed as a way to extend Bitcoin's scripting capabilities. Covenants allow users to impose specific conditions on how bitcoins can be spent in the future, offering greater flexibility and control.
 
@@ -38,14 +38,14 @@ Covenants enhance Bitcoin's functionality by enabling more complex transaction r
 
 Covenants can be applied to various scenarios, both simple and complex, to enhance security, privacy, and functionality in the Bitcoin ecosystem.
 
-* Advanced Transaction Structuring with `OP_CAT`:  `OP_CAT`  allows for the concatenation of two or more elements on the stack, enabling more complex transaction structures. For example, OP\_CAT could be used to combine a user’s address with a unique identifier, ensuring that the transaction is only valid if the combined data matches a specific pattern.
-* Batch Payments and Congestion Control with `OP_CTV`: The CheckTemplateVerify (\`OP\_CTV\`) opcode allows users to predefine a specific set of transaction outputs, ensuring that a transaction can only be executed if it matches this predefined template. This reduces the need for multiple individual transactions, lowering fees and reducing network congestion.
+* Advanced Transaction Structuring with `OP_CAT`:  `OP_CAT`  allows for the concatenation of two or more elements on the stack, enabling more complex transaction structures (and the verification of Merkle tree paths). For example, `OP_CAT` could be used to combine a user’s address with a unique identifier, ensuring that the transaction is only valid if the combined data matches a specific pattern.
+* Batch Payments and Congestion Control with `OP_CTV`: The CheckTemplateVerify (`OP_CTV`) opcode allows users to predefine a specific set of transaction outputs, ensuring that a transaction can only be executed if it matches this predefined template. This reduces the need for multiple individual transactions, lowering fees and reducing network congestion.
 * Restaking Mechanisms: Covenants could be used to enable restaking, where users can lock up their bitcoins to participate in staking-like mechanisms without needing to move their funds off-chain. For example, a covenant could be designed to define a slashing condition for a protocol - a withdrawal can be enabled only in case the covenant is not satisfied.
-* ZKP Verification (zkRollup Support): Zero-Knowledge Rollups (zkRollups) are a scaling solution that aggregates many computations into a single proof, which is then submitted to the blockchain. Covenants could be designed to enforce that only transactions within a zkRollup are valid, ensuring that large numbers of transactions can be processed off-chain while maintaining security on-chain.
+* ZKP Verification (zkRollup Support): Zero-Knowledge Rollups (zkRollups) are a scaling solution that submits a bunch of unexecuted transactions into an L1 and proves its correctness with a state transition proof. Covenants could be designed to enforce that only transactions within a zkRollup are valid, ensuring that large numbers of transactions can be processed off-chain while maintaining security on-chain.
 
 # Bitcoin PIPE: Covenants via Polynomial Inner Product Encryption
 
-We present Polynomial Inner Product Encryption (PIPE) as an efficient solution to unlocking the benefits of covenants without requiring any changes to the network’s consensus rules.
+Polynomial Inner Product Encryption (PIPE) presents itself as an efficient solution to unlocking the benefits of covenants without requiring any changes to the network’s consensus rules.
 
 One of the challenges in enhancing Bitcoin’s scripting capabilities is the absence of certain opcodes that would enable more complex and powerful transaction logic. Bitcoin PIPEs (Polynomial Inner Product Encryption) emulates these missing opcodes without requiring changes to Bitcoin’s core protocol, allowing developers to create sophisticated covenants without the need for soft forks or increased trust assumptions.
 
