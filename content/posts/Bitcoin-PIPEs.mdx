@@ -51,11 +51,11 @@ One of the challenges in enhancing Bitcoin’s scripting capabilities is the abs
 
 ### What is Bitcoin PIPE?
 
-Polynomial Inner Product Encryption (PIPE) is a FH-MIPE (full-hiding multi-input inner product encryption) scheme that enables the creation of predicates - logical statements that can sign Bitcoin transactions using the encrypted signing key in case certain logic is satisfied without revealing the key itself.
+Polynomial Inner Product Encryption (PIPE) is a FH-MIPE (full-hiding multi-input inner product encryption) scheme that enables the computation of inner products, which with certain modifications (being turned into QFE with Schnorr signing and IPA-based proof system verification embedded) can sign Bitcoin transactions using the encrypted signing key in case certain logic is satisfied (the proof verification is successful) without revealing the key itself.
 
 By embedding IPA-based proof system verifier inside of FH-MIPE inner product computation process, it is, for example, possible to enforce the execution of complex logic and emulate the behavior of missing opcodes, such as `OP_CAT` (which concatenates elements on the stack) or `OP_CTV` (which predefines specific transaction templates).
 
-Bitcoin PIPE allows transactions to be signed with Schnorr signatures (Taproot signatures), without the need for protocol upgrades or new opcodes in case the verification was completed successfully.
+Bitcoin PIPEs allows transactions to be signed with Schnorr signatures (Taproot signatures), without the need for protocol upgrades or new opcodes in case the verification was completed successfully.
 
 Besides emulating opcodes, Bitcoin PIPEs can be defined to be much more complicated than trivial opcode’s logic:
 
