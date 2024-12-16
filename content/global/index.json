@@ -8,10 +8,6 @@
     "color": "default",
     "nav": [
       {
-        "href": "about",
-        "label": "About"
-      },
-      {
         "href": "research",
         "label": "Research"
       },
