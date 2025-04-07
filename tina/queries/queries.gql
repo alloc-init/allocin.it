@@ -6,6 +6,8 @@ query pageQuery {
                 id
                 date
                 title
+                subtitle
+                type
                 excerpt
                 author {
                     ... on Author {
@@ -24,6 +26,8 @@ query pageQuery {
                 id
                 date
                 title
+                subtitle
+                type
                 excerpt
                 author {
                     ... on Author {

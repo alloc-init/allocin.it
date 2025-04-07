@@ -51,14 +51,23 @@ export const Feature = ({
 export const Features = ({ data }: { data: PageBlocksFeatures }) => {
   return (
     <Section color={data.color}>
-      <Container
-        className={`flex flex-wrap gap-x-10 gap-y-8 text-left`}
-        size="large"
-      >
-        {data.items &&
-          data.items.map(function (block, i) {
-            return <Feature featuresColor={data.color} key={i} data={block} />;
-          })}
+      <Container className={`flex `} size="large">
+        <div className="flex flex-col">
+          <div className="flex items-center justify-between">
+            <h2 className="text-2xl font-semibold title-font">
+              Simulation Will Be Orange
+            </h2>
+            <button>Manifesto</button>
+          </div>
+          <div className="flex flex-wrap gap-x-10 gap-y-8 text-left">
+            {data.items &&
+              data.items.map(function (block, i) {
+                return (
+                  <Feature featuresColor={data.color} key={i} data={block} />
+                );
+              })}
+          </div>
+        </div>
       </Container>
     </Section>
   );
