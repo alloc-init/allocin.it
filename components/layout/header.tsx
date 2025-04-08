@@ -29,8 +29,7 @@ export const Header = ({ data }: { data: GlobalHeader }) => {
   }, []);
 
   const headerColor = {
-    default:
-      "text-black dark:text-white from-gray-50 to-white dark:from-gray-800 dark:to-gray-900",
+    default: "text-black dark:text-white from-gray-50 to-white  bg-[#120f0b]",
     primary: {
       blue: "text-white from-blue-300 to-blue-500",
       teal: "text-white from-teal-400 to-teal-500",
@@ -80,7 +79,7 @@ export const Header = ({ data }: { data: GlobalHeader }) => {
 
   useEffect(() => {
     if (router.asPath !== "/") {
-      setHeaderPositionCss(" bg-gray-900 relative");
+      setHeaderPositionCss(" relative");
     }
   }, [router.asPath]);
 
