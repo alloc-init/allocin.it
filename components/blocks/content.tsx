@@ -10,10 +10,10 @@ import Image from "next/image";
 export const Content = ({ data }: { data: PageBlocksContent }) => {
   return (
     <Section color={data.color}>
-      <div className="relative w-full overflow-hidden h-[65vh]">
+      <div className="relative w-full ">
         <div
           style={{ aspectRatio: 1710 / 673 }}
-          className="relative w-full overflow-hidden"
+          className="relative w-full h-[65vh] md:h-auto"
         >
           <Image
             src="/home-bg.png"
@@ -23,8 +23,15 @@ export const Content = ({ data }: { data: PageBlocksContent }) => {
           />
         </div>
       </div>
-      <Container
-        className={`prose prose-lg ${
+      <Image
+        src="/logo-large.svg"
+        alt="Logo"
+        width={236}
+        height={265}
+        className="absolute w-[236px] h-[265px] left-[calc(50%-118px)] top-[calc(50%-132.5px)]"
+      />
+      {/* <Container
+        className={`prose prose-lg  ${
           data.color === "primary" ? `prose-primary` : `dark:prose-dark`
         }`}
         data-tina-field={tinaField(data, "body")}
@@ -32,15 +39,7 @@ export const Content = ({ data }: { data: PageBlocksContent }) => {
         width="custom"
       >
         <TinaMarkdown content={data.body} />
-
-        <Image
-          src="/logo-large.svg"
-          alt="Logo"
-          width={236}
-          height={265}
-          className="absolute w-[236px] h-[265px] left-[calc(50%-118px)] top-[calc(50%-132.5px)]"
-        />
-      </Container>
+      </Container> */}
     </Section>
   );
 };

@@ -4,9 +4,9 @@ import { TinaMarkdown } from "tinacms/dist/rich-text";
 import { BsArrowRight } from "react-icons/bs";
 import { useTheme } from "../layout";
 import format from "date-fns/format";
-import { ResearchType } from "../../pages/research";
+import { ResearchType } from "../../pages/posts";
 
-export const Papers = ({ data }: { data: ResearchType[] }) => {
+export const Posts = ({ data }: { data: ResearchType[] }) => {
   const theme = useTheme();
   const titleColorClasses = {
     blue: "group-hover:text-blue-600 dark:group-hover:text-blue-300",
@@ -20,8 +20,8 @@ export const Papers = ({ data }: { data: ResearchType[] }) => {
   };
 
   return (
-    <div className="mb-12">
-      <h2 className="text-2xl  mb-4 text-white">Research</h2>
+    <div>
+      <h2 className="text-2xl  mb-4 text-white">Writings</h2>
       <div className="flex flex-wrap gap-x-8 gap-y-0">
         {data.map((researchData) => {
           const research = researchData.node;
@@ -33,9 +33,8 @@ export const Papers = ({ data }: { data: ResearchType[] }) => {
           return (
             <div className="md:w-[350px]  mb-8 last:mb-0 ">
               <Link
-                target="_blank"
-                key={research.filename}
-                href={`/research/` + research.filename}
+                key={research._sys.filename}
+                href={`/posts/` + research._sys.filename}
                 className="group md:h-[208px] dark:bg-[rgb(36,32,29)] flex flex-col px-6 sm:px-8 md:px-4 py-4  rounded-md shadow-sm transition-all duration-150 ease-out hover:shadow-md hover:to-gray-50 dark:hover:to-gray-800"
               >
                 <div className="flex items-center justify-between">
@@ -60,7 +59,7 @@ export const Papers = ({ data }: { data: ResearchType[] }) => {
               </Link>
               {formattedDate !== "" && (
                 <div className="mt-2 flex items-center w-full gap-2">
-                  <p className="text-xs text-gray-600 group-hover:text-gray-500 dark:text-gray-600 dark:group-hover:text-gray-150">
+                  <p className="text-xs text-gray-400 group-hover:text-gray-500 dark:text-gray-600 dark:group-hover:text-gray-150">
                     {formattedDate}
                   </p>
                   <div className="flex-1 border-t-[1px] border-gray-600 dark:border-gray-700"></div>

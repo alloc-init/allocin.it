@@ -7,6 +7,8 @@ import {
   PageBlocksFeaturesItems,
 } from "../../tina/__generated__/types";
 import { tinaField } from "tinacms/dist/react";
+import Link from "next/link";
+import { TinaMarkdown } from "tinacms/dist/rich-text";
 
 export const Feature = ({
   featuresColor,
@@ -18,7 +20,7 @@ export const Feature = ({
   return (
     <div
       data-tina-field={tinaField(data)}
-      className="flex-1 flex flex-col gap-6 text-center items-center lg:items-start lg:text-left max-w-xl mx-auto"
+      className="flex-1 flex flex-col gap-6 text-left md:items-center lg:items-start lg:text-left max-w-xl mx-auto border-b-[1px] border-white/10 pb-3 last:border-b-0 md:border-r-[1px] md:border-b-0 last:md:border-r-0"
       style={{ flexBasis: "16rem" }}
     >
       {data.icon && (
@@ -31,7 +33,7 @@ export const Feature = ({
       {data.title && (
         <h3
           data-tina-field={tinaField(data, "title")}
-          className="text-2xl font-semibold title-font"
+          className="text-sm opacity-50 title-font"
         >
           {data.title}
         </h3>
@@ -41,7 +43,7 @@ export const Feature = ({
           data-tina-field={tinaField(data, "text")}
           className="text-base opacity-80 leading-relaxed"
         >
-          {data.text}
+          <TinaMarkdown content={data.text} />
         </p>
       )}
     </div>
@@ -51,13 +53,16 @@ export const Feature = ({
 export const Features = ({ data }: { data: PageBlocksFeatures }) => {
   return (
     <Section color={data.color}>
-      <Container className={`flex `} size="large">
+      <Container className={`flex text-white`} size="large">
         <div className="flex flex-col">
-          <div className="flex items-center justify-between">
-            <h2 className="text-2xl font-semibold title-font">
-              Simulation Will Be Orange
-            </h2>
-            <button>Manifesto</button>
+          <div className="flex md:items-center flex-col md:flex-row gap-4 justify-between mb-8">
+            <h2 className="text-3xl  title-font">Simulation Will Be Orange</h2>
+            <Link
+              href="/posts/manifesto"
+              className="p-4 bg-yellow/50 text-[#dad085] w-[150px]"
+            >
+              MANIFESTO →
+            </Link>
           </div>
           <div className="flex flex-wrap gap-x-10 gap-y-8 text-left">
             {data.items &&
@@ -116,12 +121,9 @@ export const featureBlockSchema = {
           name: "title",
         },
         {
-          type: "string",
+          type: "rich-text",
           label: "Text",
           name: "text",
-          ui: {
-            component: "textarea",
-          },
         },
       ],
     },

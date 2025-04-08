@@ -1,7 +1,7 @@
 ---
 title: '[[alloc] init]'
 blocks:
-  - body: 
+  - body: ''
     color: default
     _template: content
   - items:
@@ -10,10 +10,10 @@ blocks:
           color: ''
           style: float
         title: ABOUT US
-        text: >-
-          [[alloc] init] is a cryptography research and development company
+        text: >
+          \[\[alloc] init] is a cryptography research and development company
           committed to bringing full expressivity to Bitcoin — without requiring
-          protocol changes, preserving Bitcoin's core principles. 
+          protocol changes, preserving Bitcoin's core principles.
 
 
           Our mission is to make Bitcoin more programmable, scalable, and
@@ -27,27 +27,25 @@ blocks:
           color: ''
           style: float
         title: TECHNOLOGY
-        text: >-
+        text: >
           We are building Bitcoin PIPEs, an encryption scheme leveraging
           advanced cryptographic techniques to vastly expand Bitcoin's
           functionality without the need for soft forks or compromising
           security.
 
 
-
-
           PIPEs introduce expressivity to Bitcoin by emulating missing Bitcoin
-          opcodes (OP_CAT, OP_CTV, OP_TXHASH, et al), enabling practical and
-          performant covenant implementations without requiring changes to
+          opcodes (**OP\_CAT, OP\_CTV, OP\_TXHASH**, et al), enabling practical
+          and performant covenant implementations without requiring changes to
           Bitcoin’s core protocol. PIPEs introduce zero-knowledge proofs (ZKPs)
           to Bitcoin, providing a promising path for use cases demanding
-          scalability, programmability, and privacy. 
+          scalability, programmability, and privacy.
       - icon:
           name: ''
           color: ''
           style: float
         title: VERSION
-        text: >-
+        text: >
           Bitcoin is more than digital gold; it is the secure, immutable
           foundation for digital convergence and financial sovereignty —
           unifying value measurement and transfer with trust and autonomy.

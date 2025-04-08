@@ -33,19 +33,19 @@ const ResearchItem = ({ data }: ResearchItemProps) => {
     yellow: "group-hover:text-yellow-500 dark:group-hover:text-yellow-300",
   };
   return data ? (
-    <div className="md:w-[350px]  mb-8 last:mb-0 ">
+    <div className=" mb-8 last:mb-0 ">
       <Link
         key={research.filename}
         href={`/research/` + research.filename}
-        className="group md:h-[208px] dark:bg-white/5 flex flex-col px-6 sm:px-8 md:px-4 py-4  rounded-md shadow-sm transition-all duration-150 ease-out hover:shadow-md hover:to-gray-50 dark:hover:to-gray-800"
+        className="group md:h-[208px] dark:bg-[rgb(36,32,29)] flex flex-col px-6 sm:px-8 md:px-4 py-4  rounded-md shadow-sm transition-all duration-150 ease-out hover:shadow-md hover:to-gray-50 dark:hover:to-gray-800"
       >
         <div className="flex items-center justify-between">
           <img src="/logo_small.png" alt="" className="w-8 h-8" />
           <div className="flex items-center gap-1">
-            <div className="p-2 bg-black text-white text-xs leading-tight">
+            <div className="p-2 bg-[rgb(24,24,24)] text-white text-xs leading-tight">
               {research.author?.name}
             </div>
-            <div className="uppercase p-2 text-xs leading-tight bg-yellow/20 text-yellow">
+            <div className="uppercase p-2 text-xs leading-tight bg-[rgb(57,46,30)] text-yellow">
               {research.type}
             </div>
           </div>
@@ -60,11 +60,11 @@ const ResearchItem = ({ data }: ResearchItemProps) => {
         <p className="text-gray-500 text-sm ">{research.subtitle}</p>
       </Link>
       {formattedDate !== "" && (
-        <div className="mt-2 flex items-center w-full">
-          <p className="text-xs text-gray-400 group-hover:text-gray-500 dark:text-gray-300 dark:group-hover:text-gray-150">
+        <div className="mt-2 flex items-center w-full gap-2">
+          <p className="text-xs text-gray-400 group-hover:text-gray-500 dark:text-gray-600 dark:group-hover:text-gray-150">
             {formattedDate}
           </p>
-          <div className="flex-1 border-t-[1px] border-gray-200 dark:border-gray-700"></div>
+          <div className="flex-1 border-t-[1px] border-gray-600 dark:border-gray-700"></div>
         </div>
       )}
     </div>
@@ -75,16 +75,16 @@ export const FeaturedResearchBlock = ({ data }) => {
   const researchItems = data.researchItems?.map((item) => item.research) || [];
   return (
     <Section color={data.color}>
-      <Container size="large">
+      <Container size="small">
         <div className="flex items-center justify-between mb-8">
           <h2
-            className="text-2xl font-semibold"
+            className="text-sm text-white opacity-50"
             data-tina-field={tinaField(data, "title")}
           >
             {data.title}
           </h2>
           <Link href={data.viewAllLink}>
-            <span className="text-orange-500 hover:text-orange-600">
+            <span className="text-[#dad085] hover:text-[#dad085]/50">
               VIEW ALL →
             </span>
           </Link>

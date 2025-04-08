@@ -16,6 +16,7 @@ interface CtaCardProps {
     url: string;
     isEmail?: boolean;
   };
+  theme: "yellow" | "gray";
 }
 
 const CtaCard = ({
@@ -24,40 +25,47 @@ const CtaCard = ({
   subtitle,
   backgroundImg,
   link,
+  theme,
 }: CtaCardProps) => {
   const href = link.isEmail ? `mailto:${link.url}` : link.url;
-
+  const borderColor =
+    theme === "yellow" ? "border-[#ffaf18]/30" : "border-white/20";
+  const tagBgColor = theme === "yellow" ? "bg-[#ffaf18]/20" : "bg-[#fff3]";
+  const bgColor = theme === "yellow" ? "bg-[#ffaf1808]" : "bg-white/5";
+  const tagTextColor = theme === "yellow" ? "text-[#dad085]" : "text-white";
   return (
     <a
       href={href}
       target={link.isEmail ? undefined : "_blank"}
       rel={link.isEmail ? undefined : "noopener noreferrer"}
-      className="relative group block overflow-hidden rounded-lg"
+      className={`relative group block overflow-hidden rounded-lg h-[214px] ${borderColor} ${bgColor}`}
     >
-      <div
-        className="relative aspect-[16/9] overflow-hidden"
-        style={{
-          backgroundImage: `url(${backgroundImg})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      >
+      <div className="relative h-full w-full overflow-hidden">
+        <img
+          src={backgroundImg}
+          alt=""
+          className="absolute h-[325px] w-[289px] right-[-41px] opacity-40 bottom-[-141px] "
+        />
         {/* 暗色渐变遮罩 */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-black/40 transition-opacity group-hover:opacity-75" />
 
         {/* 内容 */}
-        <div className="absolute inset-0 p-8 flex flex-col justify-between text-white">
+        <div className="absolute inset-0 p-8 flex flex-col justify-between">
           <div>
-            <span className="inline-block px-4 py-1 text-sm font-medium bg-orange-500 rounded">
+            <span
+              className={`inline-block px-2 py-1 text-xs uppercase ${tagBgColor} ${tagTextColor} `}
+            >
               {tag}
             </span>
           </div>
 
           <div>
-            <h3 className="text-3xl font-bold mb-2 group-hover:text-orange-500 transition-colors">
+            <h3
+              className={`text-[38px] font-bold mb-2  transition-colors ${tagTextColor}`}
+            >
               {title}
             </h3>
-            <p className="text-lg text-gray-300">{subtitle}</p>
+            <p className="text-sm text-white opacity-50">{subtitle}</p>
           </div>
         </div>
       </div>
@@ -68,7 +76,7 @@ const CtaCard = ({
 export const CtaBlock = ({ data }) => {
   return (
     <Section>
-      <Container size="large">
+      <Container size="small">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Career CTA */}
           {data.careerCta && (
@@ -79,6 +87,7 @@ export const CtaBlock = ({ data }) => {
                 subtitle={data.careerCta.subtitle}
                 backgroundImg={data.careerCta.backgroundImg}
                 link={{ url: data.careerCta.linkUrl }}
+                theme="yellow"
               />
             </div>
           )}
@@ -92,6 +101,7 @@ export const CtaBlock = ({ data }) => {
                 subtitle={data.contactCta.subtitle}
                 backgroundImg={data.contactCta.backgroundImg}
                 link={{ url: data.contactCta.email, isEmail: true }}
+                theme="gray"
               />
             </div>
           )}

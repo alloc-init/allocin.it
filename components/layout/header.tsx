@@ -1,4 +1,5 @@
-import React from "react";
+"use client";
+import React, { useMemo, useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { Container } from "../util/container";
@@ -11,6 +12,21 @@ import { FaLinkedin, FaTwitter } from "react-icons/fa";
 export const Header = ({ data }: { data: GlobalHeader }) => {
   const router = useRouter();
   const theme = useTheme();
+  const [headerPositionCss, setHeaderPositionCss] = useState(
+    " absolute w-full top-0 left-0 bg-none"
+  );
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => {
+      window.removeEventListener("resize", checkMobile);
+    };
+  }, []);
 
   const headerColor = {
     default:
@@ -31,10 +47,7 @@ export const Header = ({ data }: { data: GlobalHeader }) => {
     data.color === "primary"
       ? headerColor.primary[theme.color]
       : headerColor.default;
-  const headerPositionCss =
-    router.pathname === "/"
-      ? "absolute w-full top-0 left-0 bg-none"
-      : "bg-gray-900 relative";
+
   const activeItemClasses = {
     blue: "border-b-3 border-blue-200 text-blue-700 dark:text-blue-300 font-medium dark:border-blue-700",
     teal: "border-b-3 border-teal-200 text-teal-700 dark:text-teal-300 font-medium dark:border-teal-700",
@@ -65,6 +78,12 @@ export const Header = ({ data }: { data: GlobalHeader }) => {
     setIsClient(true);
   }, []);
 
+  useEffect(() => {
+    if (router.asPath !== "/") {
+      setHeaderPositionCss(" bg-gray-900 relative");
+    }
+  }, [router.asPath]);
+
   return (
     <div className={` overflow-hidden  ${headerColorCss} ${headerPositionCss}`}>
       <Container size="custom" className="py-0 relative z-10 max-w-8xl">
@@ -75,9 +94,9 @@ export const Header = ({ data }: { data: GlobalHeader }) => {
               className="flex gap-1 items-center whitespace-nowrap tracking-[.002em]"
             >
               <img
-                src={"/logo.svg"}
+                src={isMobile ? "/logo-large.svg" : "/logo.svg"}
                 alt="logo"
-                className="w-[124px] h-[23px]"
+                className="md:w-[124px] md:h-[23px] h-[36px] w-[36px]"
               />
             </Link>
           </h4>
@@ -85,9 +104,23 @@ export const Header = ({ data }: { data: GlobalHeader }) => {
             {data.nav &&
               data.nav.map((item, i) => {
                 const activeItem =
-                  (item.href === ""
+                  item.href === "" || item.href === "/"
                     ? router.asPath === "/"
-                    : router.asPath.includes(item.href)) && isClient;
+                    : router.asPath.includes(item.href) &&
+                      isClient &&
+                      item.href !== "/";
+
+                const href = useMemo(() => {
+                  if (item.href.startsWith("http")) {
+                    return item.href;
+                  }
+
+                  if (!item.href || item.href === "/") {
+                    return "/";
+                  }
+
+                  return `/${item.href.replace(/^\/+/, "")}`;
+                }, [item.href]);
                 return (
                   <li
                     key={`${item.label}-${i}`}
@@ -97,13 +130,14 @@ export const Header = ({ data }: { data: GlobalHeader }) => {
                   >
                     <Link
                       data-tina-field={tinaField(item, "label")}
-                      href={
-                        item.href.includes("http") ? item.href : `/${item.href}`
-                      }
-                      className={`relative select-none	text-base inline-block tracking-wide transition duration-150 ease-out hover:opacity-100 py-8  ${
+                      href={href}
+                      className={`relative select-none	text-xs inline-block tracking-wide transition duration-150 ease-out hover:opacity-100 py-8  ${
                         activeItem ? `opacity-50` : ``
                       }`}
                       target={item.href.includes("http") ? "_blank" : "_self"}
+                      style={{
+                        display: isMobile && href === "/" ? "none" : "block",
+                      }}
                     >
                       {item.label}
                     </Link>
