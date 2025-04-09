@@ -63,7 +63,7 @@ blocks:
       - research: content/research/zkLLVM-Circuit-Compiler.mdx
       - research: content/research/Bitcoin-PIPEs.mdx
       - research: content/research/Placeholder-Proof-System.mdx
-    viewAllLink: /resources
+    viewAllLink: /posts
     color: default
     _template: featured_research
   - careerCta:
