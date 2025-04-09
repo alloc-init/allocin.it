@@ -9,6 +9,18 @@ import { tinaField } from "tinacms/dist/react";
 import { GlobalHeader } from "../../tina/__generated__/types";
 import { FaLinkedin, FaTwitter } from "react-icons/fa";
 
+const formatHref = (href: string) => {
+  if (href.startsWith("http")) {
+    return href;
+  }
+
+  if (!href || href === "/") {
+    return "/";
+  }
+
+  return `/${href.replace(/^\/+/, "")}`;
+};
+
 export const Header = ({ data }: { data: GlobalHeader }) => {
   const router = useRouter();
   const theme = useTheme();
@@ -109,17 +121,7 @@ export const Header = ({ data }: { data: GlobalHeader }) => {
                       isClient &&
                       item.href !== "/";
 
-                const href = useMemo(() => {
-                  if (item.href.startsWith("http")) {
-                    return item.href;
-                  }
-
-                  if (!item.href || item.href === "/") {
-                    return "/";
-                  }
-
-                  return `/${item.href.replace(/^\/+/, "")}`;
-                }, [item.href]);
+                const href = formatHref(item.href);
                 return (
                   <li
                     key={`${item.label}-${i}`}

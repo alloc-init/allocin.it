@@ -9,6 +9,7 @@ import {
 import { tinaField } from "tinacms/dist/react";
 import Link from "next/link";
 import { TinaMarkdown } from "tinacms/dist/rich-text";
+import { useEffect, useState } from "react";
 
 export const Feature = ({
   featuresColor,
@@ -17,6 +18,11 @@ export const Feature = ({
   featuresColor: string;
   data: PageBlocksFeaturesItems;
 }) => {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   return (
     <div
       data-tina-field={tinaField(data)}
@@ -43,7 +49,7 @@ export const Feature = ({
           data-tina-field={tinaField(data, "text")}
           className="text-base opacity-80 leading-relaxed"
         >
-          <TinaMarkdown content={data.text} />
+          {mounted ? <TinaMarkdown content={data.text} /> : "Loading..."}
         </p>
       )}
     </div>
