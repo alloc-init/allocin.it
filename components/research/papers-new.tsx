@@ -28,7 +28,7 @@ export const Papers = ({ data }: { data: ResearchType[] }) => {
           const date = new Date(research.date);
           let formattedDate = "";
           if (!isNaN(date.getTime())) {
-            formattedDate = format(date, "dd/MM/yyyy");
+            formattedDate = format(date, "M/d/yyyy");
           }
           return (
             <div className="md:w-[350px]  mb-8 last:mb-0 ">

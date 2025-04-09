@@ -38,7 +38,7 @@ const CtaCard = ({
       href={href}
       target={link.isEmail ? undefined : "_blank"}
       rel={link.isEmail ? undefined : "noopener noreferrer"}
-      className={`relative group block overflow-hidden rounded-lg h-[214px] ${borderColor} ${bgColor}`}
+      className={`relative group block overflow-hidden  h-[214px] ${borderColor} ${bgColor} border-[1px]`}
     >
       <div className="relative h-full w-full overflow-hidden">
         <img

@@ -47,7 +47,7 @@ export const Feature = ({
       {data.text && (
         <p
           data-tina-field={tinaField(data, "text")}
-          className="text-base opacity-80 leading-relaxed"
+          className="text-base opacity-80 leading-relaxed prose dark:prose-dark "
         >
           {mounted ? <TinaMarkdown content={data.text} /> : "Loading..."}
         </p>
@@ -65,7 +65,7 @@ export const Features = ({ data }: { data: PageBlocksFeatures }) => {
             <h2 className="text-3xl  title-font">Simulation Will Be Orange</h2>
             <Link
               href="/posts/manifesto"
-              className="p-4 bg-yellow/50 text-[#dad085] w-[150px]"
+              className="p-4 bg-[rgb(57,46,30)] text-[#dad085] w-[150px]"
             >
               MANIFESTO →
             </Link>
