@@ -28,18 +28,18 @@ blocks:
           style: float
         title: TECHNOLOGY
         text: >
-          We are building Bitcoin PIPEs, an encryption scheme leveraging
-          advanced cryptographic techniques to vastly expand Bitcoin's
+          We are building Bitcoin PIPEs, a framework and toolchain that is
+          leveraging a class of obfuscation primitives to expand Bitcoin's
           functionality without the need for soft forks or compromising
           security.
 
 
           PIPEs introduce expressivity to Bitcoin by emulating missing Bitcoin
-          opcodes (**OP\_CAT, OP\_CTV, OP\_TXHASH**, et al), enabling practical
-          and performant covenant implementations without requiring changes to
+          opcodes (OP\_CAT, OP\_CTV, OP\_TXHASH, et al), enabling practical and
+          performant covenant implementations without requiring changes to
           Bitcoin’s core protocol. PIPEs introduce zero-knowledge proofs (ZKPs)
           to Bitcoin, providing a promising path for use cases demanding
-          scalability, programmability, and privacy.
+          scalability, programmability, and privacy. 
       - icon:
           name: ''
           color: ''
