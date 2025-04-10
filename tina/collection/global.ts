@@ -58,6 +58,23 @@ const Global: Collection = {
             },
           ],
         },
+        {
+          type: "object",
+          label: "Social Links",
+          name: "social",
+          fields: [
+            {
+              type: "string",
+              label: "Twitter",
+              name: "twitter",
+            },
+            {
+              type: "string",
+              label: "Linkedin",
+              name: "linkedin",
+            },
+          ],
+        },
       ],
     },
     {

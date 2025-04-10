@@ -5,7 +5,7 @@ import { Footer } from "./footer";
 import { Theme } from "./theme";
 import layoutData from "../../content/global/index.json";
 import { Global } from "../../tina/__generated__/types";
-import { Analytics } from "@vercel/analytics/react"
+import { Analytics } from "@vercel/analytics/react";
 
 export const Layout = ({
   rawData = {},
@@ -51,13 +51,10 @@ export const Layout = ({
           }`}
         >
           <Header data={data?.header} />
-          <div className="flex-1 text-gray-800 bg-gradient-to-br from-white to-gray-50 dark:from-gray-900 dark:to-gray-1000 flex flex-col">
+          <div className="flex-1 text-gray-800 bg-gradient-to-br   bg-[#120f0b] flex flex-col">
             {children}
           </div>
-          <Footer
-            data={data?.footer}
-            icon={data?.header.icon}
-          />
+          <Footer data={data?.footer} icon={data?.header.icon} />
         </div>
       </Theme>
     </>

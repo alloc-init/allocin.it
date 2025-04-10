@@ -1,4 +1,5 @@
-import React from "react";
+"use client";
+import React, { useMemo, useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { Container } from "../util/container";
@@ -6,14 +7,41 @@ import { useTheme } from ".";
 import { Icon } from "../util/icon";
 import { tinaField } from "tinacms/dist/react";
 import { GlobalHeader } from "../../tina/__generated__/types";
+import { FaLinkedin, FaTwitter } from "react-icons/fa";
+
+const formatHref = (href: string) => {
+  if (href.startsWith("http")) {
+    return href;
+  }
+
+  if (!href || href === "/") {
+    return "/";
+  }
+
+  return `/${href.replace(/^\/+/, "")}`;
+};
 
 export const Header = ({ data }: { data: GlobalHeader }) => {
   const router = useRouter();
   const theme = useTheme();
+  const [headerPositionCss, setHeaderPositionCss] = useState(
+    " absolute w-full top-0 left-0 bg-none"
+  );
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => {
+      window.removeEventListener("resize", checkMobile);
+    };
+  }, []);
 
   const headerColor = {
-    default:
-      "text-black dark:text-white from-gray-50 to-white dark:from-gray-800 dark:to-gray-900",
+    default: "text-black dark:text-white from-gray-50 to-white  bg-[#120f0b]",
     primary: {
       blue: "text-white from-blue-300 to-blue-500",
       teal: "text-white from-teal-400 to-teal-500",
@@ -61,10 +89,14 @@ export const Header = ({ data }: { data: GlobalHeader }) => {
     setIsClient(true);
   }, []);
 
+  useEffect(() => {
+    if (router.asPath !== "/") {
+      setHeaderPositionCss(" relative");
+    }
+  }, [router.asPath]);
+
   return (
-    <div
-      className={`relative overflow-hidden bg-gray-900 ${headerColorCss}`}
-    >
+    <div className={` overflow-hidden  ${headerColorCss} ${headerPositionCss}`}>
       <Container size="custom" className="py-0 relative z-10 max-w-8xl">
         <div className="flex items-center justify-between gap-6">
           <h4 className="select-none text-lg font-bold tracking-tight my-4 transition duration-150 ease-out transform">
@@ -72,25 +104,24 @@ export const Header = ({ data }: { data: GlobalHeader }) => {
               href="/"
               className="flex gap-1 items-center whitespace-nowrap tracking-[.002em]"
             >
-              <Icon
-                tinaField={tinaField(data, "icon")}
-                parentColor={data.color}
-                data={{
-                  name: data.icon.name,
-                  color: data.icon.color,
-                  style: data.icon.style,
-                }}
+              <img
+                src={isMobile ? "/logo-large.svg" : "/logo.svg"}
+                alt="logo"
+                className="md:w-[124px] md:h-[23px] h-[36px] w-[36px]"
               />
-              <span data-tina-field={tinaField(data, "name")}>{data.name}</span>
             </Link>
           </h4>
-          <ul className="flex gap-6 sm:gap-8 lg:gap-10 tracking-[.002em] -mx-4">
+          <ul className="flex items-center gap-6 sm:gap-8 lg:gap-10 tracking-[.002em] -mx-4">
             {data.nav &&
               data.nav.map((item, i) => {
                 const activeItem =
-                  (item.href === ""
+                  item.href === "" || item.href === "/"
                     ? router.asPath === "/"
-                    : router.asPath.includes(item.href)) && isClient;
+                    : router.asPath.includes(item.href) &&
+                      isClient &&
+                      item.href !== "/";
+
+                const href = formatHref(item.href);
                 return (
                   <li
                     key={`${item.label}-${i}`}
@@ -100,60 +131,45 @@ export const Header = ({ data }: { data: GlobalHeader }) => {
                   >
                     <Link
                       data-tina-field={tinaField(item, "label")}
-                      href={`/${item.href}`}
-                      className={`relative select-none	text-base inline-block tracking-wide transition duration-150 ease-out hover:opacity-100 py-8 px-4 ${
-                        activeItem ? `` : `opacity-70`
+                      href={href}
+                      className={`relative select-none	text-xs inline-block tracking-wide transition duration-150 ease-out hover:opacity-100 py-8  ${
+                        activeItem ? `opacity-50` : ``
                       }`}
+                      target={item.href.includes("http") ? "_blank" : "_self"}
+                      style={{
+                        display: isMobile && href === "/" ? "none" : "block",
+                      }}
                     >
                       {item.label}
-                      {activeItem && (
-                        <svg
-                          className={`absolute bottom-0 left-1/2 w-[180%] h-full -translate-x-1/2 -z-1 opacity-10 dark:opacity-15 ${
-                            activeBackgroundClasses[theme.color]
-                          }`}
-                          preserveAspectRatio="none"
-                          viewBox="0 0 230 230"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <rect
-                            x="230"
-                            y="230"
-                            width="230"
-                            height="230"
-                            transform="rotate(-180 230 230)"
-                            fill="url(#paint0_radial_1_33)"
-                          />
-                          <defs>
-                            <radialGradient
-                              id="paint0_radial_1_33"
-                              cx="0"
-                              cy="0"
-                              r="1"
-                              gradientUnits="userSpaceOnUse"
-                              gradientTransform="translate(345 230) rotate(90) scale(230 115)"
-                            >
-                              <stop stopColor="currentColor" />
-                              <stop
-                                offset="1"
-                                stopColor="currentColor"
-                                stopOpacity="0"
-                              />
-                            </radialGradient>
-                          </defs>
-                        </svg>
-                      )}
                     </Link>
                   </li>
                 );
               })}
+            <li>
+              <a
+                className="inline-block opacity-80 hover:opacity-100 transition ease-out duration-150 py-8"
+                href={data.social.twitter}
+                target="_blank"
+              >
+                <FaTwitter />
+              </a>
+            </li>
+            <li>
+              <a
+                className="inline-block opacity-80 hover:opacity-100 transition ease-out duration-150 py-8"
+                href={data.social.linkedin}
+                target="_blank"
+              >
+                <FaLinkedin />
+              </a>
+            </li>
           </ul>
         </div>
-        <div
+        {/* <div
           className={`absolute h-1 bg-gradient-to-r from-transparent ${
             data.color === "primary" ? `via-white` : `via-black dark:via-white`
           } to-transparent bottom-0 left-4 right-4 -z-1 opacity-5`}
-        />
+        /> */}
       </Container>
     </div>
   );

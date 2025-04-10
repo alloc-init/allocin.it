@@ -42,10 +42,10 @@ export const Footer = ({ data, icon }) => {
       : footerColor.default;
 
   return (
-    <footer className={`bg-gray-900 ${footerColorCss}`}>
+    <footer className={`bg-[#120f0b] ${footerColorCss}`}>
       <Container className="relative" size="small">
         <div className="flex justify-between items-center gap-6 flex-wrap">
-          <Link
+          {/* <Link
             href="/"
             className="group mx-2 flex items-center font-bold tracking-tight text-gray-400 dark:text-gray-300 opacity-50 hover:opacity-100 transition duration-150 ease-out whitespace-nowrap"
           >
@@ -58,8 +58,24 @@ export const Footer = ({ data, icon }) => {
               }}
               className="inline-block h-10 w-auto group-hover:text-orange-500"
             />
-          </Link>
-          <div className="flex gap-4">
+          </Link> */}
+          <p className="text-white/50">© 2025. ALL RIGHTS RESERVED.</p>
+          <div className="flex items-center gap-3">
+            <a
+              href="mailto:hello@allocin.it"
+              className="text-white text-xs uppercase hover:text-[#ffaf17]"
+            >
+              hello@allocin.it
+            </a>
+            <div className="w-[1px] h-[10px] bg-white/50"></div>
+            <a
+              href="https://twitter.com/alloc_init_"
+              className="text-white text-xs uppercase hover:text-[#ffaf17]"
+            >
+              @alloc_init_
+            </a>
+          </div>
+          {/* <div className="flex gap-4">
             {data.social && data.social.facebook && (
               <a
                 className="inline-block opacity-80 hover:opacity-100 transition ease-out duration-150"
@@ -120,13 +136,13 @@ export const Footer = ({ data, icon }) => {
                 />
               </a>
             )}
-          </div>
+          </div> */}
         </div>
-        <div
+        {/* <div
           className={`absolute h-1 bg-gradient-to-r from-transparent ${
             data.color === "primary" ? `via-white` : `via-black dark:via-white`
           } to-transparent top-0 left-4 right-4 opacity-5`}
-        ></div>
+        ></div> */}
       </Container>
     </footer>
   );

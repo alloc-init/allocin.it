@@ -1,8 +1,11 @@
 ---
-title: 'Bitcoin PIPEs: Covenants on Bitcoin Without a Soft Fork'
-excerpt: ''
+title: "Bitcoin PIPEs"
+subtitle: "Covenants and ZKPs on Bitcoin With out Soft Fork"
+excerpt: ""
 author: content/authors/Misha-Komarov.md
 date: 2024-10-07T19:00:00.000Z
+type: research
+heroImg: /uploads/Bitcoin-PIPEs-hero.png
 ---
 
 # Introduction
@@ -13,8 +16,8 @@ Covenants provide a way to enhance Bitcoin’s capabilities by allowing users to
 
 With covenants, Bitcoin can unlock a range of advanced features:
 
-* Advanced spending rules: Users could restrict coins to be spent only at specific addresses or after certain conditions, such as a delay in time.
-* New use cases: Covenants, for example, enable the native verification of Zero-Knowledge Proofs (ZKPs), native tokens with complex behaviors, and even restaking mechanisms to pool Bitcoin and help secure other networks.
+- Advanced spending rules: Users could restrict coins to be spent only at specific addresses or after certain conditions, such as a delay in time.
+- New use cases: Covenants, for example, enable the native verification of Zero-Knowledge Proofs (ZKPs), native tokens with complex behaviors, and even restaking mechanisms to pool Bitcoin and help secure other networks.
 
 Covenants can make Bitcoin much more versatile but require upgrades to the network, making them increasingly unlikely.
 
@@ -22,9 +25,9 @@ Polynomial Inner Product Encryption (PIPE (QFE over FH-MIPE)) is an encryption s
 
 With PIPEs, Bitcoin can support:
 
-* Complex transaction conditions: Enabling multiple steps or conditions before transaction is processed/funds are released.
-* Efficient batch transactions: Predefining transaction templates to save space and reduce fees.
-* Scalable cryptographic proofs: Facilitating Zero-Knowledge Proofs, which improve Bitcoin's scalability and performance.
+- Complex transaction conditions: Enabling multiple steps or conditions before transaction is processed/funds are released.
+- Efficient batch transactions: Predefining transaction templates to save space and reduce fees.
+- Scalable cryptographic proofs: Facilitating Zero-Knowledge Proofs, which improve Bitcoin's scalability and performance.
 
 This way Bitcoin PIPEs offer a way to introduce new features to Bitcoin without the risks of a soft fork or changing its core protocol.
 
@@ -38,10 +41,10 @@ Covenants enhance Bitcoin's functionality by enabling more complex transaction r
 
 Covenants can be applied to various scenarios, both simple and complex, to enhance security, privacy, and functionality in the Bitcoin ecosystem.
 
-* Advanced Transaction Structuring with `OP_CAT`:  `OP_CAT`  allows for the concatenation of two or more elements on the stack, enabling more complex transaction structures (and the verification of Merkle tree paths). For example, `OP_CAT` could be used to combine a user’s address with a unique identifier, ensuring that the transaction is only valid if the combined data matches a specific pattern.
-* Batch Payments and Congestion Control with `OP_CTV`: The CheckTemplateVerify (`OP_CTV`) opcode allows users to predefine a specific set of transaction outputs, ensuring that a transaction can only be executed if it matches this predefined template. This reduces the need for multiple individual transactions, lowering fees and reducing network congestion.
-* Restaking Mechanisms: Covenants could be used to enable restaking, where users can lock up their bitcoins to participate in staking-like mechanisms without needing to move their funds off-chain. For example, a covenant could be designed to define a slashing condition for a protocol - a withdrawal can be enabled only in case the covenant is not satisfied.
-* ZKP Verification (zkRollup Support): Zero-Knowledge Rollups (zkRollups) are a scaling solution that submits a bunch of unexecuted transactions into an L1 and proves its correctness with a state transition proof. Covenants could be designed to enforce that only transactions within a zkRollup are valid, ensuring that large numbers of transactions can be processed off-chain while maintaining security on-chain.
+- Advanced Transaction Structuring with `OP_CAT`: `OP_CAT` allows for the concatenation of two or more elements on the stack, enabling more complex transaction structures (and the verification of Merkle tree paths). For example, `OP_CAT` could be used to combine a user’s address with a unique identifier, ensuring that the transaction is only valid if the combined data matches a specific pattern.
+- Batch Payments and Congestion Control with `OP_CTV`: The CheckTemplateVerify (`OP_CTV`) opcode allows users to predefine a specific set of transaction outputs, ensuring that a transaction can only be executed if it matches this predefined template. This reduces the need for multiple individual transactions, lowering fees and reducing network congestion.
+- Restaking Mechanisms: Covenants could be used to enable restaking, where users can lock up their bitcoins to participate in staking-like mechanisms without needing to move their funds off-chain. For example, a covenant could be designed to define a slashing condition for a protocol - a withdrawal can be enabled only in case the covenant is not satisfied.
+- ZKP Verification (zkRollup Support): Zero-Knowledge Rollups (zkRollups) are a scaling solution that submits a bunch of unexecuted transactions into an L1 and proves its correctness with a state transition proof. Covenants could be designed to enforce that only transactions within a zkRollup are valid, ensuring that large numbers of transactions can be processed off-chain while maintaining security on-chain.
 
 # Bitcoin PIPE: Covenants via Polynomial Inner Product Encryption
 
@@ -59,14 +62,12 @@ Bitcoin PIPEs allows transactions to be signed with Schnorr signatures (Taproot 
 
 Besides emulating opcodes, Bitcoin PIPEs can be defined to be much more complicated than trivial opcode’s logic:
 
-* Application-Specific Covenants: Through defining a PIPE, developers can craft covenants tailored to specific applications, like enforcing cryptographic proofs (e.g., zero-knowledge proofs) within transactions.
-* Enhancing Bitcoin's Programmability: A key advantage of Bitcoin PIPEs is that it enhances the Bitcoin programmability without the need for protocol changes or additional trust assumptions. This means that developers can introduce more sophisticated logic and conditions into their transactions without waiting for consensus on new opcodes or the use of less secure solutions (sidechains).
+- Application-Specific Covenants: Through defining a PIPE, developers can craft covenants tailored to specific applications, like enforcing cryptographic proofs (e.g., zero-knowledge proofs) within transactions.
+- Enhancing Bitcoin's Programmability: A key advantage of Bitcoin PIPEs is that it enhances the Bitcoin programmability without the need for protocol changes or additional trust assumptions. This means that developers can introduce more sophisticated logic and conditions into their transactions without waiting for consensus on new opcodes or the use of less secure solutions (sidechains).
 
 ### Bitcoin PIPEs Architecture
 
 Bitcoin PIPE acts as an off-chain FH-MIPE-based processor of an encrypted transaction signing key, which yields a signature in case the predicate logic is satisfied (e.g. a zk-proof is verified or a concatenation is done correctly).
-
-![](</uploads/Bitcoin PIPEs.jpg>)
 
 ### Bitcoin PIPE Setup
 

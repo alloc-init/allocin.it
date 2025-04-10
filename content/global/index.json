@@ -8,14 +8,22 @@
     "color": "default",
     "nav": [
       {
-        "href": "research",
-        "label": "Research"
+        "href": "/",
+        "label": "HOME"
       },
       {
         "href": "posts",
-        "label": "Blog"
+        "label": "RESOURCES"
+      },
+      {
+        "href": "https://allocinit.notion.site/Careers-19136974087f802392fbedbfd1ebca2b?pvs=4",
+        "label": "CAREERS"
       }
-    ]
+    ],
+    "social": {
+      "twitter": "https://twitter.com/alloc_init_",
+      "linkedin": "https://www.linkedin.com/company/alloc-init/"
+    }
   },
   "footer": {
     "color": "default",

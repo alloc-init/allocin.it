@@ -5,7 +5,9 @@ import { client } from "../tina/__generated__/client";
 import { Layout } from "../components/layout";
 import { InferGetStaticPropsType } from "next";
 
-export default function HomePage(props: InferGetStaticPropsType<typeof getStaticProps>) {
+export default function HomePage(
+  props: InferGetStaticPropsType<typeof getStaticProps>
+) {
   const papers = props.data.researchConnection.edges;
 
   return (
@@ -23,8 +25,8 @@ export const getStaticProps = async () => {
   const tinaProps = await client.queries.pageQuery();
   return {
     props: {
-      ...tinaProps
-    }
+      ...tinaProps,
+    },
   };
 };
 
