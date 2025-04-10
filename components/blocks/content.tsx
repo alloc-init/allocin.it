@@ -15,12 +15,12 @@ export const Content = ({ data }: { data: PageBlocksContent }) => {
           style={{ aspectRatio: 1710 / 673 }}
           className="relative w-full h-[65vh] md:h-auto"
         >
-          <Image
-            src="/home-bg.png"
-            alt="Home Background"
-            fill
-            className="object-cover"
-          />
+          {/*<Image*/}
+          {/*  src="/home-bg.png"*/}
+          {/*  alt="Home Background"*/}
+          {/*  fill*/}
+          {/*  className="object-cover"*/}
+          {/*/>*/}
         </div>
       </div>
       <Image
