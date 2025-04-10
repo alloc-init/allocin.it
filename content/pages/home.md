@@ -12,7 +12,7 @@ blocks:
         title: ABOUT US
         text: >
           \[\[alloc] init] is a cryptography research and development company
-          committed to bringing full expressivity to Bitcoin — without requiring
+          committed to bringing more expressivity to Bitcoin — without requiring
           protocol changes, preserving Bitcoin's core principles.
 
 
