@@ -35,11 +35,11 @@ blocks:
 
 
           PIPEs introduce expressivity to Bitcoin by emulating missing Bitcoin
-          opcodes (OP\_CAT, OP\_CTV, OP\_TXHASH, et al), enabling practical and
-          performant covenant implementations without requiring changes to
-          Bitcoin’s core protocol. PIPEs introduce zero-knowledge proofs (ZKPs)
-          to Bitcoin, providing a promising path for use cases demanding
-          scalability, programmability, and privacy. 
+          opcodes (**OP\_CAT**, **OP\_CTV**, **OP\_TXHASH**, et al), enabling
+          practical and performant covenant implementations without requiring
+          changes to Bitcoin’s core protocol. PIPEs introduce zero-knowledge
+          proofs (ZKPs) to Bitcoin, providing a promising path for use cases
+          demanding scalability, programmability, and privacy.
       - icon:
           name: ''
           color: ''
