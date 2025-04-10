@@ -46,9 +46,9 @@ blocks:
           style: float
         title: VERSION
         text: >
-          Bitcoin is more than digital gold; it is the secure, immutable
-          foundation for digital convergence and financial sovereignty —
-          unifying value measurement and transfer with trust and autonomy.
+          We believe Bitcoin is simulation money, a foundation for digital
+          convergence and financial sovereignty — unifying value measurement and
+          transfer with trust and autonomy.
 
 
           We envision a world where Bitcoin’s unparalleled security and role as
