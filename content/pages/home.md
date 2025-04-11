@@ -22,18 +22,7 @@ blocks:
           color: ''
           style: float
         title: VISION
-        text: >
-          We believe Bitcoin is simulation money, a foundation for digital
-          convergence and financial sovereignty — unifying value measurement and
-          transfer with trust and autonomy.
-
-
-          We envision a world where Bitcoin’s unparalleled security and role as
-          endgame money are enhanced with expressive, scalable infrastructure
-          and applications. To achieve our vision, we've built a research-driven
-          team of top cryptographers, engineers, and founders. We welcome
-          partners who share our vision and believe in Bitcoin's promise,
-          principles, and the power of programmable cryptography.
+        text: ''
     _template: features
   - title: FEATURED
     researchItems:
