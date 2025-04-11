@@ -61,8 +61,6 @@ blocks:
   - title: FEATURED
     researchItems:
       - research: content/research/Bitcoin-PIPEs.mdx
-      - research: content/research/Placeholder-Proof-System.mdx
-      - research: content/research/zkLLVM-Circuit-Compiler.mdx
     viewAllLink: /posts
     color: default
     _template: featured_research
