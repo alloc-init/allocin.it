@@ -44,7 +44,7 @@ blocks:
           name: ''
           color: ''
           style: float
-        title: VERSION
+        title: VISION
         text: >
           We believe Bitcoin is simulation money, a foundation for digital
           convergence and financial sovereignty — unifying value measurement and
