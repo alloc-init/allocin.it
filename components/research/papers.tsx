@@ -1,7 +1,5 @@
 import React from "react";
 import Link from "next/link";
-import { TinaMarkdown } from "tinacms/dist/rich-text";
-import { BsArrowRight } from "react-icons/bs";
 import { useTheme } from "../layout";
 import format from "date-fns/format";
 import { ResearchType } from "../../pages/research";
@@ -16,7 +14,7 @@ export const Papers = ({ data }: { data: ResearchType[] }) => {
     pink: "group-hover:text-pink-600 dark:group-hover:text-pink-300",
     purple: "group-hover:text-purple-600 dark:group-hover:text-purple-300",
     orange: "group-hover:text-orange-600 dark:group-hover:text-orange-300",
-    yellow: "group-hover:text-yellow-500 dark:group-hover:text-yellow-300",
+    yellow: "group-hover:text-yellow-500 dark:group-hover:text-yellow-300"
   };
 
   return (
@@ -60,7 +58,8 @@ export const Papers = ({ data }: { data: ResearchType[] }) => {
               </Link>
               {formattedDate !== "" && (
                 <div className="mt-2 flex items-center w-full gap-2">
-                  <p className="text-xs text-gray-600 group-hover:text-gray-500 dark:text-gray-600 dark:group-hover:text-gray-150">
+                  <p
+                    className="text-xs text-gray-600 group-hover:text-gray-500 dark:text-gray-600 dark:group-hover:text-gray-150">
                     {formattedDate}
                   </p>
                   <div className="flex-1 border-t-[1px] border-gray-600 dark:border-gray-700"></div>
