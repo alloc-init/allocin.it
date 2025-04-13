@@ -1,10 +1,10 @@
 import { Container } from "../components/utilities/container";
 import { Section } from "../components/utilities/section";
-import { Posts } from "../components/posts/posts-new";
+import { Posts } from "../components/posts/posts";
 import { client } from "../tina/__generated__/client";
 import { Layout } from "../components/layout";
 import { InferGetStaticPropsType } from "next";
-import { Papers } from "../components/research/papers-new";
+import { Papers } from "../components/research/papers";
 import { Content } from "../components/posts/content";
 export default function HomePage(
   props: InferGetStaticPropsType<typeof getStaticProps>

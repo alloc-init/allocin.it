@@ -16,64 +16,60 @@ export const Papers = ({ data }: { data: ResearchType[] }) => {
     pink: "group-hover:text-pink-600 dark:group-hover:text-pink-300",
     purple: "group-hover:text-purple-600 dark:group-hover:text-purple-300",
     orange: "group-hover:text-orange-600 dark:group-hover:text-orange-300",
-    yellow: "group-hover:text-yellow-500 dark:group-hover:text-yellow-300"
+    yellow: "group-hover:text-yellow-500 dark:group-hover:text-yellow-300",
   };
 
   return (
-    <>
-      {data.map((researchData) => {
-        const research = researchData.node;
-        const date = new Date(research.date);
-        let formattedDate = "";
-        if (!isNaN(date.getTime())) {
-          formattedDate = format(date, "MMM dd, yyyy");
-        }
-        return (
-          <Link
-            key={research.filename}
-            href={`/research/` + research.filename}
-            className="group block px-6 sm:px-8 md:px-10 py-10 mb-8 last:mb-0 bg-gray-100 dark:bg-gray-900 rounded-md shadow-sm transition-all duration-150 ease-out hover:shadow-md hover:to-gray-50 dark:hover:to-gray-800"
-          >
-            <h3
-              className={`text-gray-700 dark:text-white text-3xl lg:text-4xl font-semibold title-font mb-5 transition-all duration-150 ease-out ${
-                titleColorClasses[theme.color]
-              }`}
-            >
-              {research.title}{" "}
-              <span className="inline-block opacity-0 group-hover:opacity-100 transition-all duration-300 ease-out">
-                <BsArrowRight className="inline-block h-8 -mt-1 ml-1 w-auto opacity-70" />
-              </span>
-            </h3>
-            <div className="prose dark:prose-dark w-full max-w-none mb-5 opacity-70">
-              <TinaMarkdown content={research.excerpt} />
-            </div>
-            <div className="flex items-center">
-              <div className="flex-shrink-0 mr-2">
-                <img
-                  className="h-10 w-10 object-cover rounded-full shadow-sm"
-                  src={research?.author?.avatar}
-                  alt={research?.author?.name}
-                />
-              </div>
-              <p
-                className="text-base font-medium text-gray-600 group-hover:text-gray-800 dark:text-gray-200 dark:group-hover:text-white">
-                {research?.author?.name}
-              </p>
+    <div className="mb-12">
+      <h2 className="text-2xl  mb-4 text-white">Research</h2>
+      <div className="flex flex-wrap gap-x-8 gap-y-0">
+        {data.map((researchData) => {
+          const research = researchData.node;
+          const date = new Date(research.date);
+          let formattedDate = "";
+          if (!isNaN(date.getTime())) {
+            formattedDate = format(date, "M/d/yyyy");
+          }
+          return (
+            <div className="md:w-[350px]  mb-8 last:mb-0 ">
+              <Link
+                target="_blank"
+                key={research.filename}
+                href={`/research/` + research.filename}
+                className="group md:h-[208px] dark:bg-[rgb(36,32,29)] flex flex-col px-6 sm:px-8 md:px-4 py-4  rounded-md shadow-sm transition-all duration-150 ease-out hover:shadow-md hover:to-gray-50 dark:hover:to-gray-800"
+              >
+                <div className="flex items-center justify-between">
+                  <img src="/logo-large.svg" alt="" className="w-8 h-8" />
+                  <div className="flex items-center gap-1">
+                    <div className="p-2 bg-[rgb(24,24,24)] text-white text-xs leading-tight">
+                      {research.author?.name}
+                    </div>
+                    <div className="uppercase p-2 text-xs leading-tight bg-[rgb(57,46,30)] text-yellow">
+                      {research.type}
+                    </div>
+                  </div>
+                </div>
+                <h3
+                  className={`text-gray-700 mt-auto dark:text-white text-2xl lg:text-2xl font-semibold title-font  transition-all duration-150 ease-out ${
+                    titleColorClasses[theme.color]
+                  }`}
+                >
+                  {research.title}{" "}
+                </h3>
+                <p className="text-gray-500 text-sm ">{research.subtitle}</p>
+              </Link>
               {formattedDate !== "" && (
-                <>
-                  <span className="font-bold text-gray-200 dark:text-gray-500 mx-2">
-                    —
-                  </span>
-                  <p
-                    className="text-base text-gray-400 group-hover:text-gray-500 dark:text-gray-300 dark:group-hover:text-gray-150">
+                <div className="mt-2 flex items-center w-full gap-2">
+                  <p className="text-xs text-gray-600 group-hover:text-gray-500 dark:text-gray-600 dark:group-hover:text-gray-150">
                     {formattedDate}
                   </p>
-                </>
+                  <div className="flex-1 border-t-[1px] border-gray-600 dark:border-gray-700"></div>
+                </div>
               )}
             </div>
-          </Link>
-        );
-      })}
-    </>
+          );
+        })}
+      </div>
+    </div>
   );
 };
