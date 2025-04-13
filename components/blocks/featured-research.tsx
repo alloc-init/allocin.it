@@ -2,8 +2,8 @@
 import type { Template } from "tinacms";
 
 // components/blocks/featured-research-block.tsx
-import { Section } from "../util/section";
-import { Container } from "../util/container";
+import { Section } from "../utilities/section";
+import { Container } from "../utilities/container";
 import { tinaField } from "tinacms/dist/react";
 import Link from "next/link";
 import { Research } from "../../tina/__generated__/types";
@@ -30,7 +30,7 @@ const ResearchItem = ({ data }: ResearchItemProps) => {
     pink: "group-hover:text-pink-600 dark:group-hover:text-pink-300",
     purple: "group-hover:text-purple-600 dark:group-hover:text-purple-300",
     orange: "group-hover:text-orange-600 dark:group-hover:text-orange-300",
-    yellow: "group-hover:text-yellow-500 dark:group-hover:text-yellow-300",
+    yellow: "group-hover:text-yellow-500 dark:group-hover:text-yellow-300"
   };
   return data ? (
     <div className=" mb-8 last:mb-0 ">
@@ -61,7 +61,8 @@ const ResearchItem = ({ data }: ResearchItemProps) => {
       </Link>
       {formattedDate !== "" && (
         <div className="mt-2 flex items-center w-full gap-2">
-          <p className="text-xs text-gray-400 group-hover:text-gray-500 dark:text-gray-600 dark:group-hover:text-gray-150">
+          <p
+            className="text-xs text-gray-400 group-hover:text-gray-500 dark:text-gray-600 dark:group-hover:text-gray-150">
             {formattedDate}
           </p>
           <div className="flex-1 border-t-[1px] border-gray-600 dark:border-gray-700"></div>
@@ -103,13 +104,13 @@ export const featuredResearchBlockSchema: Template = {
   name: "featured_research",
   label: "Featured Research",
   ui: {
-    previewSrc: "/blocks/featured-research.png",
+    previewSrc: "/blocks/featured-research.png"
   },
   fields: [
     {
       type: "string",
       label: "Section Title",
-      name: "title",
+      name: "title"
     },
     {
       type: "object",
@@ -121,14 +122,14 @@ export const featuredResearchBlockSchema: Template = {
           type: "reference",
           label: "Research",
           name: "research",
-          collections: ["research"],
-        },
-      ],
+          collections: ["research"]
+        }
+      ]
     },
     {
       type: "string",
       label: "View All Link",
-      name: "viewAllLink",
+      name: "viewAllLink"
     },
     {
       type: "string",
@@ -136,8 +137,8 @@ export const featuredResearchBlockSchema: Template = {
       name: "color",
       options: [
         { label: "Default", value: "default" },
-        { label: "Primary", value: "primary" },
-      ],
-    },
-  ],
+        { label: "Primary", value: "primary" }
+      ]
+    }
+  ]
 };

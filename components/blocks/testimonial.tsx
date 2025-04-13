@@ -1,6 +1,6 @@
 import React from "react";
-import { Container } from "../util/container";
-import { Section } from "../util/section";
+import { Container } from "../utilities/container";
+import { Section } from "../utilities/section";
 import type { TinaTemplate } from "tinacms";
 import { PageBlocksTestimonial } from "../../tina/__generated__/types";
 import { tinaField } from "tinacms/dist/react";

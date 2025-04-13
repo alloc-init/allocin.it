@@ -2,9 +2,9 @@ import React from "react";
 import Link from "next/link";
 import { FaFacebookF, FaGithub, FaTwitter } from "react-icons/fa";
 import { AiFillInstagram } from "react-icons/ai";
-import { Container } from "../../util/container";
+import { Container } from "../../utilities/container";
 import { useTheme } from "..";
-import { Icon } from "../../util/icon";
+import { Icon } from "../../utilities/icon";
 
 export const Footer = ({ data, icon }) => {
   const theme = useTheme();

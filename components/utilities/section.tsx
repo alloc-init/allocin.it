@@ -19,15 +19,15 @@ export const Section = ({ children, color = "", className = "" }) => {
       orange:
         "text-white bg-orange-500 bg-gradient-to-br from-orange-500 to-orange-600",
       yellow:
-        "text-white bg-yellow-500 bg-gradient-to-br from-yellow-500 to-yellow-600",
-    },
+        "text-white bg-yellow-500 bg-gradient-to-br from-yellow-500 to-yellow-600"
+    }
   };
   const sectionColorCss =
     color === "primary"
       ? sectionColor.primary[theme.color]
       : sectionColor[color]
-      ? sectionColor[color]
-      : sectionColor.default;
+        ? sectionColor[color]
+        : sectionColor.default;
 
   return (
     <section

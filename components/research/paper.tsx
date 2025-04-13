@@ -12,8 +12,8 @@
  */
 
 import React from "react";
-import { Container } from "../util/container";
-import { Section } from "../util/section";
+import { Container } from "../utilities/container";
+import { Section } from "../utilities/section";
 import { useTheme } from "../layout";
 import format from "date-fns/format";
 import { TinaMarkdown } from "tinacms/dist/rich-text";

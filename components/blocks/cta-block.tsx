@@ -2,10 +2,9 @@
 import type { Template } from "tinacms";
 
 // components/blocks/cta-block.tsx
-import { Section } from "../util/section";
-import { Container } from "../util/container";
+import { Section } from "../utilities/section";
+import { Container } from "../utilities/container";
 import { tinaField } from "tinacms/dist/react";
-import Link from "next/link";
 
 interface CtaCardProps {
   tag: string;
@@ -20,13 +19,13 @@ interface CtaCardProps {
 }
 
 const CtaCard = ({
-  tag,
-  title,
-  subtitle,
-  backgroundImg,
-  link,
-  theme,
-}: CtaCardProps) => {
+                   tag,
+                   title,
+                   subtitle,
+                   backgroundImg,
+                   link,
+                   theme
+                 }: CtaCardProps) => {
   const href = link.isEmail ? `mailto:${link.url}` : link.url;
   const borderColor =
     theme === "yellow" ? "border-[#ffaf18]/30" : "border-white/20";
@@ -47,7 +46,8 @@ const CtaCard = ({
           className="absolute h-[325px] w-[289px] right-[-41px] opacity-40 bottom-[-141px] "
         />
         {/* 暗色渐变遮罩 */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-black/40 transition-opacity group-hover:opacity-75" />
+        <div
+          className="absolute inset-0 bg-gradient-to-t from-black/80 to-black/40 transition-opacity group-hover:opacity-75" />
 
         {/* 内容 */}
         <div className="absolute inset-0 p-8 flex flex-col justify-between">
@@ -115,7 +115,7 @@ export const ctaBlockSchema: Template = {
   name: "cta_section",
   label: "CTA Section",
   ui: {
-    previewSrc: "/blocks/cta-section.png",
+    previewSrc: "/blocks/cta-section.png"
   },
   fields: [
     {
@@ -126,29 +126,29 @@ export const ctaBlockSchema: Template = {
         {
           type: "string",
           label: "Tag",
-          name: "tag",
+          name: "tag"
         },
         {
           type: "string",
           label: "Title",
-          name: "title",
+          name: "title"
         },
         {
           type: "string",
           label: "Subtitle",
-          name: "subtitle",
+          name: "subtitle"
         },
         {
           type: "string",
           label: "Link URL",
-          name: "linkUrl",
+          name: "linkUrl"
         },
         {
           type: "image",
           label: "Background Image",
-          name: "backgroundImg",
-        },
-      ],
+          name: "backgroundImg"
+        }
+      ]
     },
     {
       type: "object",
@@ -158,29 +158,29 @@ export const ctaBlockSchema: Template = {
         {
           type: "string",
           label: "Tag",
-          name: "tag",
+          name: "tag"
         },
         {
           type: "string",
           label: "Title",
-          name: "title",
+          name: "title"
         },
         {
           type: "string",
           label: "Subtitle",
-          name: "subtitle",
+          name: "subtitle"
         },
         {
           type: "string",
           label: "Email",
-          name: "email",
+          name: "email"
         },
         {
           type: "image",
           label: "Background Image",
-          name: "backgroundImg",
-        },
-      ],
-    },
-  ],
+          name: "backgroundImg"
+        }
+      ]
+    }
+  ]
 };

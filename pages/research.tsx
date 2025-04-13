@@ -1,5 +1,5 @@
-import { Container } from "../components/util/container";
-import { Section } from "../components/util/section";
+import { Container } from "../components/utilities/container";
+import { Section } from "../components/utilities/section";
 import { Papers } from "../components/research";
 import { client } from "../tina/__generated__/client";
 import { Layout } from "../components/layout";

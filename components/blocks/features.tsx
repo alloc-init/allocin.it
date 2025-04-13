@@ -1,7 +1,7 @@
-import { Section } from "../util/section";
-import { Container } from "../util/container";
-import { Icon } from "../util/icon";
-import { iconSchema } from "../util/icon";
+import { Section } from "../utilities/section";
+import { Container } from "../utilities/container";
+import { Icon } from "../utilities/icon";
+import { iconSchema } from "../utilities/icon";
 import {
   PageBlocksFeatures,
   PageBlocksFeaturesItems
@@ -62,7 +62,7 @@ export const Features = ({ data }: { data: PageBlocksFeatures }) => {
       <Container className={`flex text-white`} size="large">
         <div className="flex flex-col">
           <div className="flex md:items-center flex-col md:flex-row gap-4 justify-between mb-8">
-            {/*<h2 className="text-3xl  title-font">Simulation Will Be Orange</h2>*/}
+            <h2 className="text-3xl  title-font">Simulation Will Be Orange</h2>
             <Link
               href="/posts/manifesto"
               className="p-4 bg-[rgb(57,46,30)] text-[#dad085] w-[150px]"

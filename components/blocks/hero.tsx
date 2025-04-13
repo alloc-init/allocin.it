@@ -1,7 +1,7 @@
 import * as React from "react";
-import { Actions } from "../util/actions";
-import { Container } from "../util/container";
-import { Section } from "../util/section";
+import { Actions } from "../utilities/actions";
+import { Container } from "../utilities/container";
+import { Section } from "../utilities/section";
 import { useTheme } from "../layout";
 import { TinaMarkdown } from "tinacms/dist/rich-text";
 import type { TinaTemplate } from "tinacms";

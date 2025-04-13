@@ -1,10 +1,9 @@
 "use client";
-import React, { useMemo, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { Container } from "../util/container";
+import { Container } from "../utilities/container";
 import { useTheme } from ".";
-import { Icon } from "../util/icon";
 import { tinaField } from "tinacms/dist/react";
 import { GlobalHeader } from "../../tina/__generated__/types";
 import { FaLinkedin, FaTwitter } from "react-icons/fa";
