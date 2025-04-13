@@ -50,8 +50,8 @@ export const Header = ({ data }: { data: GlobalHeader }) => {
       pink: "text-white from-pink-400 to-pink-500",
       purple: "text-white from-purple-400 to-purple-500",
       orange: "text-white from-orange-400 to-orange-500",
-      yellow: "text-white from-yellow-400 to-yellow-500",
-    },
+      yellow: "text-white from-yellow-400 to-yellow-500"
+    }
   };
 
   const headerColorCss =
@@ -71,7 +71,7 @@ export const Header = ({ data }: { data: GlobalHeader }) => {
     orange:
       "border-b-3 border-orange-200 text-orange-700 dark:text-orange-300 font-medium dark:border-orange-700",
     yellow:
-      "border-b-3 border-yellow-300 text-yellow-700 dark:text-yellow-300 font-medium dark:border-yellow-600",
+      "border-b-3 border-yellow-300 text-yellow-700 dark:text-yellow-300 font-medium dark:border-yellow-600"
   };
 
   const activeBackgroundClasses = {
@@ -82,7 +82,7 @@ export const Header = ({ data }: { data: GlobalHeader }) => {
     pink: "text-pink-500",
     purple: "text-purple-500",
     orange: "text-orange-500",
-    yellow: "text-yellow-500",
+    yellow: "text-yellow-500"
   };
   const [isClient, setIsClient] = React.useState(false);
   React.useEffect(() => {
@@ -118,8 +118,8 @@ export const Header = ({ data }: { data: GlobalHeader }) => {
                   item.href === "" || item.href === "/"
                     ? router.asPath === "/"
                     : router.asPath.includes(item.href) &&
-                      isClient &&
-                      item.href !== "/";
+                    isClient &&
+                    item.href !== "/";
 
                 const href = formatHref(item.href);
                 return (
@@ -137,7 +137,7 @@ export const Header = ({ data }: { data: GlobalHeader }) => {
                       }`}
                       target={item.href.includes("http") ? "_blank" : "_self"}
                       style={{
-                        display: isMobile && href === "/" ? "none" : "block",
+                        display: isMobile && href === "/" ? "none" : "block"
                       }}
                     >
                       {item.label}
