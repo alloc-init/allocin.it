@@ -10,7 +10,7 @@ import Terminal from "../utilities/terminal";
 export const Content = ({ data }: { data: PageBlocksContent }) => {
   return (
     <Section color={data.color}>
-      <Terminal className="screen flex flex-col items-center justify-center space-y-10 p-24"
+      <Terminal className="screen flex flex-col items-center justify-center space-y-10 p-[6.5rem]"
                 prefix="["
                 postfix="]" />
       {/*<Container*/}
