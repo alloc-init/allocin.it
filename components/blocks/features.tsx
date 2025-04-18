@@ -47,7 +47,7 @@ export const Feature = ({
       {data.text && (
         <p
           data-tina-field={tinaField(data, "text")}
-          className="text-base opacity-80 leading-relaxed prose dark:prose-dark p-2"
+          className="text-base opacity-80 leading-relaxed prose dark:prose-dark"
         >
           {mounted ? <TinaMarkdown content={data.text} /> : "Loading..."}
         </p>
@@ -64,7 +64,7 @@ export const Features = ({ data }: { data: PageBlocksFeatures }) => {
           <div className="flex md:items-center flex-col md:flex-row gap-4 justify-between mb-8">
             <h2 className="text-3xl  title-font">Simulation Is Inevitable</h2>
           </div>
-          <div className="flex flex-wrap gap-x-8 gap-y-8 text-left">
+          <div className="flex flex-wrap gap-x-10 gap-y-8 text-left">
             {data.items &&
               data.items.map(function(block, i) {
                 return (
