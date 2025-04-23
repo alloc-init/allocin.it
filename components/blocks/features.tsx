@@ -62,7 +62,7 @@ export const Features = ({ data }: { data: PageBlocksFeatures }) => {
       <Container className={`flex text-white`} size="large">
         <div className="flex flex-col">
           <div className="flex md:items-center flex-col md:flex-row gap-4 justify-between mb-8">
-            <h2 className="text-3xl  title-font">Simulation Is Inevitable</h2>
+            {/*<h2 className="text-3xl  title-font">Simulation Is Inevitable</h2>*/}
           </div>
           <div className="flex flex-wrap gap-x-10 gap-y-8 text-left">
             {data.items &&
