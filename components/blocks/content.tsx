@@ -35,7 +35,7 @@ export const Content = ({ data }: { data: PageBlocksContent }) => {
         {pairs.map((pair, rowIdx) => (
           <div key={rowIdx} className="grid grid-cols-3 gap-12 items-center">
             {/* left feature */}
-            <div data-tina-field={tinaField(data, `items.${rowIdx * 2}`)}>
+            <div data-tina-field={tinaField(pair[0])}>
               <Feature featuresColor={data.color} data={pair[0]} />
             </div>
 
@@ -45,7 +45,7 @@ export const Content = ({ data }: { data: PageBlocksContent }) => {
             {/* right feature if present */}
             <div>
               {pair[1] && (
-                <div data-tina-field={tinaField(data, `items.${rowIdx * 2 + 1}`)}>
+                <div data-tina-field={tinaField(pair[1])}>
                   <Feature featuresColor={data.color} data={pair[1]} />
                 </div>
               )}
