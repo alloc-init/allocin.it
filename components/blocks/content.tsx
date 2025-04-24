@@ -4,45 +4,54 @@ import { Container } from "../utilities/container";
 import { tinaField } from "tinacms/dist/react";
 import { Feature } from "../blocks/features";
 import type { Template } from "tinacms";
-import type { PageBlocksContent } from "../../tina/__generated__/types";
+import type {
+  PageBlocksContent,
+  PageBlocksContentItems,
+  PageBlocksFeaturesItems
+} from "../../tina/__generated__/types";
 import Terminal from "../utilities/terminal";
 
 export const Content = ({ data }: { data: PageBlocksContent }) => {
-  const items = data.items || [];
+  // Use CMS items, but cast to the Feature component’s expected type
+  const items: PageBlocksContentItems[] = data.items || [];
+  const features: PageBlocksFeaturesItems[] = items as unknown as PageBlocksFeaturesItems[];
+
+  // Helper: chunk array into subarrays of given size
   const chunk = <T,>(arr: T[], size: number): T[][] =>
     arr.reduce((chunks: T[][], item, idx) => {
-      const ci = Math.floor(idx / size);
-      if (!chunks[ci]) chunks[ci] = [];
-      chunks[ci].push(item);
+      const chunkIndex = Math.floor(idx / size);
+      if (!chunks[chunkIndex]) chunks[chunkIndex] = [];
+      chunks[chunkIndex].push(item);
       return chunks;
     }, [] as T[][]);
-  const pairs = chunk(items, 2);
+
+  const pairs = chunk(features, 2);
 
   return (
     <Section color={data.color} className="relative overflow-hidden p-0 min-h-screen">
-      {/* Full-screen Terminal, centered */}
+      {/* Full-screen, centered Terminal */}
       <Terminal
         className="absolute inset-0 w-full h-full flex items-center justify-center"
         prefix="["
         postfix="]"
       />
 
-      {/* Overlay: rows with 3 cols, skip middle */}
+      {/* Overlay: rows with three columns, skipping middle column */}
       <Container
         size="large"
         className="relative z-10 py-24 text-white flex flex-col gap-y-12"
       >
         {pairs.map((pair, rowIdx) => (
           <div key={rowIdx} className="grid grid-cols-3 gap-12 items-center">
-            {/* left feature */}
+            {/* Left feature */}
             <div data-tina-field={tinaField(pair[0])}>
               <Feature featuresColor={data.color} data={pair[0]} />
             </div>
 
-            {/* center gap shows logo */}
+            {/* Empty middle column shows logo */}
             <div />
 
-            {/* right feature if present */}
+            {/* Right feature if present */}
             <div>
               {pair[1] && (
                 <div data-tina-field={tinaField(pair[1])}>
