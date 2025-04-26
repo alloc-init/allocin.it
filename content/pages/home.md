@@ -1,20 +1,7 @@
 ---
 title: '[[alloc] init]'
 blocks:
-  - items:
-      - icon:
-          name: ''
-          style: float
-          color: ''
-        title: ''
-        text: ''
-      - icon:
-          name: ''
-          style: float
-          color: ''
-        title: ''
-        text: ''
-    color: default
+  - color: default
     _template: content
   - items:
       - icon:

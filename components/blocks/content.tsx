@@ -1,66 +1,139 @@
 import React from "react";
+import Link from "next/link";
 import { Section } from "../utilities/section";
 import { Container } from "../utilities/container";
 import { tinaField } from "tinacms/dist/react";
-import { Feature } from "../blocks/features";
+import { TinaMarkdown } from "tinacms/dist/rich-text";
+import { Icon } from "../utilities/icon";
 import type { Template } from "tinacms";
 import type {
   PageBlocksContent,
-  PageBlocksContentItems,
-  PageBlocksFeaturesItems
+  PageBlocksContentColumns,
+  PageBlocksContentColumnsItems
 } from "../../tina/__generated__/types";
 import Terminal from "../utilities/terminal";
+import format from "date-fns/format";
 
 export const Content = ({ data }: { data: PageBlocksContent }) => {
-  // Use CMS items, but cast to the Feature component’s expected type
-  const items: PageBlocksContentItems[] = data.items || [];
-  const features: PageBlocksFeaturesItems[] = items as unknown as PageBlocksFeaturesItems[];
-
-  // Helper: chunk array into subarrays of given size
-  const chunk = <T,>(arr: T[], size: number): T[][] =>
-    arr.reduce((chunks: T[][], item, idx) => {
-      const chunkIndex = Math.floor(idx / size);
-      if (!chunks[chunkIndex]) chunks[chunkIndex] = [];
-      chunks[chunkIndex].push(item);
-      return chunks;
-    }, [] as T[][]);
-
-  const pairs = chunk(features, 2);
+  const columns = data.columns || [];
 
   return (
     <Section color={data.color} className="relative overflow-hidden p-0 min-h-screen">
-      {/* Full-screen, centered Terminal */}
+      {/* Terminal full-screen background */}
       <Terminal
         className="absolute inset-0 w-full h-full flex items-center justify-center"
         prefix="["
         postfix="]"
       />
 
-      {/* Overlay: rows with three columns, skipping middle column */}
-      <Container
-        size="large"
-        className="relative z-10 py-24 text-white flex flex-col gap-y-12"
-      >
-        {pairs.map((pair, rowIdx) => (
-          <div key={rowIdx} className="grid grid-cols-3 gap-12 items-center">
-            {/* Left feature */}
-            <div data-tina-field={tinaField(pair[0])}>
-              <Feature featuresColor={data.color} data={pair[0]} />
-            </div>
-
-            {/* Empty middle column shows logo */}
-            <div />
-
-            {/* Right feature if present */}
-            <div>
-              {pair[1] && (
-                <div data-tina-field={tinaField(pair[1])}>
-                  <Feature featuresColor={data.color} data={pair[1]} />
-                </div>
-              )}
-            </div>
+      {/* Overlay: two linked columns with center gap */}
+      <Container size="large" className="relative z-10 py-24 text-white">
+        <div className="grid grid-cols-3 gap-12">
+          {/* Left column */}
+          <div data-tina-field={tinaField(data, "columns.0")} className="flex flex-col space-y-8">
+            {columns[0]?.title && (
+              <h2 data-tina-field={tinaField(columns[0], "title")} className="text-2xl font-semibold">
+                {columns[0].title}
+              </h2>
+            )}
+            {(columns[0]?.items || []).map((item: PageBlocksContentColumnsItems, idx: number) => {
+              const dateObj = new Date(item.date);
+              const formatted = !isNaN(dateObj.getTime()) ? format(dateObj, "dd/MM/yyyy") : "";
+              return (
+                <Link
+                  key={idx}
+                  href={item.link || "#"}
+                  className="block"
+                  data-tina-field={tinaField(columns[0], `items.${idx}`)}
+                >
+                  {item.icon && (
+                    <Icon
+                      tinaField={tinaField(item, "icon")}
+                      parentColor={data.color}
+                      data={{ size: "large", ...item.icon }}
+                    />
+                  )}
+                  {item.title && (
+                    <h3
+                      data-tina-field={tinaField(item, "title")}
+                      className="text-sm opacity-50 title-font mt-2"
+                    >
+                      {item.title}
+                    </h3>
+                  )}
+                  {item.text && (
+                    <div
+                      data-tina-field={tinaField(item, "text")}
+                      className="text-xs text-gray-400 leading-relaxed mt-2"
+                    >
+                      <TinaMarkdown content={item.text} />
+                    </div>
+                  )}
+                  {formatted && (
+                    <div className="mt-3 flex items-center gap-2">
+                      <p className="text-xs text-gray-400">{formatted}</p>
+                      <div className="flex-1 border-t border-white/20" />
+                    </div>
+                  )}
+                </Link>
+              );
+            })}
           </div>
-        ))}
+
+          {/* Center gap */}
+          <div />
+
+          {/* Right column */}
+          <div data-tina-field={tinaField(data, "columns.1")} className="flex flex-col space-y-8">
+            {columns[1]?.title && (
+              <h2 data-tina-field={tinaField(columns[1], "title")} className="text-2xl font-semibold">
+                {columns[1].title}
+              </h2>
+            )}
+            {(columns[1]?.items || []).map((item: PageBlocksContentColumnsItems, idx: number) => {
+              const dateObj = new Date(item.date);
+              const formatted = !isNaN(dateObj.getTime()) ? format(dateObj, "dd/MM/yyyy") : "";
+              return (
+                <Link
+                  key={idx}
+                  href={item.link || "#"}
+                  className="block"
+                  data-tina-field={tinaField(columns[1], `items.${idx}`)}
+                >
+                  {item.icon && (
+                    <Icon
+                      tinaField={tinaField(item, "icon")}
+                      parentColor={data.color}
+                      data={{ size: "large", ...item.icon }}
+                    />
+                  )}
+                  {item.title && (
+                    <h3
+                      data-tina-field={tinaField(item, "title")}
+                      className="text-sm opacity-50 title-font mt-2"
+                    >
+                      {item.title}
+                    </h3>
+                  )}
+                  {item.text && (
+                    <div
+                      data-tina-field={tinaField(item, "text")}
+                      className="text-xs text-gray-400 leading-relaxed mt-2"
+                    >
+                      <TinaMarkdown content={item.text} />
+                    </div>
+                  )}
+                  {formatted && (
+                    <div className="mt-3 flex items-center gap-2">
+                      <p className="text-xs text-gray-400">{formatted}</p>
+                      <div className="flex-1 border-t border-white/20" />
+                    </div>
+                  )}
+                </Link>
+              );
+            })}
+          </div>
+        </div>
       </Container>
     </Section>
   );
@@ -70,46 +143,9 @@ export const contentBlockSchema: Template = {
   name: "content",
   label: "Content",
   ui: {
-    previewSrc: "/blocks/content.png",
-    defaultItem: {
-      color: "default",
-      items: [
-        { title: "Feature 1", text: [], icon: { name: "star", style: "float", color: "" } },
-        { title: "Feature 2", text: [], icon: { name: "bolt", style: "float", color: "" } },
-        { title: "Feature 3", text: [], icon: { name: "check", style: "float", color: "" } }
-      ]
-    }
+    previewSrc: "/blocks/content.png"
   },
   fields: [
-    {
-      type: "object",
-      label: "Feature Items",
-      name: "items",
-      list: true,
-      ui: {
-        itemProps: (item) => ({ label: item?.title }),
-        defaultItem: {
-          title: "New Feature",
-          text: [],
-          icon: { name: "", style: "float", color: "" }
-        }
-      },
-      fields: [
-        {
-          type: "object",
-          label: "Icon",
-          name: "icon",
-          ui: { defaultItem: { name: "", style: "float", color: "" } },
-          fields: [
-            { type: "string", label: "Name", name: "name" },
-            { type: "string", label: "Style", name: "style" },
-            { type: "string", label: "Color", name: "color" }
-          ]
-        },
-        { type: "string", label: "Title", name: "title" },
-        { type: "rich-text", label: "Text", name: "text" }
-      ]
-    },
     {
       type: "string",
       label: "Color",
@@ -118,6 +154,54 @@ export const contentBlockSchema: Template = {
         { label: "Default", value: "default" },
         { label: "Tint", value: "tint" },
         { label: "Primary", value: "primary" }
+      ]
+    },
+    {
+      type: "object",
+      label: "Columns",
+      name: "columns",
+      list: true,
+      ui: {
+        itemProps: (item) => ({ label: item?.title }),
+        defaultItem: {
+          title: "New Column",
+          items: []
+        }
+      },
+      fields: [
+        { type: "string", label: "Title", name: "title" },
+        {
+          type: "object",
+          label: "Items",
+          name: "items",
+          list: true,
+          ui: {
+            itemProps: (item) => ({ label: item?.title }),
+            defaultItem: {
+              icon: { name: "", style: "", color: "" },
+              title: "New Item",
+              text: [],
+              date: new Date().toISOString(),
+              link: "#"
+            }
+          },
+          fields: [
+            {
+              type: "object",
+              label: "Icon",
+              name: "icon",
+              fields: [
+                { type: "string", label: "Name", name: "name" },
+                { type: "string", label: "Style", name: "style" },
+                { type: "string", label: "Color", name: "color" }
+              ]
+            },
+            { type: "string", label: "Title", name: "title" },
+            { type: "rich-text", label: "Text", name: "text" },
+            { type: "datetime", label: "Date", name: "date" },
+            { type: "string", label: "Link", name: "link" }
+          ]
+        }
       ]
     }
   ]
