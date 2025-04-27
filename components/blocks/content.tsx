@@ -8,7 +8,6 @@ import { Icon } from "../utilities/icon";
 import type { Template } from "tinacms";
 import type {
   PageBlocksContent,
-  PageBlocksContentColumns,
   PageBlocksContentColumnsItems
 } from "../../tina/__generated__/types";
 import Terminal from "../utilities/terminal";
@@ -18,7 +17,7 @@ export const Content = ({ data }: { data: PageBlocksContent }) => {
   const columns = data.columns || [];
 
   return (
-    <Section color={data.color} className="relative overflow-hidden p-0 min-h-screen">
+    <Section color={data.color} className="relative overflow-hidden p-0 min-h-[calc(100vh-11rem)]">
       {/* Terminal full-screen background */}
       <Terminal
         className="absolute inset-0 w-full h-full flex items-center justify-center"
@@ -81,7 +80,7 @@ export const Content = ({ data }: { data: PageBlocksContent }) => {
           </div>
 
           {/* Center gap */}
-          <div />
+          <div aria-hidden="true" />
 
           {/* Right column */}
           <div data-tina-field={tinaField(data, "columns.1")} className="flex flex-col space-y-8">
@@ -143,7 +142,14 @@ export const contentBlockSchema: Template = {
   name: "content",
   label: "Content",
   ui: {
-    previewSrc: "/blocks/content.png"
+    previewSrc: "/blocks/content.png",
+    defaultItem: {
+      color: "default",
+      columns: [
+        { title: "Left Column", items: [] },
+        { title: "Right Column", items: [] }
+      ]
+    }
   },
   fields: [
     {
