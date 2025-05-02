@@ -3,6 +3,11 @@ title: '[[alloc] init]'
 blocks:
   - color: default
     _template: content
+    columns:
+    - title: ""
+      items: []
+    - title: ""
+      items: []
   - items:
       - icon:
           name: ''
