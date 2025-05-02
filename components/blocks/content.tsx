@@ -17,7 +17,10 @@ export const Content = ({ data }: { data: PageBlocksContent }) => {
   const columns = data.columns || [];
 
   return (
-    <Section color={data.color} className="relative overflow-hidden p-0 min-h-[calc(100vh-11rem)]">
+    <Section
+      color={data.color}
+      className="relative overflow-hidden p-0 min-h-[calc(100vh-11rem)]"
+    >
       {/* Terminal full-screen background */}
       <Terminal
         className="absolute inset-0 w-full h-full flex items-center justify-center"
@@ -31,13 +34,18 @@ export const Content = ({ data }: { data: PageBlocksContent }) => {
           {/* Left column */}
           <div data-tina-field={tinaField(data, "columns.0")} className="flex flex-col space-y-8">
             {columns[0]?.title && (
-              <h2 data-tina-field={tinaField(columns[0], "title")} className="text-2xl font-semibold">
+              <h2
+                data-tina-field={tinaField(columns[0], "title")}
+                className="text-2xl font-semibold"
+              >
                 {columns[0].title}
               </h2>
             )}
             {(columns[0]?.items || []).map((item: PageBlocksContentColumnsItems, idx: number) => {
-              const dateObj = new Date(item.date);
-              const formatted = !isNaN(dateObj.getTime()) ? format(dateObj, "dd/MM/yyyy") : "";
+              const formatted = (() => {
+                const d = new Date(item.date);
+                return isNaN(d.getTime()) ? "" : format(d, "dd/MM/yyyy");
+              })();
               return (
                 <Link
                   key={idx}
@@ -68,7 +76,7 @@ export const Content = ({ data }: { data: PageBlocksContent }) => {
                       <TinaMarkdown content={item.text} />
                     </div>
                   )}
-                  {formatted && (
+                  {item.text?.length > 0 && formatted && (
                     <div className="mt-3 flex items-center gap-2">
                       <p className="text-xs text-gray-400">{formatted}</p>
                       <div className="flex-1 border-t border-white/20" />
@@ -85,13 +93,18 @@ export const Content = ({ data }: { data: PageBlocksContent }) => {
           {/* Right column */}
           <div data-tina-field={tinaField(data, "columns.1")} className="flex flex-col space-y-8">
             {columns[1]?.title && (
-              <h2 data-tina-field={tinaField(columns[1], "title")} className="text-2xl font-semibold">
+              <h2
+                data-tina-field={tinaField(columns[1], "title")}
+                className="text-2xl font-semibold"
+              >
                 {columns[1].title}
               </h2>
             )}
             {(columns[1]?.items || []).map((item: PageBlocksContentColumnsItems, idx: number) => {
-              const dateObj = new Date(item.date);
-              const formatted = !isNaN(dateObj.getTime()) ? format(dateObj, "dd/MM/yyyy") : "";
+              const formatted = (() => {
+                const d = new Date(item.date);
+                return isNaN(d.getTime()) ? "" : format(d, "dd/MM/yyyy");
+              })();
               return (
                 <Link
                   key={idx}
@@ -122,7 +135,7 @@ export const Content = ({ data }: { data: PageBlocksContent }) => {
                       <TinaMarkdown content={item.text} />
                     </div>
                   )}
-                  {formatted && (
+                  {item.text?.length > 0 && formatted && (
                     <div className="mt-3 flex items-center gap-2">
                       <p className="text-xs text-gray-400">{formatted}</p>
                       <div className="flex-1 border-t border-white/20" />
@@ -146,8 +159,30 @@ export const contentBlockSchema: Template = {
     defaultItem: {
       color: "default",
       columns: [
-        { title: "Left Column", items: [] },
-        { title: "Right Column", items: [] }
+        {
+          title: "Left Column",
+          items: [
+            {
+              icon: { name: "star", style: "float", color: "" },
+              title: "",
+              text: [],
+              date: new Date().toISOString(),
+              link: "#"
+            }
+          ]
+        },
+        {
+          title: "Right Column",
+          items: [
+            {
+              icon: { name: "star", style: "float", color: "" },
+              title: "",
+              text: [],
+              date: new Date().toISOString(),
+              link: "#"
+            }
+          ]
+        }
       ]
     }
   },
@@ -167,13 +202,7 @@ export const contentBlockSchema: Template = {
       label: "Columns",
       name: "columns",
       list: true,
-      ui: {
-        itemProps: (item) => ({ label: item?.title }),
-        defaultItem: {
-          title: "New Column",
-          items: []
-        }
-      },
+      ui: { itemProps: item => ({ label: item?.title }), defaultItem: { title: "New Column", items: [] } },
       fields: [
         { type: "string", label: "Title", name: "title" },
         {
@@ -182,9 +211,9 @@ export const contentBlockSchema: Template = {
           name: "items",
           list: true,
           ui: {
-            itemProps: (item) => ({ label: item?.title }),
+            itemProps: item => ({ label: item?.title }),
             defaultItem: {
-              icon: { name: "", style: "", color: "" },
+              icon: { name: "", style: "float", color: "" },
               title: "New Item",
               text: [],
               date: new Date().toISOString(),
@@ -196,11 +225,11 @@ export const contentBlockSchema: Template = {
               type: "object",
               label: "Icon",
               name: "icon",
-              fields: [
-                { type: "string", label: "Name", name: "name" },
-                { type: "string", label: "Style", name: "style" },
-                { type: "string", label: "Color", name: "color" }
-              ]
+              fields: [{ type: "string", label: "Name", name: "name" }, {
+                type: "string",
+                label: "Style",
+                name: "style"
+              }, { type: "string", label: "Color", name: "color" }]
             },
             { type: "string", label: "Title", name: "title" },
             { type: "rich-text", label: "Text", name: "text" },
