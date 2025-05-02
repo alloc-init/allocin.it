@@ -26,7 +26,7 @@ export const Content = ({ data }: { data: PageBlocksContent }) => {
       />
 
       {/* Overlay: two linked columns with center gap */}
-      <Container size="large" className="relative z-10 py-24 text-white">
+      <Container size="large" className="relative z-10 py-24 mt-20 text-white">
         <div className="grid grid-cols-3 gap-12">
           {/* Left column */}
           <div data-tina-field={tinaField(data, "columns.0")} className="flex flex-col space-y-8">
