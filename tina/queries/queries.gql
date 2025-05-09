@@ -1,49 +1,4 @@
-query pageQuery {
-    ...LayoutQueryFragment
-    postConnection {
-        edges {
-            node {
-                id
-                date
-                title
-                subtitle
-                type
-                excerpt
-                author {
-                    ... on Author {
-                        ...AuthorParts
-                    }
-                }
-                _sys {
-                    filename
-                }
-            }
-        }
-    }
-    researchConnection {
-        edges {
-            node {
-                id
-                date
-                title
-                subtitle
-                type
-                excerpt
-                author {
-                    ... on Author {
-                        ...AuthorParts
-                    }
-                }
-                filename
-                _sys {
-                    filename
-                }
-            }
-        }
-    }
-}
-
-# 1) A fragment for the Content block itself
+# Your new content‐block fragment:
 fragment ContentBlockParts on PageBlocksContent {
     color
     columns {
@@ -55,7 +10,6 @@ fragment ContentBlockParts on PageBlocksContent {
                 color
             }
             title
-            # rich‐text is returned as JSON AST
             text
             date
             link
@@ -63,41 +17,96 @@ fragment ContentBlockParts on PageBlocksContent {
     }
 }
 
-# 2) Update your contentQuery to pull in that fragment
-query contentQuery($relativePath: String!) {
+# (Optional) other block fragments
+fragment FeaturesBlockParts on PageBlocksFeatures {
+    color
+    items {
+        icon {
+            name
+            style
+            color
+        }
+        title
+        text
+    }
+}
+
+# ————————————————————————————
+# pageQuery: pulls homepage (including content blocks)
+# ————————————————————————————
+query pageQuery {
     ...LayoutQueryFragment
-    page(relativePath: $relativePath) {
+
+    postConnection {
+        edges {
+            node {
+                ...PostParts
+                author { ...AuthorParts }
+                _sys { filename }
+            }
+        }
+    }
+
+    researchConnection {
+        edges {
+            node {
+                ...ResearchParts
+                author { ...AuthorParts }
+                filename
+                _sys { filename }
+            }
+        }
+    }
+
+    # Home page as content
+    page(relativePath: "home.md") {
         ...PageParts
-        # assuming your page uses a `blocks` union:
         blocks {
             __typename
+
             ...ContentBlockParts
+            ...FeaturesBlockParts
         }
     }
 }
 
+# ————————————————————————————
+# contentQuery: pulls an arbitrary content page’s blocks
+# ————————————————————————————
+query contentQuery($relativePath: String!) {
+    ...LayoutQueryFragment
+
+    page(relativePath: $relativePath) {
+        ...PageParts
+        blocks {
+            __typename
+
+            ...ContentBlockParts
+            ...FeaturesBlockParts
+        }
+    }
+}
+
+# ————————————————————————————
+# blogPostQuery: single post + author
+# ————————————————————————————
 query blogPostQuery($relativePath: String!) {
     ...LayoutQueryFragment
+
     post(relativePath: $relativePath) {
         ...PostParts
-        author {
-            ... on Author {
-                name
-                avatar
-            }
-        }
+        author { ...AuthorParts }
     }
 }
 
+# ————————————————————————————
+# paperQuery: single research + author
+# ————————————————————————————
 query paperQuery($relativePath: String!) {
     ...LayoutQueryFragment
+
     research(relativePath: $relativePath) {
         ...ResearchParts
-        author {
-            ... on Author {
-                name
-                avatar
-            }
-        }
+        author { ...AuthorParts }
     }
 }
