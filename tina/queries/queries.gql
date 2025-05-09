@@ -43,10 +43,36 @@ query pageQuery {
     }
 }
 
+# 1) A fragment for the Content block itself
+fragment ContentBlockParts on PageBlocksContent {
+    color
+    columns {
+        title
+        items {
+            icon {
+                name
+                style
+                color
+            }
+            title
+            # rich‐text is returned as JSON AST
+            text
+            date
+            link
+        }
+    }
+}
+
+# 2) Update your contentQuery to pull in that fragment
 query contentQuery($relativePath: String!) {
     ...LayoutQueryFragment
     page(relativePath: $relativePath) {
         ...PageParts
+        # assuming your page uses a `blocks` union:
+        blocks {
+            __typename
+            ...ContentBlockParts
+        }
     }
 }
 

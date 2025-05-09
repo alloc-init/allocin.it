@@ -115,7 +115,7 @@ export const featuredResearchBlockSchema: Template = {
     {
       type: "object",
       label: "Research Items",
-      name: "researchItems", // 改名以避免冲突
+      name: "researchItems",
       list: true,
       fields: [
         {
