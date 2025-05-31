@@ -1,4 +1,3 @@
-# Your new content‐block fragment:
 fragment ContentBlockParts on PageBlocksContent {
     color
     columns {
