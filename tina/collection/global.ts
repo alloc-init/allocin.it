@@ -73,6 +73,11 @@ const Global: Collection = {
               label: "Linkedin",
               name: "linkedin",
             },
+            {
+              type: "string",
+              label: "Github",
+              name: "github",
+            },
           ],
         },
       ],

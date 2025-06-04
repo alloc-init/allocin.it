@@ -198,6 +198,11 @@ export const contentBlockSchema: Template = {
       ]
     },
     {
+      type: "rich-text",
+      label: "Body",
+      name: "body",
+    },
+    {
       type: "object",
       label: "Columns",
       name: "columns",
