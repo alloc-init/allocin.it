@@ -166,7 +166,7 @@ export const contentBlockSchema: Template = {
               icon: { name: "star", style: "float", color: "" },
               title: "",
               text: [],
-              date: new Date().toISOString(),
+              date: "2025-06-04T16:00:29.834Z",
               link: "#"
             }
           ]
@@ -178,7 +178,7 @@ export const contentBlockSchema: Template = {
               icon: { name: "star", style: "float", color: "" },
               title: "",
               text: [],
-              date: new Date().toISOString(),
+              date: "2025-06-04T16:00:29.834Z",
               link: "#"
             }
           ]
@@ -216,7 +216,7 @@ export const contentBlockSchema: Template = {
               icon: { name: "", style: "float", color: "" },
               title: "New Item",
               text: [],
-              date: new Date().toISOString(),
+              date: "2025-06-04T16:00:29.834Z",
               link: "#"
             }
           },
