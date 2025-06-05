@@ -157,7 +157,7 @@ export const contentBlockSchema: Template = {
   label: "Content",
   ui: {
     previewSrc: "/blocks/content.png",
-    defaultItem: {
+    defaultItem: () => ({
       color: "default",
       columns: [
         {
@@ -167,7 +167,7 @@ export const contentBlockSchema: Template = {
               icon: { name: "star", style: "float", color: "" },
               title: "",
               text: [],
-              date: "2025-06-04T16:00:29.834Z",
+              date: new Date().toISOString(),
               link: "#"
             }
           ]
@@ -179,13 +179,13 @@ export const contentBlockSchema: Template = {
               icon: { name: "star", style: "float", color: "" },
               title: "",
               text: [],
-              date: "2025-06-04T16:00:29.834Z",
+              date: new Date().toISOString(),
               link: "#"
             }
           ]
         }
       ]
-    }
+    })
   },
   fields: [
     {
@@ -213,13 +213,13 @@ export const contentBlockSchema: Template = {
           list: true,
           ui: {
             itemProps: item => ({ label: item?.title }),
-            defaultItem: {
+            defaultItem: () => ({
               icon: { name: "", style: "float", color: "" },
               title: "New Item",
               text: [],
-              date: "2025-06-04T16:00:29.834Z",
+              date: new Date().toISOString(),
               link: "#"
-            }
+            })
           },
           fields: [
             {
