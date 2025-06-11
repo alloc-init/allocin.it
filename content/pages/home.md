@@ -2,12 +2,12 @@
 title: '[[alloc] init]'
 blocks:
   - color: default
-    _template: content
     columns:
-    - title: ""
-      items: []
-    - title: ""
-      items: []
+      - title: ''
+        items: []
+      - title: ''
+        items: []
+    _template: content
   - items:
       - icon:
           name: ''
@@ -32,10 +32,10 @@ blocks:
           style: float
         title: TECHNOLOGY
         text: >
-          We are building Bitcoin PIPEs, a framework and toolchain that is
-          leveraging a class of obfuscation primitives to expand Bitcoin's
-          functionality without the need for soft forks or compromising
-          security.
+          Our major contribution is Bitcoin PIPEs, a primitive that is
+          leveraging experimental witness encryption constructions to expand
+          Bitcoin's functionality without the need for soft forks or
+          compromising security.
 
 
           PIPEs introduce expressivity to Bitcoin by emulating missing Bitcoin
