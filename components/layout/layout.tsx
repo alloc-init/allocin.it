@@ -57,6 +57,7 @@ export const Layout = ({
           <Footer data={data?.footer} icon={data?.header.icon} />
         </div>
       </Theme>
+      <Analytics/>
     </>
   );
 };
