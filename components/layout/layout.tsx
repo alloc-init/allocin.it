@@ -5,7 +5,7 @@ import { Footer } from "./footer";
 import { Theme } from "./theme";
 import layoutData from "../../content/global/index.json";
 import { Global } from "../../tina/__generated__/types";
-import { Analytics } from "@vercel/analytics/react";
+import { Analytics } from "@vercel/analytics/next";
 
 export const Layout = ({
   rawData = {},
