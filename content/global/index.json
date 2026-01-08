@@ -12,10 +12,6 @@
         "label": "HOME"
       },
       {
-        "href": "posts/manifesto",
-        "label": "ABOUT"
-      },
-      {
         "href": "posts",
         "label": "RESOURCES"
       },
