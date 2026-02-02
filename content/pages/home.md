@@ -15,7 +15,7 @@ blocks:
           style: float
         title: ABOUT US
         text: |
-          \[\[alloc] init] is a cryptography research and development company committed to bringing more expressivity to Bitcoin — without requiring protocol changes, preserving Bitcoin's core principles.
+          **\[\[alloc] init]** is a cryptography research and development company committed to bringing more expressivity to Bitcoin — without requiring protocol changes, preserving Bitcoin's core principles.
 
           Our mission is to make Bitcoin more programmable, scalable, and expressive—opening new frontiers for developers, operators, institutions, consumers, and communities to innovate and thrive. We aim to empower Bitcoin to serve as the substrate for the next generation of financial and social infrastructure, remaining immutable yet increasingly capable.
       - icon:
