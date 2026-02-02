@@ -40,7 +40,7 @@ blocks:
   - title: FEATURED
     researchItems:
       - research: content/research/Bitcoin-PIPEs.mdx
-      - research: content/research/Bitcoin-PIPEs-v2.mdx
+      - research: content/research/Placeholder-Proof-System.mdx
       - research: content/research/AADP-WE.mdx
     viewAllLink: /posts
     color: default
