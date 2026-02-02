@@ -24,18 +24,18 @@ blocks:
           style: float
         title: TECHNOLOGY
         text: |
-          Our major contribution is Bitcoin PIPEs (v1 and v2), a cryptographic primitive leveraging witness encryption constructions to expand Bitcoin's functionality without the need for soft forks or compromising security.
+          Our major contribution is Bitcoin PIPEs, a cryptographic primitive leveraging witness encryption constructions to expand Bitcoin's functionality without the need for soft forks or compromising security.
 
-          PIPEs introduce expressivity to Bitcoin by emulating missing covenant opcodes, enabling their implementations without requiring changes to Bitcoin’s core protocol. PIPEs introduce pessimistic ZKPs verification to Bitcoin, overcoming the challenges of optimistic verification and providing a promising path for use cases demanding scalability, programmability and privacy.
+          PIPEs introduce expressivity to Bitcoin by emulating missing Bitcoin covenant opcodes (**OP\_VAULT**, **OP\_CSFS**, et al), enabling practical and performant covenant implementations without requiring changes to Bitcoin’s core protocol. PIPEs introduce zero-knowledge proofs (ZKPs) to Bitcoin, providing a promising path for use cases demanding scalability, programmability, and privacy.
       - icon:
           name: ''
           color: ''
           style: float
         title: VISION
         text: |
-          We believe Bitcoin is sound money which deserves to be utilized more in a self-custodial manner.
+          We believe Bitcoin is — and should always remain — a self-custodial monetary system in which trust and correctness are enforced strictly through consensus and cryptography. Each holder controls not only their funds, but the precise conditions under which those funds may be spent.
 
-          We envision a world where Bitcoin’s unparalleled security and role as endgame money are enhanced with expressive, scalable infrastructure and applications. To achieve our vision, we've built a research-driven team of top cryptographers, engineers, and founders. We welcome partners who share our vision and believe in Bitcoin's promise, principles, and the power of programmable cryptography.
+          We build cryptographic infrastructure that increases Bitcoin’s expressiveness and scalability while remaining fully compatible with existing consensus rules. Our goal is to enable more powerful spending conditions and applications without introducing intermediaries, trusted operators, or protocol changes.
     _template: features
   - title: FEATURED
     researchItems:
