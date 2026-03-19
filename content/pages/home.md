@@ -33,7 +33,7 @@ blocks:
           style: float
         title: VISION
         text: |
-          We believe Bitcoin is — and should always remain — a self-custodial monetary system in which trust and correctness are enforced strictly through consensus and cryptography. Each holder controls not only their funds, but the precise conditions under which those funds may be spent.
+          We believe Bitcoin is — and should always remain — a self-custodial asset in which trust and correctness are enforced strictly through consensus and cryptography. Each holder controls not only their funds, but the precise conditions under which those funds may be spent.
 
           We build cryptographic infrastructure that increases Bitcoin’s expressiveness and scalability while remaining fully compatible with existing consensus rules. Our goal is to enable more powerful spending conditions and applications without introducing intermediaries, trusted operators, or protocol changes.
     _template: features
