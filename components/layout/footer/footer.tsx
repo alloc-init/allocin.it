@@ -59,7 +59,7 @@ export const Footer = ({ data, icon }) => {
               className="inline-block h-10 w-auto group-hover:text-orange-500"
             />
           </Link> */}
-          <p className="text-white/50">© 2025. ALL RIGHTS RESERVED.</p>
+          <p className="text-white/50">© 2026. ALL RIGHTS RESERVED.</p>
           <div className="flex items-center gap-3">
             <a
               href="mailto:hello@allocin.it"
