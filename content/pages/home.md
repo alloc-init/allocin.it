@@ -37,7 +37,7 @@ blocks:
         text: |
           We believe Bitcoin is — and should always remain — a self-custodial asset in which trust and correctness are enforced strictly through consensus and cryptography. Each holder controls not only their funds, but the precise conditions under which those funds may be spent.
 
-          We build cryptographic systems that expand Bitcoin’s expressivity while remaining fully compatible with its existing consensus rules. Our goal is to enable more powerful spending conditions and applications without introducing intermediaries or trusted operators — avoiding reliance on federations, multisig committees, or and side systems, with guarantees enforced by Bitcoin’s consensus and anchored in cryptographic proofs.
+          We build cryptographic systems that expand Bitcoin’s expressivity while remaining fully compatible with its existing consensus rules. Our goal is to enable more powerful spending conditions and applications without introducing intermediaries or trusted operators — avoiding reliance on federations, multisig committees, and side systems, with guarantees enforced by Bitcoin’s consensus and cryptography.
     _template: features
   - title: FEATURED
     researchItems:
