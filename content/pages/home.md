@@ -26,9 +26,7 @@ blocks:
         text: |
           Our primary contribution is Bitcoin PIPEs (v1 and v2), a cryptographic primitive built on witness encryption that extends Bitcoin’s functionality within its existing consensus framework.
 
-          PIPEs expand expressivity by enabling covenant-like behavior in the absence of native opcodes, allowing these constructions to be implemented and used practically. They also enable non-interactive zero-knowledge proof (ZKP) verification on Bitcoin, avoiding the limitations of interactive fraud proof-based designs used in existing ZK systems across Bitcoin today. 
-
-          These capabilities open a new design space for advanced applications on Bitcoin, supporting its continued adoption and evolution.
+          PIPEs expand expressivity by enabling covenant-like behavior in the absence of native opcodes, allowing these constructions to be implemented and used practically. They also enable non-interactive zero-knowledge proof (ZKP) verification on Bitcoin, avoiding the limitations of interactive fraud proof-based designs used in existing ZK systems across Bitcoin today.
       - icon:
           name: ''
           color: ''
@@ -37,7 +35,9 @@ blocks:
         text: |
           We believe Bitcoin is — and should always remain — a self-custodial asset in which trust and correctness are enforced strictly through consensus and cryptography. Each holder controls not only their funds, but the precise conditions under which those funds may be spent.
 
-          We build cryptographic systems that expand Bitcoin’s expressivity while remaining fully compatible with its existing consensus rules. Our goal is to enable more powerful spending conditions and applications without introducing intermediaries or trusted operators — avoiding reliance on federations, multisig committees, and side systems, with guarantees enforced by Bitcoin’s consensus and cryptography.
+          We're building cryptographic systems that expand Bitcoin’s expressivity while remaining fully compatible with its existing consensus rules. Our goal is to enable more powerful spending conditions and applications without introducing intermediaries or trusted operators — avoiding reliance on federations, multisig committees, and side systems, with guarantees enforced by Bitcoin’s consensus and cryptography.
+
+          Our end vision is simple: deliver improved capabilities to expand the design space for advanced applications on Bitcoin, supporting its continued adoption and evolution.
     _template: features
   - title: FEATURED
     researchItems:
