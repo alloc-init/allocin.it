@@ -37,7 +37,7 @@ blocks:
 
           We're building cryptographic systems that expand Bitcoin’s expressivity while remaining fully compatible with its existing consensus rules. Our goal is to enable more powerful spending conditions and applications without introducing intermediaries or trusted operators — avoiding reliance on federations, multisig committees, and side systems, with guarantees enforced by Bitcoin’s consensus and cryptography.
 
-          Our end vision is simple: deliver improved capabilities to expand the design space for advanced applications on Bitcoin, supporting its continued adoption and evolution.
+          Our goal is simple: deliver improved capabilities to expand the design space for advanced applications on Bitcoin, supporting its continued adoption and evolution.
     _template: features
   - title: FEATURED
     researchItems:
