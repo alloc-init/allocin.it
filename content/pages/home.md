@@ -35,7 +35,7 @@ blocks:
         text: |
           We believe Bitcoin is — and should always remain — a self-custodial asset in which trust and correctness are enforced strictly through consensus and cryptography. Each holder controls not only their funds, but the precise conditions under which those funds may be spent.
 
-          We believe cryptographic solutions are necessary to further Bitcoin adoption and its evolution — expanding expressivity while remaining fully compatible with its existing consensus rules. No reliance on intermediaries, trusted operators, federations, multisig committees, or side systems. 
+          We see PIPEs cryptography as mission-critical to further Bitcoin adoption and its evolution — expanding expressivity while remaining fully compatible with its existing consensus rules. No reliance on intermediaries, trusted operators, federations, multisig committees, or side systems. 
     _template: features
   - title: FEATURED
     researchItems:
