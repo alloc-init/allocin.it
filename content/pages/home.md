@@ -15,9 +15,9 @@ blocks:
           style: float
         title: ABOUT US
         text: |
-          **\[\[alloc] init]** is a cryptography research and development company committed to bringing more expressivity to Bitcoin — without altering its core protocol or compromising its foundational principles.
+          **\[\[alloc] init]** is a cryptography research and development company committed to bringing more expressivity to Bitcoin - without altering its core protocol or compromising its foundational principles.
 
-          Our mission is to extend Bitcoin’s functionality through advanced spending conditions, enhanced privacy, and non-interactive zero-knowledge proofs on Bitcoin L1, natively. We aim to position Bitcoin as the substrate for the next generation of financial and social infrastructure — remaining immutable, yet increasingly capable.
+          Our mission is to extend Bitcoin’s functionality through advanced spending conditions, enhanced privacy, and non-interactive zero-knowledge proofs on Bitcoin L1, natively. We aim to position Bitcoin as the substrate for the next generation of financial and social infrastructure - remaining immutable, yet increasingly capable.
       - icon:
           name: ''
           color: ''
@@ -35,7 +35,7 @@ blocks:
         text: |
           We believe Bitcoin is — and should always remain — a self-custodial asset in which trust and correctness are enforced strictly through consensus and cryptography. Each holder controls not only their funds, but the precise conditions under which those funds may be spent.
 
-          We see PIPEs cryptography as mission-critical to further Bitcoin adoption and its evolution — expanding expressivity while remaining fully compatible with its existing consensus rules. No reliance on intermediaries, trusted operators, federations, multisig committees, or side systems. 
+          We see PIPEs cryptography as mission-critical to further Bitcoin adoption and its evolution — expanding expressivity while remaining fully compatible with its existing consensus rules. No reliance on intermediaries, trusted operators, federations, multisig committees, or side systems.
     _template: features
   - title: FEATURED
     researchItems:
