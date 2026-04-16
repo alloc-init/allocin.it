@@ -17,7 +17,7 @@ blocks:
         text: |
           **\[\[alloc] init]** is a cryptography research and development company committed to bringing more expressivity to Bitcoin - without altering its core protocol or compromising its foundational principles.
 
-          Our mission is to extend Bitcoin’s functionality through advanced spending conditions, enhanced privacy, and non-interactive zero-knowledge proofs on Bitcoin L1, natively. We aim to position Bitcoin as the substrate for the next generation of financial and social infrastructure - remaining immutable, yet increasingly capable.
+          Our mission is to extend Bitcoin’s functionality by introducing cryptographically-enforced covenants (advanced spending conditions) and non-interactive zero-knowledge proofs on Bitcoin L1 — supporting its adoption and evolution. We aim to position Bitcoin as the substrate for the next generation of financial and social infrastructure - remaining immutable, yet increasingly capable.
       - icon:
           name: ''
           color: ''
