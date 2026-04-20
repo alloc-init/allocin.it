@@ -19,7 +19,7 @@ blocks:
 
           Our mission is to advance Bitcoin's evolution and degree of expressivity by extending its functionality via cryptographically-enforced covenants (advanced spending conditions) and non-interactive zero-knowledge proofs on the L1 itself — eliminating the need for users to trust alternative side systems lacking L1 security. 
 
-          We aim to position Bitcoin as the substrate for the next generation of financial and social infrastructure - remaining immutable, yet increasingly capable. 
+          We aim to make Bitcoin the substrate for the next generation of financial and social infrastructure. We believe it should remain immutable, yet increasingly capable. 
       - icon:
           name: ''
           color: ''
