@@ -26,9 +26,9 @@ blocks:
           style: float
         title: TECHNOLOGY
         text: |
-          Our primary contribution is Bitcoin PIPEs (v1 and v2), a cryptographic primitive built using Witness Encryption (WE) that extends Bitcoin’s functionality within its existing consensus framework.
+          Our primary contribution is Bitcoin PIPEs (v1 and v2), a cryptographic primitive constructed using Witness Encryption (WE) in order to extend Bitcoin’s functionality within its existing consensus framework.
 
-          PIPEs expand expressivity by enabling covenant behavior in the absence of native opcodes, allowing these constructions to be implemented and used practically. They also enable non-interactive zero-knowledge proof (ZKP) verification on Bitcoin, avoiding the limitations of interactive fraud proof-based designs used in existing ZK systems across Bitcoin today.
+          PIPEs expand expressivity by enabling covenant behavior in the absence of native opcodes, allowing these constructions to be implemented and used practically. They also enable non-interactive zero-knowledge proof (ZKP) verification on Bitcoin, overcoming the limitations of interactive fraud proof-based designs and bridge risk evident throughout existing ZK systems on Bitcoin today.
       - icon:
           name: ''
           color: ''
