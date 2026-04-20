@@ -15,7 +15,7 @@ blocks:
           style: float
         title: ABOUT US
         text: |
-          **\[\[alloc] init]** is a cryptography research and development company committed to bringing more expressivity to Bitcoin - without altering its core protocol or compromising its foundational principles.
+          **\[\[alloc] init]** is a cryptography research and development company committed to bringing more expressivity to Bitcoin - without altering its protocol or compromising its principles.
 
           Our mission is to advance Bitcoin's evolution and degree of expressivity by extending its functionality via cryptographically-enforced covenants (advanced spending conditions) and non-interactive zero-knowledge proofs on the L1 itself — eliminating the need for users to trust alternative side systems lacking L1 security. 
 
