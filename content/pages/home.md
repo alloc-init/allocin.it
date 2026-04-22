@@ -30,7 +30,7 @@ blocks:
 
           PIPEs expand expressivity by enabling covenant behavior in the absence of native opcodes, allowing these constructions to be implemented and used practically. 
 
-          PIPEs also enable non-interactive zero-knowledge proofs (ZKP) to Bitcoin, overcoming the limitations of interactive, optimistic-style ZK evident on Bitcoin today. This matters because it removes trusted parties, liveness assumptions, liquidity lockups, and dispute games entirely. 
+          PIPEs also enable non-interactive zero-knowledge proofs (ZKP) to Bitcoin, overcoming the limitations of interactive, optimistic-style ZK evident on Bitcoin today. This matters because it removes trusted parties, liveness assumptions, liquidity lockups, dispute games, and the need for bridging to other systems.
       - icon:
           name: ''
           color: ''
