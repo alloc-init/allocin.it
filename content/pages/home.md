@@ -59,7 +59,7 @@ blocks:
       tag: REACH OUT
       title: Get in touch
       subtitle: Learn about PIPEs or contribute to our research.
-      email: hello@allocin.it
+      email: hello@allocinit.xyz
       backgroundImg: /uploads/logo-bg-gray.svg
     _template: cta_section
 ---
