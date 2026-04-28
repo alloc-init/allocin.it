@@ -1,0 +1,209 @@
+---
+title: Cryptographic Challenges for AADP
+excerpt: ''
+author: ''
+---
+
+Witness encryption is a powerful cryptographic primitive, which allows a ciphertext to be decrypted by anyone who holds a valid witness to a chosen NP statement, with no prior interaction between sender and receiver. A practical construction would unlock a wide set of applications, including time-lock and event-triggered disclosure, sealed-bid auctions, conditional on-chain payments, fair exchange, and access control gated by zero-knowledge proofs. Today, many of these are realized only with trusted parties or other workarounds.
+
+Recently, we proposed a \[new witness encryption scheme]\(https\://eprint.iacr.org/2026/175) that is more efficient than previous approaches and can be implemented in practice. It is based on \[an earlier construction from 2020]\(https\://eprint.iacr.org/2020/889), extending it to general arithmetic programs. However, in both the original construction and our adaptation, the cryptanalysis relies on heuristics rather than reductions of known hard problems.
+
+In particular, since these constructions are of algebraic nature, cryptanalytic attacks like (re)linearization approaches and more specialized attacks on certain classes of instances seem to be the most promising directions. This is true both for the original construction and for our adaptation.
+
+Although neither constructions are broken and there have been extensive efforts in cryptography to optimize algebraic attacks (see, e.g., \[XSL approaches on the AES]\(https\://eprint.iacr.org/2002/044/) and recent research in Gröbner basis attacks), a better understanding of the security of AADPs is desirable, especially when using them in high-stakes settings like Bitcoin.
+
+For this purpose, we designed cryptographic challenges given in the following. We welcome anyone to try break small instances of our new scheme or to discover structural properties that were unknown before.
+
+\## Specification of the AADP Construction
+
+We refer to our construction as the AADP (arithmetic affine determinant programs). It consists of a setup phase and an encryption phase. For the purpose of this description, we briefly recall the specification without going into the details. Interested readers are referred to \[our paper]\(https\://eprint.iacr.org/2026/175).
+
+\### Setup
+
+We denote by $m$ the number of arithmetic gates (constraints) and by $n$ the number of variables. In our instances, $n \approx m$ (we emphasize that this condition is important in order to prevent certain classes of attacks).
+
+Given a projectively safe constraint system $(A, B, C, D)$, the setup produces public matrices $M^{(0)}, \dots, M^{(n)} \in \mathbb{F}^{k \times k}$ with $k = 2m+1$. For each gate $i \in \\{1, \dots, m\\}$, we define the linear forms $a\_i(x), b\_i(x), c\_i(x), d\_i(x)$ from the constraint system and a secret random linear form $\xi\_i(x) = \sum\_j \xi\_{i,j} x\_j$ with $\xi\_{i,j} \stackrel{\\$}{\leftarrow} \mathbb{F}$. The $4 \times 4$ gate matrix is then defined as
+
+$$
+
+U\_i(x) =
+
+\begin{pmatrix}
+
+a\_i(x) & c\_i(x) & -\xi\_i(x) & 0 \\\\
+
+d\_i(x) & b\_i(x) & 0 & \xi\_i(x) \\\\
+
+0 & 0 & b\_i(x) & c\_i(x) \\\\
+
+0 & 0 & d\_i(x) & a\_i(x) \\\\
+
+\end{pmatrix}.
+
+$$
+
+Secret random masking matrices $L\_i \stackrel{\\$}{\leftarrow} \mathbb{F}^{k \times 4}$ and $R\_i \stackrel{\\$}{\leftarrow} \mathbb{F}^{4 \times k}$ are sampled, and the public matrix is then defined as a sum over the gates s.t.
+
+$$
+
+M(x) = \sum\_{i=1}^{m} L\_i \cdot U\_i(x) \cdot R\_i.
+
+$$
+
+If $x$ is a valid witness, each $U\_i(x)$ has rank $2$ and $M(x)$ has rank $2m$, so $\det(M(x)) = 0$. Otherwise, $M(x)$ has full rank with high probability.
+
+\### Encryption and Decryption
+
+To encrypt a message $\texttt{msg} \in \mathbb{F}$, we set the ciphertext to
+
+$$
+
+\widehat{M} \leftarrow M + \texttt{msg} \cdot \underbrace{x\_0}\_{= 1} \cdot (0, \dots, 0, 1)^\top \cdot (0, \dots, 0, 1),
+
+$$
+
+i.e., the message is added to the bottom-right entry of $M^{(0)}$. Decryption with a valid witness $x$ evaluates $\widehat{M}$ at $(x\_0, x) = (1, x)$ and recovers $\texttt{msg}$ as the unique root $t$ of $\det(\widehat{M}(1, x) - t \cdot (0, \dots, 0, 1)^\top (0, \dots, 0, 1)) = 0$, which is linear in $t$.
+
+\## Rules for the Challenges
+
+Before defining the challenges, we fix a set of rules in the following.
+
+\- We exclude attacks based on guessing finite field elements, since our target field will be cryptographically large and we do not consider low-entropy circuits. However, we encourage the use of smaller fields (for $p \geq 2^{32}$) to facilitate the implementation of attacks (e.g., in cases where an otherwise qualifying attack hits the memory limit on a certain machine).
+
+\- Attacks must be implemented and verified in practice. Both the attack code and a detailed description of the approach must be submitted as part of the solution.
+
+\- Submissions must be made public within 2 months after confirmation.
+
+\- We generally follow a first-come-first-serve basis if there are multiple qualifying submissions. However, we may abstain from following this rule verbatim if two submitted attacks differ largely in their approach.
+
+\- A single approach breaking multiple challenges at once only qualifies for the highest-paid challenge.
+
+\- People from \[\[alloc] init] are excluded from the challenges and are not allowed to send any submissions.
+
+\## External Committee
+
+To ensure fairness, we have an external committee of domain experts that help with the evaluation of the challenge process. In particular, this includes overseeing key decisions and offering neutral perspectives on the submissions. All committee members are serving in an unpaid capacity.
+
+\- Carlos Cid
+
+\- Lorenzo Grassi
+
+\- Morten Øygarden
+
+\- Akin Unal
+
+\- 
+
+\## Cryptographic Challenges
+
+We now present the cryptographic challenges.
+
+\### Full Instances
+
+Our first set of challenges focuses on full instances of the AADP construction with small setup parameters. As we expect the security of the construction to scale with the number of gates $m$, we set $m$ low for the challenges to reduce the cryptographic complexity.
+
+\#### Circuit Definition
+
+The circuit is designed such that no valid witness exists, while preserving the AADP structure that the cryptanalytic challenges target. The reason is that, otherwise, a solution could simply be found by finding a valid witness (which is trivial with small $m$).
+
+The circuit is built as follows. First, we have $w$ bit check gates that enforce that $b\_0, b\_1, \dots, b\_{w-1} \in \\{0, 1\\}$. The circuit's input is the linear form $x = \sum\_{i=0}^{w-1} 2^i b\_i$, so $x \in \\{0, 1, \dots, 2^w - 1\\}$. Secondly, we have $s$ gates that compute a squaring chain, resulting in $x^{(2^s)}$. The last of these gates is also meant as an equality check against the target. Finally, we have a public target value $y \in \mathbb F\_p$ fixed during the setup phase by picking a uniformly random $a \in \mathbb F\_p^\*$ and setting $y = a^{2^s}$. The circuit essentially asserts $x^{2^s} = y$.
+
+Since $x^{2^s}$ is always a quadratic residue in $\mathbb F\_p^\*$, picking $y$ to be a non-residue rules out any $\mathbb F\_p$ witness with certainty. The bit check gadget is needed to pin $x$ into $\mathbb F\_p$. Indeed, the gate $b\_i^2 = b\_i$ has roots $\\{0, 1\\}$ in every extension of $\mathbb F\_p$, so the bit check prevents an attacker from working in some extension $\mathbb F\_{p^k}$ in which $y$ does admit a $2^s$-th root and using the resulting extension field witness to decrypt.
+
+Scaling to (moderately) larger $m$ is easy by keeping $w = 3$ and setting $s = m - 3$, so the relation becomes $x^{2^{m-3}} = y$ with $x$ still in $\\{0, \dots, 7\\}$.
+
+\<aside>
+
+🚧
+
+Previous approach: Instead of choosing $y$ as a quadratic non-residue, $y$ could be sampled by picking a uniformly random $a \in \mathbb F\_p^\*$ and setting $y = a^{2^s}$. In $\mathbb F\_p^\*$, the equation $x^{2^s} = y$ then has exactly $2^s$ solutions, namely $a$ itself together with its $2^s - 1$ twists $\\{a \cdot \zeta : \zeta^{2^s} = 1\\}$. For uniformly random $a$, each twist is essentially uniform in $\mathbb F\_p^\*$, so the probability that any of them lands in the range $\\{0, 1, \dots, 2^w - 1\\}$ is at most $2^s \cdot 2^w / p = 2^m / p$, which is negligible for cryptographically sized $p$. Hence, with overwhelming probability, no valid witness exists. The non-residue construction above replaces this argument by a deterministic one.
+
+\</aside>
+
+\#### Challenges
+
+Two different approaches qualify as solutions here.
+
+1\. \*\*Full Randomness Recovery:\*\* A full randomness recovery, i.e., all setup parameters that lead to the public matrices given as part of the challenge. This particularly consists in valid values for $R\_i$, $L\_i$, and $\xi\_{i, j}$.
+
+2\. \*\*Decryption:\*\* Decryption of the message contained in the bottom-right entry of $M^{(0)}$.
+
+\| $m$ | $n$ | Prize (decryption) |
+
+\| --- | --- | --- |
+
+\| 8 | 7 | $3,000 |
+
+\| 16 | 15 | $6,000 |
+
+\| 32 | 31 | $20,000 |
+
+\#### Submission
+
+For decryption, the submission is a single field element $\texttt{msg} \in \mathbb{F}$ claimed to be the encrypted message. We will internally compare against the message we used during encryption.
+
+For full randomness recovery, the submission consists of concrete values for all secrets, namely $L\_i \in \mathbb{F}^{k \times 4}$, $R\_i \in \mathbb{F}^{4 \times k}$, and $\xi\_{i,j} \in \mathbb{F}$ for $i \in \\{1, \dots, m\\}$ and $j \in \\{0, \dots, n\\}$. A submission qualifies if
+
+$$
+
+\sum\_{i=1}^{m} L\_i \cdot U\_i(x) \cdot R\_i = M(x)
+
+$$
+
+holds as an identity of matrix polynomials in $x = (x\_0, \dots, x\_n)$, i.e., if the claimed secrets reproduce each public matrix $M^{(j)}$ coefficient-wise. We note that any valid tuple qualifies, hence we do not require the submitted values to match the specific randomness used during setup.
+
+Partial randomness recovery also qualifies, with two additional caveats given in the following.
+
+1\. The submission must include the recovered quantities, expressed as a list of polynomial relations in the secrets $L\_i$, $R\_i$, $\xi\_{i,j}$ (e.g., specific coordinates, linear forms, or low-degree combinations) together with their claimed values in $\mathbb{F}$. Examples of qualifying submissions include $\xi\_{0,3} = v\_0$ or $\xi\_{0,3} + \xi\_{2,1} = v\_1$, where $v\_0, v\_1 \in \mathbb{F}$ are specific field elements the attacker claims to have recovered.
+
+2\. The submission must also include an argument that the claimed relations do not trivially follow from public information alone (i.e., the constraint system $A, B, C, D$ and the public matrices $M^{(j)}$).
+
+Prizes for partial randomness recovery are scaled according to how much of the secret state is revealed. In both cases, the submission must additionally include the attack code and a detailed description of the approach used to obtain the secrets, consistent with the rules in the previous section.
+
+\### Structural Observations
+
+Submissions reporting structural properties of the ciphertexts are also encouraged, regardless of whether they results in a full attack. Awards and prizes for such observations are granted at our discretion and are essentially based on their impact.
+
+As it is difficult to precisely describe the qualifying criteria, in the following we give two examples that are intended as illustrative guidance.
+
+\#### Unexpected Subspace Intersections with $R\_i$
+
+While the masking matrices $R\_1, \dots, R\_m$ are sampled uniformly at random during setup, they are not independent of the public matrices $M^{(j)}$, and tied together by the setup equations $\sum\_i L\_i U\_i^{(j)}(\xi) R\_i = M^{(j)}$. Informally, the AADP construction heuristically relies on the row spans of the $R\_i$ still “appearing” random from the attacker’s perspective. Identifying any non-generic correlation that is detectable using only public information is a violation of this assumption, even without a full attack.
+
+In particular, assume we have the following two building blocks.
+
+1\. A static subspace $V \subseteq \mathbb F^k$ of dimension $d\_1$, constructed from publicly available information only, i.e., the constraint system $A, B, C, D$ and the public matrices $M^{(j)}$ for $j \in \[0, m]$. In particular, $V$ must not depend on the secret $R\_i$.
+
+2\. A description of a subspace $W \subseteq \mathbb F^k$ of dimension $d\_2$, given as a set of coefficient tuples $(c\_{i,r}^{(\ell)})$, where $i \in \\{1, \dots, m\\},\\, r \in \\{1, 2, 3, 4\\}$, for $\ell = 1, \dots, d\_2$. The subspace $W$ is then defined as the span of the vectors
+
+    
+
+    $$
+
+    w^{(\ell)} = \sum\_{i=1}^{m} \sum\_{r=1}^{4} c\_{i,r}^{(\ell)} \cdot (\text{row } r \text{ of } R\_i)
+
+    $$
+
+    
+
+We expect it to be hard to find $V$ and $W$ such that
+
+$$
+
+\dim(V \cap W) > \max(0, d\_1 + d\_2 - k),
+
+$$
+
+i.e., where the intersection of $V$ and $W$ exceeds the (generic) expected dimension for two subspaces of dimensions $d\_1, d\_2$ that both live in $\mathbb{F}^k$ with $k = 2m + 1$. In other words, it should be hard to find $V$ and $W$ whose intersection is larger than what two random subspaces of those dimensions would typically share. This would suggest that public data leaks information about the row combinations of $R\_i$. Here we exclude trivial correlations following from public data such as relations that can be derived directly from $A, B, C, D$. 
+
+\#### \*\*Partial Kernel Leakage\*\*
+
+Consider the public matrices $M^{(0)}, M^{(1)}, \dots, M^{(n)} \in \mathbb{F}^{k \times k}$ together with $m$ entries of a target kernel vector $\alpha \in \mathbb{F}^k$ in specified positions (e.g., the first $m$ entries $\alpha\_0, \dots, \alpha\_{m-1}$), with $\alpha\_{k-1} = 1$ fixed by normalization. We expect it to be hard to find $(1, x\_1, \dots, x\_n) \in \mathbb{F}^{n+1}$ and complete the remaining $m$ entries of $\alpha$ such that
+
+$$
+
+M(1, x) \cdot \alpha = 0, \qquad \text{where } M(1, x) = M^{(0)} + \sum\_{j=1}^{n} x\_j \\, M^{(j)}
+
+$$
+
+for a construction where $m \geq 8$. In particular, we expect the complexity of solving this problem to grow exponentially in $m$, in line with the bilinear/Kipnis-Shamir Gröbner basis estimate.
