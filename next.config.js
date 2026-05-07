@@ -19,5 +19,22 @@ module.exports = {
         destination: "/admin/index.html"
       }
     ];
-  }
+  },
+  async redirects() {
+
+    return [
+
+      {
+
+        source: "/posts/challanges",
+
+        destination: "https://allocinit.notion.site/challenges",
+
+        permanent: true,
+
+      },
+
+    ];
+
+  },
 };
