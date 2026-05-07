@@ -26,7 +26,7 @@ module.exports = {
 
       {
 
-        source: "/posts/challanges",
+        source: "/posts/challenges",
 
         destination: "https://allocinit.notion.site/challenges",
 
