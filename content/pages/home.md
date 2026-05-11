@@ -15,22 +15,22 @@ blocks:
           style: float
         title: ABOUT US
         text: |
-          **\[\[alloc] init]** is a cryptography research and development company committed to bringing more expressivity to Bitcoin - without altering its core protocol or foundational principles.
+          **\[\[alloc] init]** is a cryptography research and development company committed to expanding Bitcoin's capabilities without altering its core protocol or foundational principles.
 
-          Our mission is to advance Bitcoin's evolution and degree of expressivity by extending its functionality via cryptographically-enforced covenants and non-interactive zero-knowledge proofs on the L1 itself — eliminating the need for users to trust side systems. 
+          Our mission is to advance Bitcoin's evolution and expressivity by extending its functionality via cryptographically-enforced spending conditions (covenants) and non-interactive zero-knowledge proofs (ZKPs) on the L1 itself — eliminating the need for users to trust side systems.
 
-          We aim to make Bitcoin the substrate for the next generation of financial and social infrastructure. It should remain immutable, yet increasingly capable. 
+          We believe Bitcoin should remain immutable, yet increasingly capable.
       - icon:
           name: ''
           color: ''
           style: float
         title: TECHNOLOGY
         text: |
-          Our primary contribution is Bitcoin PIPEs (v1 and v2), a cryptographic primitive constructed using Witness Encryption (WE) in order to extend Bitcoin’s functionality within its existing consensus framework.
+          Our primary contribution is Bitcoin PIPEs, a cryptographic primitive constructed with Witness Encryption (WE) to enable arbitrary spending conditions via ZKP-gated signatures. 
 
-          PIPEs expand expressivity by enabling covenant behavior in the absence of native opcodes, allowing these constructions to be implemented and used practically. 
+          PIPEs introduce expressivity to Bitcoin via cryptographic emulation of opcodes missing from Script, allowing for the practical benefit of various opcodes otherwise blocked by soft fork resistance. 
 
-          PIPEs also enable non-interactive zero-knowledge proofs (ZKP) to Bitcoin, overcoming the limitations of interactive, optimistic-style ZK evident on Bitcoin today. This matters because it removes trusted parties, liveness assumptions, liquidity lockups, dispute games, and the need for bridging to other systems.
+          PIPEs also introduce non-interactive ZKPs to Bitcoin — replacing the need for interactive, dispute-based systems with instant cryptographic certainty. This eliminates the need for trusted parties while enabling truly expressive applications.
       - icon:
           name: ''
           color: ''
