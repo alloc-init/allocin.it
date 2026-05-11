@@ -39,7 +39,7 @@ blocks:
         text: |
           We believe Bitcoin is — and should always remain — a self-custodial asset in which trust and correctness are enforced strictly through consensus and cryptography. Each holder controls not only their funds, but the precise conditions under which those funds may be spent.
 
-          As Bitcoin becomes further ossified and limited in its capabilities, we see PIPEs as increasingly critical to achieve forms of expressivity required for serving the needs of Bitcoin users globally. And we believe those users shouldn't need to rely on trusted parties; intermediaries, operators, federations, multi-sig committees, or side systems. 
+          As Bitcoin becomes further ossified and limited in its capabilities, we see PIPEs as increasingly critical to achieving the expressivity required for serving the needs of Bitcoin users globally. Users shouldn't need to rely on trusted parties (whether intermediaries, operators, federations, multi-sig committees, or side systems) to serve their needs securely; instead, they should rely on Bitcoin and purely cryptographic guarantees. This is why we're building PIPEs. 
     _template: features
   - title: FEATURED
     researchItems:
