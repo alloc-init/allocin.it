@@ -17,9 +17,9 @@ blocks:
         text: |
           **\[\[alloc] init]** is a cryptography research and development company committed to expanding Bitcoin's capabilities without altering its core protocol or foundational principles.
 
-          Our mission is to advance Bitcoin's evolution and expressivity by extending its functionality via cryptographically-enforced spending conditions (covenants) and non-interactive zero-knowledge proofs (ZKPs) on the L1 itself — eliminating the need for users to trust side systems.
+          Our mission is to advance Bitcoin's evolution and expressivity by extending its functionality via cryptographically-enforced arbitrary spending conditions (e.g. covenants) and non-interactive zero-knowledge proofs (ZKPs) on the L1 itself — eliminating the need for users to rely on trusted parties or side systems. 
 
-          We believe Bitcoin should remain immutable, yet increasingly capable.
+          We believe Bitcoin should remain immutable yet increasingly capable. With this view, we're building PIPEs to serve as the backbone of a new class protocols and applications on Bitcoin.
       - icon:
           name: ''
           color: ''
