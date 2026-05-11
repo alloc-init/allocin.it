@@ -17,7 +17,7 @@ blocks:
         text: |
           **\[\[alloc] init]** is a cryptography research and development company committed to expanding Bitcoin's capabilities without altering its core protocol or foundational principles.
 
-          Our mission is to advance Bitcoin's evolution and expressivity by extending its functionality via cryptographically-enforced arbitrary spending conditions (e.g. covenants) and non-interactive zero-knowledge proofs (ZKPs) on the L1 itself — eliminating the need for users to rely on trusted parties or side systems. 
+          Our mission is to advance Bitcoin's evolution and expressivity by extending its functionality via cryptographically-enforced arbitrary spending conditions (e.g. covenants) and non-interactive zero-knowledge proofs (ZKPs) on the L1 itself — eliminating the need for users to rely on trusted parties or side systems.
 
           We believe Bitcoin should remain immutable yet increasingly capable. With this view, we're building PIPEs to serve as the backbone of a new class of protocols and applications on Bitcoin.
       - icon:
@@ -26,11 +26,11 @@ blocks:
           style: float
         title: TECHNOLOGY
         text: |
-          Our primary contribution is Bitcoin PIPEs, a cryptographic primitive constructed with Witness Encryption (WE) to enable arbitrary spending conditions via ZKP-gated signatures. 
+          Our primary contribution is Bitcoin PIPEs, a cryptographic primitive constructed with Witness Encryption (WE) to enable arbitrary spending conditions via ZKP-gated signatures.
 
-          PIPEs introduce expressivity to Bitcoin via cryptographic emulation of opcodes missing from Script, allowing for the practical benefit of various opcodes otherwise blocked by soft fork resistance. 
+          PIPEs introduce expressivity to Bitcoin via cryptographic emulation of opcodes missing from Script, allowing for the practical benefit of various opcodes otherwise blocked by soft fork resistance.
 
-          PIPEs also introduce non-interactive ZKPs to Bitcoin — replacing the need for interactive, dispute-based systems with instant cryptographic certainty. This eliminates the need for trusted parties while enabling truly expressive applications.
+          PIPEs also introduce non-interactive ZKPs to Bitcoin — replacing the need for interactive, dispute-based systems with cryptographic certainty. This eliminates the need for trusted parties while enabling truly expressive applications.
       - icon:
           name: ''
           color: ''
@@ -39,7 +39,7 @@ blocks:
         text: |
           We believe Bitcoin is — and should always remain — a self-custodial asset in which trust and correctness are enforced strictly through consensus and cryptography. Each holder controls not only their funds, but precise conditions under which funds may be spent.
 
-          As Bitcoin becomes further ossified and limited in its capabilities, we see PIPEs as increasingly critical to achieving the expressivity required for serving the needs of Bitcoin users globally. Users shouldn't need to rely on trusted parties (whether intermediaries, operators, federations, multi-sig committees, or side systems) to serve their needs securely; instead, they should rely on Bitcoin and purely cryptographic guarantees. This is why we're building PIPEs. 
+          As Bitcoin becomes further ossified and limited in its capabilities, we see PIPEs as increasingly critical to achieving the expressivity required for serving the needs of Bitcoin users globally. Users shouldn't need to rely on trusted parties (whether intermediaries, operators, federations, multi-sig committees, or side systems) to serve their needs securely; instead, they should rely on Bitcoin and purely cryptographic guarantees. This is why we're building PIPEs.
     _template: features
   - title: FEATURED
     researchItems:
