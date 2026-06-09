@@ -45,7 +45,7 @@ $M = \sum\limits_{i=1}^m L_i U_i(x) R_i$
 
 I don’t want to specifically talk about a WE scheme (the message is just added to a matrix cell of one of the matrices), because once again in our experience building a distinguisher is typically enough to break AADP, and it is conceptually easier to explain.
 
-## The break
+## The Attack
 
 Before we explain the attack, it makes sense to give the intuition why this *might* be secure (at least in some cases). The baseline is the following:
 
@@ -75,7 +75,7 @@ Indeed, if two linear operators diagonalize in the same basis up to a low-rank e
 
 The attack was implemented against our repeated-squaring challenge circuit by tekkac, successfully decrypting the challenge value.
 
-### Extent of the attack
+### Extent of the Attack
 
 While this attack only works against specific class of circuits (sparse ones), practical circuits that we want to use typically *are* sparse. It is also worth mentioning that the original ADP (https://eprint.iacr.org/2020/889) is also subject to this attack.
 
@@ -85,7 +85,7 @@ The natural solution, of course, is to, given a constraint system $\mathcal C$, 
 
 Apparently, there is no official name for such constraint systems (though the topic is definitely related to linear PCPs and gap problems in general); we call them “pufferfishes” because of a local brainrot meme.
 
-### R1CS example
+### R1CS Example
 
 Now, imagine for a moment that we work with R1CS circuits. Then, the solution to this problem is well-known, it is just QAPs. To quickly remind you, given a constraint system of the form $a_i(w) b_i(w) = c_i(w)$, one picks $m$ points $z_1, …, z_m$ and constructs interpolation polynomials satisfying $A_i(z_j) = a_i^j$.
 
