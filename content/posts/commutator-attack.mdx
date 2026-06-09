@@ -1,5 +1,5 @@
 ---
-title: AADP WE Commutator Attack and Fix
+title: AADP WE Commutator Attack Break & Patch
 subtitle: Open Challenges Status Update
 type: research
 excerpt: ''
@@ -79,7 +79,7 @@ The attack was implemented against our repeated-squaring challenge circuit by te
 
 While this attack only works against specific class of circuits (sparse ones), practical circuits that we want to use typically *are* sparse. It is also worth mentioning that the original ADP (https://eprint.iacr.org/2020/889) is also subject to this attack.
 
-## The fix
+## The Patch
 
 The natural solution, of course, is to, given a constraint system $\mathcal C$, produce a new constraint system $\widetilde{C}$ such that it is equivalent, yet any invalid witness candidate $w$ to this new constraint system breaks some large fraction of the gates (say, at least half).
 
@@ -101,7 +101,7 @@ At each point, we will have an expression $A(\tau_j) B(\tau_j) = C(\tau_j) + Z(\
 
 Moreover, any invalid solution is automatically forced to break at least half of all constraints (assuming $m \geq n$), because the polynomial $AB - C - Z H$ has the degree $\leq 2m$ and is evaluated in $4m$ points.
 
-### Char 2 fix
+### Characteristic 2 Patch
 
 The problem, of course, is that we do not work with R1CS circuits! Our circuits are *projective*, and this is a strictly necessary requirement for anything resembling AADP to work. The QAP is linear in the coefficients of $H$, so we need to invent a version of QAP with $H$ replaced with some quadratic expression. It is, apparently, very easy to do in characteristic 2, because we can write:
 
@@ -113,7 +113,7 @@ $S^2(t^{1/2}) = (\sum h_i^{1/2} t^{i/2})^2 = \sum h_i t^i = H(t)$
 
 This works pretty much as well as R1CS.
 
-### Char p fix
+### Characteristic $P$ Patch
 
 Situation for characteristic $p$ is much more complicated. There are few options, all quite bad and the only feasible one that we have found is to write:
 
