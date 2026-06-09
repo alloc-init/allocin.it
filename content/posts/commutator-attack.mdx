@@ -15,7 +15,7 @@ By a lucky coincidence (an optimization of the related scheme), we had worked on
 
 I will give a brief explanation of how AADPs work. A more detailed treatment can be found in our paper.
 
-(Arithmetic) affine determinant program is a collection of square matrices, $M^0, …, M^n$ over a field $\mathbb{F}$. We will typically write it as a formal linear function $M(x) = \sum M^j x_j$. They are constructed from the circuits (via AADP.Setup algorithm, defined further) and we have 2 desired properties:
+(Arithmetic) affine determinant program is a collection of square matrices, $M^0, …, M^n$ over a field $\mathbb{F}$. We will typically write it as a formal linear function $M(x) = \sum M^j x_j$. They are constructed from the circuits (via $AADP.Setup$ algorithm, defined further) and we have 2 desired properties:
 
 1. If $w$ is a witness to the original circuit, $\det M(w) = 0$
 2. Without knowing a satisfying $w$, the set of matrices $M_i$ is computationally indistinguishable from a collection of random matrices.
@@ -35,7 +35,7 @@ Note: the linear function $\xi$ is generated randomly, and is needed to fulfill 
 
 The original ADP construction is only capable of expressing the constraint $a(x)b(x) = 0$ and uses a simpler gate matrix $\begin{pmatrix} a(x) & \xi(x) \\ 0 & b(x) \end{pmatrix}$ (though the authors never formulated it in this form).
 
-AADP.Setup works simply as follows:
+$AADP.Setup$ works simply as follows:
 
 $L_i \overset{\$}\gets \mathbb{F}^{(k m + 1) \times 2k}$, $R_i \overset{\$}\gets \mathbb{F}^{2k \times (k m + 1)}$, $\xi_i(x) \overset{\$}\gets \mathbb{F}^{n+1}$
 
@@ -83,7 +83,7 @@ While this attack only works against specific class of circuits (sparse ones), p
 
 The natural solution, of course, is to, given a constraint system $\mathcal C$, produce a new constraint system $\widetilde{C}$ such that it is equivalent, yet any invalid witness candidate $w$ to this new constraint system breaks some large fraction of the gates (say, at least half).
 
-Apparently, there is no official name for such constraint systems (though the topic is definitely related to linear PCPs and gap problems in general); we call them “pufferfishes” because of a local brainrot meme.
+Apparently, there is no official name for such constraint systems (though the topic is definitely related to linear PCPs and gap problems in general); we call them *"pufferfishes"* because of a local brainrot meme.
 
 ### R1CS Example
 
