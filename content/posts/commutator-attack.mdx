@@ -1,0 +1,152 @@
+---
+title: AADP WE Commutator Attack and Fix
+subtitle: Open Challenges Status Update
+type: research
+excerpt: ''
+author: content/authors/Lev-Soukhanov.md
+date: 2026-06-09T10:46:56.245Z
+---
+
+Few days ago, we have learned that our novel Witness Encryption scheme, https://eprint.iacr.org/2026/175 is not secure. The break is particularly severe - it affects not only our modifications but also the original ADP construction , and renders it unusable for sparse circuits.
+
+By a lucky coincidence (an optimization of the related scheme), we had worked on a generic transform that turns any projective circuit into a non-sparse one - though at that time, we only had the required modification available in characteristic 2. We have concentrated our efforts on extending the transform to characteristic $p$, too, and I am happy to share the results here.
+
+## What are (A)ADPs
+
+I will give a brief explanation of how AADPs work. A more detailed treatment can be found in our paper.
+
+(Arithmetic) affine determinant program is a collection of square matrices, $M^0, …, M^n$ over a field $\mathbb{F}$. We will typically write it as a formal linear function $M(x) = \sum M^j x_j$. They are constructed from the circuits (via AADP.Setup algorithm, defined further) and we have 2 desired properties:
+
+1. If $w$ is a witness to the original circuit, $\det M(w) = 0$
+2. Without knowing a satisfying $w$, the set of matrices $M_i$ is computationally indistinguishable from a collection of random matrices.
+
+*Note:* hypothesis 2 might be too strong (in fact, it is not clear that such a strong requirement is needed for the safety of the derived witness encryption scheme), but we have consistently found that any “significant” break of 2 typically swiftly leads to an attack on the derived witness encryption scheme.
+
+Let’s start with a circuit with $n+1$ variables and $m$ constraints. For each constraint, we construct a certain $2k \times 2k$ “gate matrix” $U(x)$, with the following properties:
+
+1. $U(x)$ has rank $2k$ if the constraint does not hold.
+2. $U(x)$ has rank $k$ if the constraint does hold, except with negligible probability.
+
+AADP construction uses the constraints of the form $a(x) b(x) = c(x) d(x)$, and the matrix that we use is
+
+$\begin{pmatrix} a(x) & c(x) & -\xi(x) & 0 \\ d(x) & b(x) & 0 & \xi(x) \\ 0 & 0 & b(x) & c(x) \\ 0 & 0 & d(x) & a(x) \end{pmatrix}$
+
+Note: the linear function $\xi$ is generated randomly, and is needed to fulfill the second condition - i.e. even if all $a, b, c, d$ vanish at the same time, the rank does not drop below 2 except with negl. probability.
+
+The original ADP construction is only capable of expressing the constraint $a(x)b(x) = 0$ and uses a simpler gate matrix $\begin{pmatrix} a(x) & \xi(x) \\ 0 & b(x) \end{pmatrix}$ (though the authors never formulated it in this form).
+
+AADP.Setup works simply as follows:
+
+$L_i \overset{\$}\gets \mathbb{F}^{(k m + 1) \times 2k}$, $R_i \overset{\$}\gets \mathbb{F}^{2k \times (k m + 1)}$, $\xi_i(x) \overset{\$}\gets \mathbb{F}^{n+1}$
+
+$U_i(x) := \begin{pmatrix} a_i(x) & c_i(x) & -\xi_i(x) & 0 \\ d_i(x) & b_i(x) & 0 & \xi_i(x) \\ 0 & 0 & b_i(x) & c_i(x) \\ 0 & 0 & d_i(x) & a_i(x) \end{pmatrix}$
+
+$M = \sum\limits_{i=1}^m L_i U_i(x) R_i$
+
+I don’t want to specifically talk about a WE scheme (the message is just added to a matrix cell of one of the matrices), because once again in our experience building a distinguisher is typically enough to break AADP, and it is conceptually easier to explain.
+
+## The break
+
+Before we explain the attack, it makes sense to give the intuition why this *might* be secure (at least in some cases). The baseline is the following:
+
+*There is no (non correct witness) input $w$ such that  $\det M(w) = 0$ for non-negligible fraction of setups.*
+
+The reason why this is true - each gate contribution $L_i U_i(x) R_i$ has rank $2$ if the gate holds, and rank $4$ if it does not. Because the total dimension is $2m+1$, the sum for any invalid witness will have a full rank except with negligible probability.
+
+In general, the problem to detect the rank of $n \times (2m+1) \times (2m+1)$ tensor is considered hard in this regime, at least for random tensors. Question is, can someone exploit a specific structure of the setup?
+
+The idea is the following. Consider an individual matrix $M^j$. One can notice that formula for it contains a lot of rank 2 terms of the form  $L_i^{12} \begin{pmatrix} -\xi_i^j & 0 \\ 0 & \xi_i^j \end{pmatrix} R_i^{34}$. However, if the circuit is sparse, most of the terms $L_i^{12} \begin{pmatrix}a_i^j & c_i^j \\ d_i^j & b_i^j \end{pmatrix} R_i^{12} + L_i^{34} \begin{pmatrix}b_i^j & c_i^j \\ d_i^j & a_i^j \end{pmatrix} R_i^{34}$ just vanish, because the variable $j$ does not participate in most of the gates $i$.
+
+This suggests that all the matrices $M^j$ have a hidden structure - they diagonalize simultaneously up to a low rank error!
+
+To make this precise, note that our construction has independent left and right gauge symmetry - we can simultaneously multiply all $L_i$-s by some global $L$, i.e. $L_i \mapsto L L_i$, and all $R_i$-s by a global $R$ as $R_i \mapsto R_i R$. Let’s choose such transforms that $L_i^{12} = (e_{2i-1}, e_{2i})$ , and $R_i^{34} = (L_i^{12})^\top$.
+
+If we do, then a matrix $M^j$ has the following form: $\mathsf{Diag}(-\xi_1^j, \xi_1^j, -\xi_2^j, \xi_2^j, \ldots) + \mathsf{Err}$, where the rank of the error is related to $\deg(j)$ - the amount of gates that this variable participates in.
+
+As a first step, we can consider a fraction of two such matrices, say $T_{ab} = (M^a)^{-1}M^b$. This will clear one part of the gauge symmetry - the result is now an honest linear operator, with symmetries acting as $T_{ab} \mapsto R^{-1} T_{ab} R$.
+
+There is now a hidden basis where all $T_{ab}$-s are diagonal at the same time, up to low rank errors!
+
+… and this is where analysis in the paper goes astray - we take two such matrices and construct a messy nonlinear system to analyze them, when actually building a distinguisher can be done in one shot:
+
+“$[T_{ab}, T_{cd}] = T_{ab} T_{cd} - T_{cd}T_{ab}$ has a low rank”
+
+Indeed, if two linear operators diagonalize in the same basis up to a low-rank error, their commutator is just low-rank. The details of the remaining part of the attack are circuit-specific, but the essence is that such commutators, specifically of the form $[T_{ab}, T_{ac}]$ have kernel spaces that are related to kernels of matrices $R_i^{34}$, which allows to eventually recover the hidden basis.
+
+The attack was implemented against our repeated-squaring challenge circuit by tekkac, successfully decrypting the challenge value.
+
+### Extent of the attack
+
+While this attack only works against specific class of circuits (sparse ones), practical circuits that we want to use typically *are* sparse. It is also worth mentioning that the original ADP (https://eprint.iacr.org/2020/889) is also subject to this attack.
+
+## The fix
+
+The natural solution, of course, is to, given a constraint system $\mathcal C$, produce a new constraint system $\widetilde{C}$ such that it is equivalent, yet any invalid witness candidate $w$ to this new constraint system breaks some large fraction of the gates (say, at least half).
+
+Apparently, there is no official name for such constraint systems (though the topic is definitely related to linear PCPs and gap problems in general); we call them “pufferfishes” because of a local brainrot meme.
+
+### R1CS example
+
+Now, imagine for a moment that we work with R1CS circuits. Then, the solution to this problem is well-known, it is just QAPs. To quickly remind you, given a constraint system of the form $a_i(w) b_i(w) = c_i(w)$, one picks $m$ points $z_1, …, z_m$ and constructs interpolation polynomials satisfying $A_i(z_j) = a_i^j$.
+
+Now, denote $A = \sum w_i A_i, B= \sum w_i B_i, C = \sum w_i C_i$. Then, the expression
+
+$A(t)B(t) - C(t)$ vanishes on the set $z_1, \ldots z_m$, which can be expressed as the following condition (called QAP, quadratic arithmetic program):
+
+$A(t)B(t) - C(t) = Z(t)H(t)$ where $Z(t) = \underset{i}\prod (t - z_i)$
+
+Now, it is easy to explain how to construct a new constraint system which is a pufferfish: let’s say that our new witness is $\widetilde{w} = (w | H)$ (so it has a total size $n+m-1$) and evaluate the QAP in $4m$ different points $\tau_1, \ldots, \tau_{4m}$.
+
+At each point, we will have an expression $A(\tau_j) B(\tau_j) = C(\tau_j) + Z(\tau_j) H(\tau_j)$, which is indeed a R1CS constraint on the extended witness. This is our new set of constraints
+
+Moreover, any invalid solution is automatically forced to break at least half of all constraints (assuming $m \geq n$), because the polynomial $AB - C - Z H$ has the degree $\leq 2m$ and is evaluated in $4m$ points.
+
+### Char 2 fix
+
+The problem, of course, is that we do not work with R1CS circuits! Our circuits are *projective*, and this is a strictly necessary requirement for anything resembling AADP to work. The QAP is linear in the coefficients of $H$, so we need to invent a version of QAP with $H$ replaced with some quadratic expression. It is, apparently, very easy to do in characteristic 2, because we can write:
+
+$A(t)B(t) - C^2(t) = Z(t) S^2(t^{1/2})$
+
+Indeed, for any polynomial $H(t) = \sum h_i t^i$ there is its *inverse Frobenius twist* - a polynomial with coefficients that are square roots of coefficients of $H$, i.e. $S(t) = \sum h_i^{1/2} t^i$. Because in characteristic 2 squaring is a homomorphism, we have
+
+$S^2(t^{1/2}) = (\sum h_i^{1/2} t^{i/2})^2 = \sum h_i t^i = H(t)$
+
+This works pretty much as well as R1CS.
+
+### Char p fix
+
+Situation for characteristic $p$ is much more complicated. There are few options, all quite bad and the only feasible one that we have found is to write:
+
+$H(t) = S(t^{1/2})S(-t^{1/2})$
+
+This can always be done over an algebraically closed field, but the interesting part is whether it can be done without leaving our field $\mathbb{F}$. Let’s rewrite this expression slightly.
+
+Split $S$ into the sum of odd and even parts: $S(u) = P(u^2) + u Q(u^2)$
+
+Then, we can rewrite:
+
+$H(t) = (P(t) + t^{1/2} Q(t))(P(t) - t^{1/2} Q(t)) = P^2(t) - t Q^2(t)$
+
+the existence of such $P$ and $Q$ is a well-known problem from number theory, and it is equivalent to $t$ being a square modulo $H(t)$.
+
+Let’s assume $H$ decomposes into a product of $d$ irreducible polynomials,
+
+$H(t) = H_1(t)\cdots H_d(t)$. 
+
+We can, of course, solve the problem for each of those separately - and the probability of success for each factor is $1/2$ (because $\mathbb{F}[t]/H_i(t)$ is a field, so half of the elements are squares and half are not).
+
+It can be shown that the probability of this happening in total is $\approx \frac{1}{\sqrt{\pi m}}$. So we can just regenerate the witness few times (using some free parameters deliberately injected into the circuit), and get such a witness that $H$ decomposes.
+
+## Cost of the mitigation and optimization tricks
+
+Purely from the ciphertext size perspective we
+
+1. Roughly double the amount of variables (we currently have $n \approx m$), so there is $2\times$ more matrices.
+2. Roughly triple the amount of gates (the commutator structure fully disappears at $\sim 3m$ points). This is another $9\times$.
+3. Need to use the gate matrix able to support the check of the form $ab - c^2 = ef$. We have obtained such 4x4 matrix, but without $\xi$-terms. Luckily, it turns out that $\xi$-terms are not necessary in the encoded construction.
+
+So naively, this increases the ciphertext $18\times$ times.
+
+There are some more aggressive tricks that could further offset this growth. Because we are in the QAP world already, it seems strange that we are telling the decryptor *in which points* do we evaluate our QAP - after all, it doesn’t really need this information! Then, it is plausible that the amount of points can be decreased - at least all known attacks do not really work if we query in just $m + O(\lambda)$ random hidden points. Under this optimistic regime, the fix would cost just $\sim2\times$.
+
+Another related optimization is the structured matrices approach that we initially invented pufferfishes for. This is a story for another day - as for now we need to clear the baseline and make sure that our main scheme is not leaking; but generally moving to pufferfishes seems to enable various optimizations all around.
