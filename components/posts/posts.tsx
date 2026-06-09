@@ -21,9 +21,9 @@ export const Posts = ({ data }: { data: ResearchType[] }) => {
     <div>
       <h2 className="text-2xl  mb-4 text-white">Writings</h2>
       <div className="flex flex-wrap gap-x-8 gap-y-0">
-        {data.map((researchData) => {
-          const research = researchData.node;
-          const date = new Date(research.date);
+        {data.map((postData) => {
+          const post = postData.node;
+          const date = new Date(post.date);
           let formattedDate = "";
           if (!isNaN(date.getTime())) {
             formattedDate = format(date, "M/d/yyyy");
@@ -31,18 +31,18 @@ export const Posts = ({ data }: { data: ResearchType[] }) => {
           return (
             <div className="md:w-[350px]  mb-8 last:mb-0 ">
               <Link
-                key={research._sys.filename}
-                href={`/posts/` + research._sys.filename}
+                key={post._sys.filename}
+                href={`/posts/` + post._sys.filename}
                 className="group md:h-[208px] dark:bg-[rgb(36,32,29)] flex flex-col px-6 sm:px-8 md:px-4 py-4  rounded-md shadow-sm transition-all duration-150 ease-out hover:shadow-md hover:to-gray-50 dark:hover:to-gray-800"
               >
                 <div className="flex items-center justify-between">
                   <img src="/logo-large.svg" alt="" className="w-8 h-8" />
                   <div className="flex items-center gap-1">
                     <div className="p-2 bg-[rgb(24,24,24)] text-white text-xs leading-tight">
-                      {research.author?.name}
+                      {post.author?.name}
                     </div>
                     <div className="uppercase p-2 text-xs leading-tight bg-[rgb(57,46,30)] text-yellow">
-                      {research.type}
+                      {post.type}
                     </div>
                   </div>
                 </div>
@@ -51,9 +51,9 @@ export const Posts = ({ data }: { data: ResearchType[] }) => {
                     titleColorClasses[theme.color]
                   }`}
                 >
-                  {research.title}{" "}
+                  {post.title}{" "}
                 </h3>
-                <p className="text-gray-500 text-sm ">{research.subtitle}</p>
+                <p className="text-gray-500 text-sm ">{post.subtitle}</p>
               </Link>
               {formattedDate !== "" && (
                 <div className="mt-2 flex items-center w-full gap-2">
