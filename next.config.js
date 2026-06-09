@@ -20,21 +20,21 @@ module.exports = {
       }
     ];
   },
-  async redirects() {
+  // async redirects() {
 
-    return [
+    // return [
 
-      {
+      // {
 
-        source: "/posts/challenges",
+        // source: "/posts/challenges",
 
-        destination: "https://allocinit.notion.site/challenges",
+        // destination: "https://allocinit.notion.site/challenges",
 
-        permanent: true,
+        // permanent: true,
 
-      },
+      // },
 
-    ];
+    // ];
 
-  },
+  // },
 };
