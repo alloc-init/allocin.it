@@ -9,7 +9,7 @@ date: 2026-06-09T10:46:56.245Z
 
 Few days ago, we have learned that our novel Witness Encryption scheme (https://eprint.iacr.org/2026/175) is not secure. The break is particularly severe - it affects not only our modifications but also the original ADP construction , and renders it unusable for sparse circuits.
 
-By a lucky coincidence (an optimization of the related scheme), we had worked on a generic transform that turns any projective circuit into a non-sparse one - though at that time, we only had the required modification available in characteristic 2. We have concentrated our efforts on extending the transform to characteristic $p$, too, and I am happy to share the results here.
+Fortunately, we determined a patch that plausibly fixes the scheme and restores security. By a lucky coincidence (an optimization of the related scheme), we had worked on a generic transform that turns any projective circuit into a non-sparse one - though at that time, we only had the required modification available in characteristic 2. We have concentrated our efforts on extending the transform to characteristic $p$, too, and I am happy to share the results here.
 
 ## What are (A)ADPs
 
@@ -137,7 +137,7 @@ We can, of course, solve the problem for each of those separately - and the prob
 
 It can be shown that the probability of this happening in total is $\approx \frac{1}{\sqrt{\pi m}}$. So we can just regenerate the witness few times (using some free parameters deliberately injected into the circuit), and get such a witness that $H$ decomposes.
 
-## Cost of the mitigation and optimization tricks
+## Mitigation Cost and Optimization Tricks
 
 Purely from the ciphertext size perspective we
 
