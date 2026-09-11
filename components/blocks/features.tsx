@@ -61,6 +61,14 @@ export const Features = ({ data }: { data: PageBlocksFeatures }) => {
     <Section color={data.color}>
       <Container className={`flex text-white`} size="large">
         <div className="flex flex-col">
+          {data.introduction?.trim() && (
+            <p
+              data-tina-field={tinaField(data, "introduction")}
+              className="mb-8 max-w-3xl whitespace-pre-line text-base leading-relaxed opacity-80"
+            >
+              {data.introduction}
+            </p>
+          )}
           <div className="flex md:items-center flex-col md:flex-row gap-4 justify-between mb-8">
             {/*<h2 className="text-3xl  title-font">Simulation Will Be Orange</h2>*/}
             <Link
@@ -104,6 +112,15 @@ export const featureBlockSchema = {
     }
   },
   fields: [
+    {
+      type: "string",
+      label: "Introduction",
+      name: "introduction",
+      description: "Optional text above the three columns. Leave empty to hide it.",
+      ui: {
+        component: "textarea"
+      }
+    },
     {
       type: "object",
       label: "Feature Items",
