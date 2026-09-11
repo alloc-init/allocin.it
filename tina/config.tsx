@@ -5,6 +5,7 @@ import Global from "./collection/global";
 import Author from "./collection/author";
 import Page from "./collection/page";
 import Research from "./collection/research";
+import MediaCard from "./collection/media-card";
 
 const config = defineConfig({
   clientId: process.env.NEXT_PUBLIC_TINA_CLIENT_ID!,
@@ -30,7 +31,7 @@ const config = defineConfig({
     outputFolder: "admin", // within the public folder
   },
   schema: {
-    collections: [Post, Global, Author, Page, Research],
+    collections: [Post, Global, Author, Page, Research, MediaCard],
   },
 });
 

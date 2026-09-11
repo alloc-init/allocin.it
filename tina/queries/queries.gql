@@ -19,6 +19,7 @@ fragment ContentBlockParts on PageBlocksContent {
 # (Optional) other block fragments
 fragment FeaturesBlockParts on PageBlocksFeatures {
     color
+    introduction
     items {
         icon {
             name
@@ -27,6 +28,24 @@ fragment FeaturesBlockParts on PageBlocksFeatures {
         }
         title
         text
+    }
+}
+
+query mediaCardsQuery($after: String) {
+    mediaCardConnection(first: 100, after: $after, sort: "order") {
+        edges {
+            node {
+                id
+                title
+                image
+                url
+                order
+            }
+        }
+        pageInfo {
+            hasNextPage
+            endCursor
+        }
     }
 }
 
