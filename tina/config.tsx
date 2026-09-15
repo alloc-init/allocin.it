@@ -7,12 +7,22 @@ import Page from "./collection/page";
 import Research from "./collection/research";
 import MediaCard from "./collection/media-card";
 
+const isVercelPreview = process.env.NEXT_PUBLIC_VERCEL_ENV === "preview";
+const branch = isVercelPreview
+  ? process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_REF
+  : process.env.NEXT_PUBLIC_TINA_BRANCH ||
+    process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_REF ||
+    process.env.HEAD;
+
+if (isVercelPreview && !branch) {
+  throw new Error(
+    "Tina requires NEXT_PUBLIC_VERCEL_GIT_COMMIT_REF in Vercel Preview. Enable system environment variables in your Vercel project settings."
+  );
+}
+
 const config = defineConfig({
   clientId: process.env.NEXT_PUBLIC_TINA_CLIENT_ID!,
-  branch:
-    process.env.NEXT_PUBLIC_TINA_BRANCH! || // custom branch env override
-    process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_REF! || // Vercel branch env
-    process.env.HEAD!, // Netlify branch env
+  branch,
   token: process.env.TINA_TOKEN!,
   media: {
     // If you wanted cloudinary do this
