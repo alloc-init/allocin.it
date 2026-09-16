@@ -37,13 +37,11 @@ const sectionIds = (items: PageBlocksFeaturesItems[]) => {
 export const Feature = ({
   featuresColor,
   data,
-  id,
-  index
+  id
 }: {
   featuresColor: string;
   data: PageBlocksFeaturesItems;
   id: string;
-  index: number;
 }) => {
   return (
     <article
@@ -53,10 +51,6 @@ export const Feature = ({
       className={styles.feature}
     >
       <div className={styles.heading}>
-        <div className={styles.sectionMarker} aria-hidden="true">
-          <span className={styles.number}>{String(index + 1).padStart(2, "0")}</span>
-          <span className={styles.markerLine} />
-        </div>
         {data.icon?.name?.trim() && (
           <Icon
             tinaField={tinaField(data, "icon")}
@@ -122,49 +116,35 @@ export const Features = ({ data }: { data: PageBlocksFeatures }) => {
           </div>
         </div>
         <div id="protocols" className={styles.protocols}>
-        {data.introduction?.trim() && (
-          <div className={styles.overview}>
-            <h1 className={styles.overviewTitle}>Overview</h1>
-            <div
-              data-tina-field={tinaField(data, "introduction")}
-              className={styles.introduction}
-            >
-              {data.introduction.trim().split(/\n\s*\n/).map((paragraph, paragraphIndex) => (
-                <p key={paragraphIndex}>
-                  {paragraph.split(/(\[\[alloc\] init\])/g).map((part, index) =>
-                    part === "[[alloc] init]" ? (
-                      <strong key={index} className={styles.brand}>{part}</strong>
-                    ) : part
-                  )}
-                </p>
-              ))}
+          {data.introduction?.trim() && (
+            <div className={styles.overview}>
+              <h1 className={styles.overviewTitle}>Overview</h1>
+              <div
+                data-tina-field={tinaField(data, "introduction")}
+                className={styles.introduction}
+              >
+                {data.introduction.trim().split(/\n\s*\n/).map((paragraph, paragraphIndex) => (
+                  <p key={paragraphIndex}>
+                    {paragraph.split(/(\[\[alloc\] init\])/g).map((part, index) =>
+                      part === "[[alloc] init]" ? (
+                        <strong key={index} className={styles.brand}>{part}</strong>
+                      ) : part
+                    )}
+                  </p>
+                ))}
+              </div>
             </div>
-          </div>
-        )}
-        {items.length > 0 && (
-          <nav className={styles.navigation} aria-label="Explore our work">
+          )}
+          <div className={styles.columns}>
             {items.map((item, index) => (
-              <a key={ids[index]} href={`#${ids[index]}`} className={styles.jumpLink}>
-                <span className={styles.jumpNumber} aria-hidden="true">
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-                <span data-tina-field={tinaField(item, "title")}>
-                  {item.title || `Section ${index + 1}`}
-                </span>
-                <span className={styles.jumpArrow} aria-hidden="true">↓</span>
-              </a>
+              <Feature
+                key={ids[index]}
+                id={ids[index]}
+                featuresColor={data.color}
+                data={item}
+              />
             ))}
-          </nav>
-        )}
-        {items.map((item, index) => (
-          <Feature
-            key={ids[index]}
-            id={ids[index]}
-            index={index}
-            featuresColor={data.color}
-            data={item}
-          />
-        ))}
+          </div>
         </div>
       </div>
     </section>
