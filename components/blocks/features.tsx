@@ -72,7 +72,7 @@ export const Features = ({ data }: { data: PageBlocksFeatures }) => {
           <div className="flex md:items-center flex-col md:flex-row gap-4 justify-between mb-8">
             {/*<h2 className="text-3xl  title-font">Simulation Will Be Orange</h2>*/}
             <Link
-              href="posts"
+              href="/research"
               className="p-4 bg-[rgb(57,46,30)] text-[#dad085] w-[200px]"
             >
               Read Our Research →

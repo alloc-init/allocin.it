@@ -37,7 +37,10 @@ query mediaCardsQuery($after: String) {
             node {
                 id
                 title
+                category
                 image
+                publisher
+                description
                 url
                 order
             }

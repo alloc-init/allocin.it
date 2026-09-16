@@ -46,7 +46,7 @@ blocks:
       - research: content/research/Bitcoin-PIPEs-v2.mdx
       - research: content/research/AADP-WE.mdx
       - research: content/research/Bitcoin-PIPEs.mdx
-    viewAllLink: /posts
+    viewAllLink: /research
     color: default
     _template: featured_research
   - careerCta:

@@ -19,7 +19,7 @@ export const Posts = ({ data }: { data: ResearchType[] }) => {
 
   return (
     <div>
-      <h2 className="text-2xl  mb-4 text-white">Writings</h2>
+      <h2 className="text-2xl  mb-4 text-white">Blogs</h2>
       <div className="flex flex-wrap gap-x-8 gap-y-0">
         {data.map((postData) => {
           const post = postData.node;

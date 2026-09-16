@@ -5,71 +5,49 @@ import type { MediaCardsQueryQuery } from "../../tina/__generated__/types";
 export type MediaCard =
   MediaCardsQueryQuery["mediaCardConnection"]["edges"][number]["node"];
 
+const categories = [
+  { id: "media", label: "Media" },
+  { id: "podcast", label: "Podcast" },
+  { id: "news", label: "News" },
+];
+
 export const Content = ({ data }: { data: MediaCard[] }) => {
   if (!data.length) return null;
 
   return (
-    <section aria-labelledby="content-heading">
-      <h2 id="content-heading" className="mb-4 text-2xl text-white">
-        Content
-      </h2>
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-        {data.map((item) => {
-          const isYouTube = /^https?:\/\/(?:www\.)?(?:youtube\.com|youtu\.be)\//i.test(
-            item.url
-          );
-
-          return (
-            <Link
-              href={item.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group flex min-w-0 flex-col overflow-hidden rounded-lg border-[1px] border-[#393029] bg-[#24201d] transition-colors hover:border-yellow focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-yellow"
-              key={item.id}
-            >
-              <div className="relative aspect-video overflow-hidden bg-[#191512]">
-                <img
-                  src={item.image}
-                  alt=""
-                  loading="lazy"
-                  decoding="async"
-                  className={`h-full w-full ${isYouTube ? "object-cover" : "object-contain"}`}
-                />
-                {isYouTube && (
-                  <span className="absolute bottom-3 right-3 flex h-10 w-10 items-center justify-center rounded-full bg-black/80 text-white transition-colors group-hover:bg-yellow group-hover:text-black">
-                    <svg
-                      aria-hidden="true"
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                      className="h-5 w-5"
-                    >
-                      <path d="M8 5v14l11-7z" />
-                    </svg>
-                  </span>
+    <div id="content-heading">
+      {categories.map(({ id, label }) => (
+        <div key={id} id={id} className="mb-12">
+          <h2 className="text-2xl  mb-4 text-white">{label}</h2>
+          <div className="flex flex-wrap gap-x-8 gap-y-0">
+            {data.filter((item) => (item.category || "media") === id).map((item) => (
+              <Link
+                href={item.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`group flex flex-col gap-2 ${id === "media" ? "w-full sm:w-[calc(50%_-_1rem)]" : "w-[208px]"}`}
+                key={item.id}
+              >
+                {item.image && (
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    className={id === "media" ? "w-full h-auto" : "w-[208px] h-[208px] object-cover"}
+                  />
                 )}
-              </div>
-              <div className="flex flex-1 flex-col gap-5 p-5">
-                <h3 className="text-lg font-medium leading-snug text-white">
-                  {item.title}
-                </h3>
-                <span className="mt-auto flex items-center justify-between gap-3 text-xs text-yellow">
-                  {isYouTube ? "Watch on YouTube" : "Open resource"}
-                  <svg
-                    aria-hidden="true"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    className="h-5 w-5 shrink-0"
-                  >
-                    <path d="M6 18 18 6M6 6h12v12" />
-                  </svg>
-                </span>
-              </div>
-            </Link>
-          );
-        })}
-      </div>
-    </section>
+                <div className="mt-2 flex items-center w-full gap-2">
+                  <p className="text-sm text-gray-600 group-hover:text-gray-500 dark:text-gray-600 dark:group-hover:text-gray-150">
+                    {item.title}
+                  </p>
+                  <div className="flex-1 border-t-[1px] border-gray-600 dark:border-gray-700"></div>
+                </div>
+                {item.publisher && <p className="text-sm text-gray-600">{item.publisher}</p>}
+                {item.description && <p className="text-sm text-gray-600">{item.description}</p>}
+              </Link>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
   );
 };
