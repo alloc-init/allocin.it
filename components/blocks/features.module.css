@@ -67,6 +67,10 @@
   scroll-margin-top: 16px;
 }
 
+.protocols:focus {
+  outline: none;
+}
+
 .overview {
   margin-bottom: 32px;
 }
