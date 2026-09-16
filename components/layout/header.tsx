@@ -85,7 +85,7 @@ export const Header = ({ data }: { data: GlobalHeader }) => {
                 />
               </picture>
             </Link>
-          </h4>
+          </div>
           <ul className="flex items-center gap-6 sm:gap-8 lg:gap-10 tracking-[.002em] -mx-4">
             {data.nav &&
               data.nav.map((item, i) => {

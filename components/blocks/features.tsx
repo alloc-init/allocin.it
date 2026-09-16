@@ -7,6 +7,8 @@ import type {
 import { tinaField } from "tinacms/dist/react";
 import { TinaMarkdown } from "tinacms/dist/rich-text";
 import Link from "next/link";
+import { Children } from "react";
+import ReactMarkdown from "react-markdown";
 import styles from "./features.module.css";
 
 const sectionIds = (items: PageBlocksFeaturesItems[]) => {
@@ -72,7 +74,7 @@ export const Feature = ({
       {data.text && (
         <div
           data-tina-field={tinaField(data, "text")}
-          className={`${styles.body} text-base opacity-80 leading-relaxed prose dark:prose-dark max-w-none`}
+          className={`${styles.body} ${data.title === "Bitcoin PIPEs" || data.title === "Programmable Vaults" ? styles.highlightLead : ""} text-base opacity-80 leading-relaxed prose dark:prose-dark max-w-none`}
         >
           <TinaMarkdown content={data.text} />
         </div>
@@ -86,36 +88,35 @@ export const Features = ({ data }: { data: PageBlocksFeatures }) => {
   const ids = sectionIds(items);
 
   return (
-    <Section color={data.color}>
-      <Container className={`flex text-white`} size="large">
-        <div className="flex flex-col">
-          {data.introduction?.trim() && (
-            <p
-              data-tina-field={tinaField(data, "introduction")}
-              className="mb-8 max-w-3xl whitespace-pre-line text-base leading-relaxed opacity-80"
-            >
-              {data.introduction}
-            </p>
-          )}
-          <div className="flex md:items-center flex-col md:flex-row gap-4 justify-between mb-8">
-            {/*<h2 className="text-3xl  title-font">Simulation Will Be Orange</h2>*/}
-            <Link
-              href="/research"
-              className="p-4 bg-[rgb(57,46,30)] text-[#dad085] w-[200px]"
-            >
-              Read Our Research →
-            </Link>
-          </div>
-          <div className="flex flex-wrap gap-x-10 gap-y-8 text-left">
-            {data.items &&
-              data.items.map(function(block, i) {
-                return (
-                  <Feature featuresColor={data.color} key={i} data={block} />
-                );
-              })}
-          </div>
+    <section className={styles.section}>
+      <div className={styles.container}>
+        <div className={styles.actions}>
+          <Link href="/research" className={styles.action}>
+            Read Our Research →
+          </Link>
+          <a
+            href="#protocols"
+            className={styles.scrollIndicator}
+            aria-label="Scroll down to explore our protocols"
+            onClick={(event) => {
+              const protocols = document.getElementById("protocols");
+              if (!protocols) return;
+              event.preventDefault();
+              protocols.focus({ preventScroll: true });
+              protocols.scrollIntoView({
+                behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+                  ? "auto"
+                  : "smooth",
+                block: "start"
+              });
+            }}
+          >
+            <svg width="24" height="32" viewBox="0 0 24 32" fill="none" aria-hidden="true">
+              <path d="M12 4v24m-8-8 8 8 8-8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </a>
         </div>
-        <div id="protocols" className={styles.protocols}>
+        <div id="protocols" className={styles.protocols} tabIndex={-1}>
           {data.introduction?.trim() && (
             <div className={styles.overview}>
               <h1 className={styles.overviewTitle}>Overview</h1>
@@ -123,19 +124,28 @@ export const Features = ({ data }: { data: PageBlocksFeatures }) => {
                 data-tina-field={tinaField(data, "introduction")}
                 className={styles.introduction}
               >
-                {data.introduction.trim().split(/\n\s*\n/).map((paragraph, paragraphIndex) => (
-                  <p key={paragraphIndex}>
-                    {paragraph.split(/(\[\[alloc\] init\])/g).map((part, index) =>
-                      part === "[[alloc] init]" ? (
-                        <strong key={index} className={styles.brand}>{part}</strong>
-                      ) : part
-                    )}
-                  </p>
-                ))}
+                <ReactMarkdown
+                  components={{
+                    strong: ({ children }) => (
+                      <strong>
+                        {Children.map(children, (child) => typeof child === "string"
+                          ? child.split(/(\[\[alloc\] init\])/g).map((part, index) =>
+                              part === "[[alloc] init]"
+                                ? <span key={index} className={styles.brand}>{part}</span>
+                                : part
+                            )
+                          : child
+                        )}
+                      </strong>
+                    )
+                  }}
+                >
+                  {data.introduction}
+                </ReactMarkdown>
               </div>
             </div>
           )}
-          <div className={styles.columns}>
+          <div className={styles.protocolList}>
             {items.map((item, index) => (
               <Feature
                 key={ids[index]}
