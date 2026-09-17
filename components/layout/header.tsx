@@ -110,7 +110,7 @@ export const Header = ({ data }: { data: GlobalHeader }) => {
               />
             </Link>
           </h4>
-          <ul className="flex items-center gap-1 sm:gap-8 lg:gap-10 tracking-[.002em] -mx-4">
+          <ul className="flex items-center gap-6 sm:gap-8 lg:gap-10 tracking-[.002em] -mx-4">
             {data.nav &&
               data.nav.map((item, i) => {
                 const activeItem =

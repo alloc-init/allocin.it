@@ -9,19 +9,19 @@
     "nav": [
       {
         "href": "/",
-        "label": "Home"
+        "label": "HOME"
       },
       {
         "href": "/research",
-        "label": "Research"
+        "label": "RESEARCH"
       },
       {
         "href": "/writings",
-        "label": "Writings"
+        "label": "WRITINGS"
       },
       {
         "href": "/content",
-        "label": "Content"
+        "label": "CONTENT"
       }
     ],
     "social": {

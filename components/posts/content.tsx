@@ -64,7 +64,7 @@ const MediaCards = ({ data }: { data: MediaCard[] }) => (
           </div>}
           <div className="flex flex-1 flex-col gap-5 p-5">
             {item.publisher && <p className="text-xs text-gray-400">{item.publisher}</p>}
-            <h3 className="text-lg font-medium leading-snug text-white">
+            <h3 className="text-sm font-medium leading-snug text-white">
               {item.title}
             </h3>
             {item.description && <p className="text-sm leading-relaxed text-gray-300">{item.description}</p>}
