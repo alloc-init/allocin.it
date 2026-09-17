@@ -12,12 +12,16 @@
         "label": "HOME"
       },
       {
-        "href": "posts",
-        "label": "RESOURCES"
+        "href": "/research",
+        "label": "RESEARCH"
       },
       {
-        "href": "https://allocinit.notion.site/Careers-19136974087f802392fbedbfd1ebca2b?pvs=4",
-        "label": "CAREERS"
+        "href": "/writings",
+        "label": "WRITINGS"
+      },
+      {
+        "href": "/content",
+        "label": "CONTENT"
       }
     ],
     "social": {

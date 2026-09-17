@@ -2,5 +2,6 @@
   "title": "OP_NEXT Keynote",
   "image": "/uploads/keynote.png",
   "url": "https://blockspace.media/podcast/bitcoin-pipes-with-misha-komarov/",
-  "order": 2
+  "order": 8,
+  "category": "podcast"
 }

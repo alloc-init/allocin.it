@@ -19,7 +19,7 @@ export const Papers = ({ data }: { data: ResearchType[] }) => {
 
   return (
     <div className="mb-12">
-      <h2 className="text-2xl  mb-4 text-white">Research</h2>
+      <h2 className="text-2xl  mb-4 text-white">Our papers</h2>
       <div className="flex flex-wrap gap-x-8 gap-y-0">
         {data.map((researchData) => {
           const research = researchData.node;
