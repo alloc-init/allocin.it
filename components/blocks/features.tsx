@@ -10,6 +10,7 @@ import Link from "next/link";
 import { Children } from "react";
 import ReactMarkdown from "react-markdown";
 import styles from "./features.module.css";
+import { ProtocolExplorer } from "./protocol-explorer";
 
 const sectionIds = (items: PageBlocksFeaturesItems[]) => {
   const slugs = items.map((item) =>
@@ -145,16 +146,20 @@ export const Features = ({ data }: { data: PageBlocksFeatures }) => {
               </div>
             </div>
           )}
-          <div className={styles.protocolList}>
-            {items.map((item, index) => (
-              <Feature
-                key={ids[index]}
-                id={ids[index]}
-                featuresColor={data.color}
-                data={item}
-              />
-            ))}
-          </div>
+          {data.diagramSummary?.trim() ? (
+            <ProtocolExplorer data={data} />
+          ) : (
+            <div className={styles.protocolList}>
+              {items.map((item, index) => (
+                <Feature
+                  key={ids[index]}
+                  id={ids[index]}
+                  featuresColor={data.color}
+                  data={item}
+                />
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </section>
@@ -185,10 +190,17 @@ export const featureBlockSchema = {
       type: "string",
       label: "Introduction",
       name: "introduction",
-      description: "Optional text above the three columns. Leave empty to hide it.",
+      description: "Optional text above the concepts. Leave empty to hide it.",
       ui: {
         component: "textarea"
       }
+    },
+    {
+      type: "string",
+      label: "Diagram overview",
+      name: "diagramSummary",
+      description: "Explain how the concepts connect. Adding this switches the list to an interactive diagram.",
+      ui: { component: "textarea" }
     },
     {
       type: "object",
@@ -211,6 +223,31 @@ export const featureBlockSchema = {
           type: "string",
           label: "Title",
           name: "title"
+        },
+        {
+          type: "string",
+          label: "Role",
+          name: "role",
+          description: "Short label shown in the diagram, e.g. Cryptographic primitive."
+        },
+        {
+          type: "string",
+          label: "Short description",
+          name: "summary",
+          description: "Shown when this concept is selected. The full text remains under Read more.",
+          ui: { component: "textarea" }
+        },
+        {
+          type: "string",
+          label: "Whitepaper URL",
+          name: "paperUrl",
+          description: "Link below the short description. Leave empty to show Whitepaper — coming soon."
+        },
+        {
+          type: "string",
+          label: "Connection to the next concept",
+          name: "connection",
+          description: "Label for the arrow to the next item. Not shown for the last item."
         },
         {
           type: "rich-text",
