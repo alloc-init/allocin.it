@@ -1,93 +1,13 @@
-import { Icon } from "../utilities/icon";
 import { iconSchema } from "../utilities/icon";
-import type {
-  PageBlocksFeatures,
-  PageBlocksFeaturesItems
-} from "../../tina/__generated__/types";
+import type { PageBlocksFeatures } from "../../tina/__generated__/types";
 import { tinaField } from "tinacms/dist/react";
-import { TinaMarkdown } from "tinacms/dist/rich-text";
 import Link from "next/link";
 import { Children } from "react";
 import ReactMarkdown from "react-markdown";
 import styles from "./features.module.css";
 import { ProtocolExplorer } from "./protocol-explorer";
 
-const sectionIds = (items: PageBlocksFeaturesItems[]) => {
-  const slugs = items.map((item) =>
-    (item.title || "section")
-      .normalize("NFKD")
-      .replace(/[\u0300-\u036f]/g, "")
-      .toLowerCase()
-      .replace(/[^\p{L}\p{N}]+/gu, "-")
-      .replace(/^-|-$/g, "") || "section"
-  );
-  const used = new Set<string>();
-
-  return slugs.map((slug, index) => {
-    const duplicate = slugs.indexOf(slug) !== slugs.lastIndexOf(slug);
-    let id = duplicate ? `${slug}-${index + 1}` : slug;
-    let suffix = 1;
-
-    while (used.has(id)) {
-      id = `${slug}-${index + 1}-${suffix++}`;
-    }
-
-    used.add(id);
-    return id;
-  });
-};
-
-export const Feature = ({
-  featuresColor,
-  data,
-  id
-}: {
-  featuresColor: string;
-  data: PageBlocksFeaturesItems;
-  id: string;
-}) => {
-  return (
-    <article
-      id={id}
-      aria-labelledby={data.title ? `${id}-title` : undefined}
-      data-tina-field={tinaField(data)}
-      className={styles.feature}
-    >
-      <div className={styles.heading}>
-        {data.icon?.name?.trim() && (
-          <Icon
-            tinaField={tinaField(data, "icon")}
-            parentColor={featuresColor}
-            data={{ size: "large", ...data.icon }}
-            className={styles.icon}
-          />
-        )}
-        {data.title && (
-          <h2
-            id={`${id}-title`}
-            data-tina-field={tinaField(data, "title")}
-            className={`${styles.title} text-sm opacity-50 title-font`}
-          >
-            {data.title}
-          </h2>
-        )}
-      </div>
-      {data.text && (
-        <div
-          data-tina-field={tinaField(data, "text")}
-          className={`${styles.body} ${data.title === "Bitcoin PIPEs" || data.title === "Programmable Vaults" ? styles.highlightLead : ""} text-base opacity-80 leading-relaxed prose dark:prose-dark max-w-none`}
-        >
-          <TinaMarkdown content={data.text} />
-        </div>
-      )}
-    </article>
-  );
-};
-
 export const Features = ({ data }: { data: PageBlocksFeatures }) => {
-  const items = (data.items || []).filter(Boolean);
-  const ids = sectionIds(items);
-
   return (
     <section className={styles.section}>
       <div className={styles.container}>
@@ -146,20 +66,7 @@ export const Features = ({ data }: { data: PageBlocksFeatures }) => {
               </div>
             </div>
           )}
-          {data.diagramSummary?.trim() ? (
-            <ProtocolExplorer data={data} />
-          ) : (
-            <div className={styles.protocolList}>
-              {items.map((item, index) => (
-                <Feature
-                  key={ids[index]}
-                  id={ids[index]}
-                  featuresColor={data.color}
-                  data={item}
-                />
-              ))}
-            </div>
-          )}
+          <ProtocolExplorer data={data} />
         </div>
       </div>
     </section>
@@ -199,7 +106,7 @@ export const featureBlockSchema = {
       type: "string",
       label: "Diagram overview",
       name: "diagramSummary",
-      description: "Explain how the concepts connect. Adding this switches the list to an interactive diagram.",
+      description: "Explain how the concepts connect in the interactive diagram.",
       ui: { component: "textarea" }
     },
     {

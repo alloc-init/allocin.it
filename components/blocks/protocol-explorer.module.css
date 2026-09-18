@@ -52,11 +52,6 @@
   list-style: none;
 }
 
-.node {
-  position: relative;
-  min-width: 0;
-}
-
 .nodeButton {
   position: relative;
   display: grid;
@@ -217,10 +212,6 @@
   font-size: 1.125rem;
   line-height: 1.625;
   overflow-wrap: break-word;
-}
-
-.summary + .summary {
-  margin-top: 16px;
 }
 
 .paper {

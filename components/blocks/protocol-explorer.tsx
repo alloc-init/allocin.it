@@ -52,7 +52,7 @@ export const ProtocolExplorer = ({ data }: { data: PageBlocksFeatures }) => {
         </div>
         <ol className={styles.nodes} aria-label="How our concepts connect">
           {items.map((item, index) => (
-            <li key={index} className={styles.node}>
+            <li key={index}>
               <button type="button" className={styles.nodeButton}
                 aria-pressed={activeIndex === index} aria-controls={panelId}
                 onClick={() => selectConcept(index)}>
