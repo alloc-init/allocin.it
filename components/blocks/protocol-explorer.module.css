@@ -43,7 +43,7 @@
 .overviewButton:hover,
 .overviewButton[aria-pressed="true"] {
   border-color: currentColor;
-  color: #e9c062;
+  color: var(--protocol-accent, #e9c062);
 }
 
 .nodes {
@@ -106,16 +106,16 @@
 .nodeButton[aria-pressed="true"] {
   border-color: rgb(233 192 98 / 45%);
   background: rgb(233 192 98 / 6%);
-  color: #e9c062;
+  color: var(--protocol-accent, #e9c062);
 }
 
 .nodeButton[aria-pressed="true"]::before,
 .nodeButton[aria-pressed="true"]::after {
-  color: #e9c062;
+  color: var(--protocol-accent, #e9c062);
 }
 
 .nodeNumber {
-  color: #e9c062;
+  color: var(--protocol-accent, #e9c062);
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   font-size: 0.875rem;
   line-height: 1.5;
@@ -148,7 +148,7 @@
 }
 
 .nodeButton[aria-pressed="true"] .nodeArrow {
-  color: #e9c062;
+  color: var(--protocol-accent, #e9c062);
 }
 
 .connector {
@@ -182,7 +182,7 @@
 }
 
 .foundation strong {
-  color: #e9c062;
+  color: var(--protocol-accent, #e9c062);
   font-weight: 600;
 }
 
@@ -230,7 +230,7 @@
 }
 
 .paperLink {
-  color: #e9c062;
+  color: var(--protocol-accent, #e9c062);
   text-underline-offset: 4px;
 }
 
@@ -274,8 +274,8 @@
 }
 
 .arrowButton:hover:not(:disabled) {
-  border-color: #e9c062;
-  color: #e9c062;
+  border-color: var(--protocol-accent, #e9c062);
+  color: var(--protocol-accent, #e9c062);
 }
 
 .arrowButton:disabled {
@@ -288,44 +288,9 @@
 .nodeButton:focus-visible,
 .arrowButton:focus-visible,
 .paperLink:focus-visible,
-.disclosure > summary:focus-visible,
 .detailsBody a:focus-visible {
-  outline: 2px solid #e9c062;
+  outline: 2px solid var(--protocol-accent, #e9c062);
   outline-offset: 4px;
-}
-
-.disclosure {
-  margin-top: 24px;
-  padding-top: 16px;
-  border-top: 1px solid rgb(245 242 241 / 14%);
-}
-
-.disclosure > summary {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  padding: 4px 0;
-  color: #e9c062;
-  font-size: 1rem;
-  line-height: 1.5;
-  list-style: none;
-  cursor: pointer;
-}
-
-.disclosure > summary::-webkit-details-marker {
-  display: none;
-}
-
-.disclosure > summary::after {
-  flex-shrink: 0;
-  content: "+";
-  font-size: 1.25rem;
-  line-height: 1;
-}
-
-.disclosure[open] > summary::after {
-  content: "−";
 }
 
 .detailsBody {
@@ -333,10 +298,6 @@
   font-size: 1.125rem;
   line-height: 1.625;
   overflow-wrap: break-word;
-}
-
-.disclosure .detailsBody {
-  padding-top: 20px;
 }
 
 .detailsBody p {
@@ -353,11 +314,11 @@
 }
 
 .detailsBody.highlightLead p:first-child strong:first-child {
-  color: #e9c062;
+  color: var(--protocol-accent, #e9c062);
 }
 
 .detailsBody a {
-  color: #e9c062;
+  color: var(--protocol-accent, #e9c062);
   text-decoration: underline;
   text-underline-offset: 4px;
 }

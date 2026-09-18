@@ -20,9 +20,8 @@ export const ProtocolExplorer = ({ data }: { data: PageBlocksFeatures }) => {
   const panelId = useId();
   const activeIndex = selected < items.length ? selected : -1;
   const active = items[activeIndex];
-  const hasSummary = Boolean(active?.summary?.trim());
   const highlightLead = active?.title === "Bitcoin PIPEs" || active?.title === "Programmable Vaults";
-  const fullText = active?.text && (
+  const fullText = active?.text?.children?.length > 0 && (
     <div className={`${styles.detailsBody} ${highlightLead ? styles.highlightLead : ""} prose dark:prose-dark max-w-none`}
       data-tina-field={tinaField(active, "text")}>
       <TinaMarkdown content={active.text} />
@@ -86,11 +85,11 @@ export const ProtocolExplorer = ({ data }: { data: PageBlocksFeatures }) => {
           <h2 className={styles.panelTitle} data-tina-field={active ? tinaField(active, "title") : undefined}>
             {active?.title || "How it fits together"}
           </h2>
-          {active && !hasSummary ? fullText : <p className={styles.summary}
+          {fullText || <p className={styles.summary}
             data-tina-field={active ? tinaField(active, "summary") : tinaField(data, "diagramSummary")}>
             {active ? active.summary : data.diagramSummary}
           </p>}
-          {active && hasSummary && (
+          {active && (
             <div className={styles.paper} data-tina-field={tinaField(active, "paperUrl")}>
               {active.paperUrl?.trim() ? (
                 <a className={styles.paperLink} href={active.paperUrl}>Read the whitepaper →</a>
@@ -111,12 +110,6 @@ export const ProtocolExplorer = ({ data }: { data: PageBlocksFeatures }) => {
           </button>
           <span className={styles.counter}>{active ? `${String(activeIndex + 1).padStart(2, "0")} / ${String(items.length).padStart(2, "0")}` : "Overview"}</span>
         </div>
-        {fullText && hasSummary && (
-          <details key={activeIndex} className={styles.disclosure}>
-            <summary>Read more<span className="sr-only"> about {active.title}</span></summary>
-            {fullText}
-          </details>
-        )}
       </div>
     </div>
   );

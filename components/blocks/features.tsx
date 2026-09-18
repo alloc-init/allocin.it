@@ -234,14 +234,14 @@ export const featureBlockSchema = {
           type: "string",
           label: "Short description",
           name: "summary",
-          description: "Shown when this concept is selected. The full text remains under Read more.",
+          description: "Fallback description, shown if the full Text field is empty.",
           ui: { component: "textarea" }
         },
         {
           type: "string",
           label: "Whitepaper URL",
           name: "paperUrl",
-          description: "Link below the short description. Leave empty to show Whitepaper — coming soon."
+          description: "Link below the concept text. Leave empty to show Whitepaper — coming soon."
         },
         {
           type: "string",
