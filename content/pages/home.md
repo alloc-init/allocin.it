@@ -11,7 +11,7 @@ blocks:
   - introduction: |-
       **[[alloc] init] develops cryptographic protocols for Bitcoin.** Our primitives and metaprotocols expand what can be built on Bitcoin without changing consensus.
 
-      We're currently building **Shielded Bitcoin**, a non-custodial metaprotocol, bringing privacy to the Bitcoin L1. It brings financial privacy to Bitcoin without requiring users to entrust their funds to another chain, custodian or operator set.
+      We're currently building **Shielded Bitcoin**, a non-custodial metaprotocol for private transfers on Bitcoin L1. It brings financial privacy to Bitcoin without moving custody, consensus, or settlement to another chain or trusted operator set.
     diagramSummary: 'PIPEs provide the cryptographic primitive. L1 vaults use PIPEs to control native BTC, encrypting the signing key behind cryptographic conditions that can be satisfied with a zero-knowledge proof. Shielded Bitcoin combines these vaults with private transfers and protocol state derived from Bitcoin L1.'
     items:
       - title: Bitcoin PIPEs
@@ -46,7 +46,6 @@ blocks:
           The design brings Zcash-style shielded architecture to Bitcoin, without introducing a separate blockchain or consensus. Protocol data is published to Bitcoin, making shielded state reconstructible from L1 history.
 
           Bitcoin gets privacy without compromising what makes it Bitcoin. Shielded pools for private transfers, cryptographically controlled L1 vaults for BTC, and shielded state derived from Bitcoin history. No bridges. No trusted operators. No separate consensus.
-
     color: default
     _template: features
   - title: FEATURED
@@ -71,3 +70,4 @@ blocks:
       backgroundImg: /uploads/logo-bg-gray.svg
     _template: cta_section
 ---
+
