@@ -8,38 +8,46 @@ blocks:
       - title: ''
         items: []
     _template: content
-  - items:
-      - icon:
-          name: ''
-          color: ''
-          style: float
-        title: ABOUT US
+  - introduction: |-
+      **[[alloc] init] develops cryptographic protocols for Bitcoin.** Our primitives and metaprotocols expand what can be built on Bitcoin without changing consensus.
+
+      We're currently building **Shielded Bitcoin**, a non-custodial metaprotocol, bringing privacy to the Bitcoin L1. It brings financial privacy to Bitcoin without requiring users to entrust their funds to another chain, custodian or operator set.
+    diagramSummary: 'PIPEs provide the cryptographic primitive. L1 vaults use PIPEs to control native BTC, encrypting the signing key behind cryptographic conditions that can be satisfied with a zero-knowledge proof. Shielded Bitcoin combines these vaults with private transfers and protocol state derived from Bitcoin L1.'
+    items:
+      - title: Bitcoin PIPEs
+        role: Cryptographic primitive
+        summary: Witness encryption locks a Bitcoin signing key behind a computational condition. A valid witness reveals the key - enabling programmable vaults on Bitcoin L1.
+        paperUrl: /uploads/pipesv2.pdf
+        connection: Enable programmable vaults
         text: |
-          **\[\[alloc] init]** is a cryptography research and development company committed to expanding Bitcoin's capabilities without altering its core protocol or foundational principles.
+          **Bitcoin PIPEs is a cryptographic primitive using witness encryption that expands what Bitcoin can enforce without changing Bitcoin consensus.** PIPEs encrypt a Bitcoin signing key behind an arbitrary computational statement. Provide a valid witness - such as a zero-knowledge proof - and the key can be recovered to produce an ordinary Bitcoin signature. No valid witness means no signature, and therefore no spend.
 
-          Our mission is to advance Bitcoin's evolution and expressivity by extending its functionality via cryptographically-enforced arbitrary spending conditions (e.g. covenants) and non-interactive zero-knowledge proofs (ZKPs) on the L1 itself — eliminating the need for users to rely on trusted parties or side systems.
+          This makes capabilities such as covenants, non-interactive ZK-proofs (NIZK), and programmable L1 vaults possible without adding new Bitcoin opcodes.
 
-          We believe Bitcoin should remain immutable yet increasingly capable. With this view, we're building PIPEs to serve as the backbone of a new class of protocols and applications on Bitcoin.
-      - icon:
-          name: ''
-          color: ''
-          style: float
-        title: TECHNOLOGY
+          Bitcoin does not need to understand or execute the application logic. Cryptography enforces the condition; Bitcoin ultimately sees and verifies a standard transaction.
+      - title: Programmable Vaults
+        role: Conditional spending
+        summary: 'Built with PIPEs, vaults release Bitcoin when a valid proof satisfies their conditions. Those conditions can depend on shielded state reconstructed from Bitcoin history - connecting Bitcoin L1 to the metaprotocol.'
+        connection: Connect Bitcoin L1 to shielded state
         text: |
-          Our primary contribution is Bitcoin PIPEs, a cryptographic primitive constructed with Witness Encryption (WE) to enable arbitrary spending conditions via ZKP-gated signatures.
+          **PIPEs enable programmable vaults on Bitcoin L1.**
 
-          PIPEs introduce expressivity to Bitcoin via cryptographic emulation of opcodes missing from Script, allowing for the practical benefit of various opcodes otherwise blocked by soft fork resistance.
+          Bitcoin can be locked behind arbitrary cryptographic conditions and released when a valid ZK-proof is provided. Unlike bridge architectures, this eliminates the need for operators to custody funds, advance withdrawals, or coordinate disputes.
 
-          PIPEs also introduce non-interactive ZKPs to Bitcoin — replacing the need for interactive, dispute-based systems with cryptographic certainty. This eliminates the need for trusted parties while enabling truly expressive applications.
-      - icon:
-          name: ''
-          color: ''
-          style: float
-        title: VISION
+          A valid proof allows the claimant to recover the vault key from the PIPE ciphertext and spend the Bitcoin directly on Bitcoin L1. Because the unlocking condition can depend on metaprotocol state reconstructed from Bitcoin history, the vault acts as a cryptographic boundary between Bitcoin L1 and Bitcoin metaprotocols.
+
+          The result: Bitcoin controlled by cryptographic protocol rules, not operators.
+      - title: Shielded Bitcoin
+        role: Private transfers
+        summary: 'Encrypted notes and zero-knowledge proofs enable private transfers; nullifiers prevent double-spends. Programmable vaults control the L1 BTC, while shielded state is reconstructed from data published to Bitcoin.'
         text: |
-          We believe Bitcoin is — and should always remain — a self-custodial asset in which trust and correctness are enforced strictly through consensus and cryptography. Each holder controls not only their funds, but precise conditions under which funds may be spent.
+          **Shielded Bitcoin is a non-custodial metaprotocol for private Bitcoin transfers.** Encrypted notes, public nullifiers, and zero-knowledge proofs preserve the privacy of participants, amounts, and transfer relationships while preventing double-spends.
 
-          As Bitcoin becomes further ossified and limited in its capabilities, we see PIPEs as increasingly critical to achieving the expressivity required for serving the needs of Bitcoin users globally. Users shouldn't need to rely on trusted parties (whether intermediaries, operators, federations, multi-sig committees, or side systems) to serve their needs securely; instead, they should rely on Bitcoin and purely cryptographic guarantees. This is why we're building PIPEs.
+          The design brings Zcash-style shielded architecture to Bitcoin, without introducing a separate blockchain or consensus. Protocol data is published to Bitcoin, making shielded state reconstructible from L1 history.
+
+          Bitcoin gets privacy without compromising what makes it Bitcoin. Shielded pools for private transfers, cryptographically controlled L1 vaults for BTC, and shielded state derived from Bitcoin history. No bridges. No trusted operators. No separate consensus.
+
+    color: default
     _template: features
   - title: FEATURED
     researchItems:
@@ -63,4 +71,3 @@ blocks:
       backgroundImg: /uploads/logo-bg-gray.svg
     _template: cta_section
 ---
-

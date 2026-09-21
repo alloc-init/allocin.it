@@ -1,94 +1,75 @@
-import { Section } from "../utilities/section";
-import { Container } from "../utilities/container";
-import { Icon } from "../utilities/icon";
 import { iconSchema } from "../utilities/icon";
-import {
-  PageBlocksFeatures,
-  PageBlocksFeaturesItems
-} from "../../tina/__generated__/types";
+import type { PageBlocksFeatures } from "../../tina/__generated__/types";
 import { tinaField } from "tinacms/dist/react";
 import Link from "next/link";
-import { TinaMarkdown } from "tinacms/dist/rich-text";
-import { useEffect, useState } from "react";
-
-export const Feature = ({
-                          featuresColor,
-                          data
-                        }: {
-  featuresColor: string;
-  data: PageBlocksFeaturesItems;
-}) => {
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  return (
-    <div
-      data-tina-field={tinaField(data)}
-      className="flex-1 flex flex-col gap-6 text-left md:items-center lg:items-start lg:text-left max-w-xl mx-auto border-b-[1px] border-white/10 pb-3 last:border-b-0 md:border-r-[1px] md:border-b-0 last:md:border-r-0"
-      style={{ flexBasis: "16rem" }}
-    >
-      {data.icon && (
-        <Icon
-          tinaField={tinaField(data, "icon")}
-          parentColor={featuresColor}
-          data={{ size: "large", ...data.icon }}
-        />
-      )}
-      {data.title && (
-        <h3
-          data-tina-field={tinaField(data, "title")}
-          className="text-sm opacity-50 title-font"
-        >
-          {data.title}
-        </h3>
-      )}
-      {data.text && (
-        <p
-          data-tina-field={tinaField(data, "text")}
-          className="text-base opacity-80 leading-relaxed prose dark:prose-dark"
-        >
-          {mounted ? <TinaMarkdown content={data.text} /> : "Loading..."}
-        </p>
-      )}
-    </div>
-  );
-};
+import { Children } from "react";
+import ReactMarkdown from "react-markdown";
+import styles from "./features.module.css";
+import { ProtocolExplorer } from "./protocol-explorer";
 
 export const Features = ({ data }: { data: PageBlocksFeatures }) => {
   return (
-    <Section color={data.color}>
-      <Container className={`flex text-white`} size="large">
-        <div className="flex flex-col">
-          {data.introduction?.trim() && (
-            <p
-              data-tina-field={tinaField(data, "introduction")}
-              className="mb-8 max-w-3xl whitespace-pre-line text-base leading-relaxed opacity-80"
-            >
-              {data.introduction}
-            </p>
-          )}
-          <div className="flex md:items-center flex-col md:flex-row gap-4 justify-between mb-8">
-            {/*<h2 className="text-3xl  title-font">Simulation Will Be Orange</h2>*/}
-            <Link
-              href="/research"
-              className="p-4 bg-[rgb(57,46,30)] text-[#dad085] w-[200px]"
-            >
-              Read Our Research →
-            </Link>
-          </div>
-          <div className="flex flex-wrap gap-x-10 gap-y-8 text-left">
-            {data.items &&
-              data.items.map(function(block, i) {
-                return (
-                  <Feature featuresColor={data.color} key={i} data={block} />
-                );
-              })}
-          </div>
+    <section className={styles.section}>
+      <div className={styles.container}>
+        <div className={styles.actions}>
+          <Link href="/research" className={styles.action}>
+            Read Our Research →
+          </Link>
+          <a
+            href="#protocols"
+            className={styles.scrollIndicator}
+            aria-label="Scroll down to explore our protocols"
+            onClick={(event) => {
+              const protocols = document.getElementById("protocols");
+              if (!protocols) return;
+              event.preventDefault();
+              protocols.focus({ preventScroll: true });
+              protocols.scrollIntoView({
+                behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+                  ? "auto"
+                  : "smooth",
+                block: "start"
+              });
+            }}
+          >
+            <svg width="24" height="32" viewBox="0 0 24 32" fill="none" aria-hidden="true">
+              <path d="M12 4v24m-8-8 8 8 8-8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </a>
         </div>
-      </Container>
-    </Section>
+        <div id="protocols" className={styles.protocols} tabIndex={-1}>
+          {data.introduction?.trim() && (
+            <div className={styles.overview}>
+              <h1 className={styles.overviewTitle}>Overview</h1>
+              <div
+                data-tina-field={tinaField(data, "introduction")}
+                className={styles.introduction}
+              >
+                <ReactMarkdown
+                  components={{
+                    strong: ({ children }) => (
+                      <strong>
+                        {Children.map(children, (child) => typeof child === "string"
+                          ? child.split(/(\[\[alloc\] init\])/g).map((part, index) =>
+                              part === "[[alloc] init]"
+                                ? <span key={index} className={styles.brand}>{part}</span>
+                                : part
+                            )
+                          : child
+                        )}
+                      </strong>
+                    )
+                  }}
+                >
+                  {data.introduction}
+                </ReactMarkdown>
+              </div>
+            </div>
+          )}
+          <ProtocolExplorer data={data} />
+        </div>
+      </div>
+    </section>
   );
 };
 
@@ -116,10 +97,17 @@ export const featureBlockSchema = {
       type: "string",
       label: "Introduction",
       name: "introduction",
-      description: "Optional text above the three columns. Leave empty to hide it.",
+      description: "Optional text above the concepts. Leave empty to hide it.",
       ui: {
         component: "textarea"
       }
+    },
+    {
+      type: "string",
+      label: "Diagram overview",
+      name: "diagramSummary",
+      description: "Explain how the concepts connect in the interactive diagram.",
+      ui: { component: "textarea" }
     },
     {
       type: "object",
@@ -142,6 +130,31 @@ export const featureBlockSchema = {
           type: "string",
           label: "Title",
           name: "title"
+        },
+        {
+          type: "string",
+          label: "Role",
+          name: "role",
+          description: "Short label shown in the diagram, e.g. Cryptographic primitive."
+        },
+        {
+          type: "string",
+          label: "Short description",
+          name: "summary",
+          description: "Fallback description, shown if the full Text field is empty.",
+          ui: { component: "textarea" }
+        },
+        {
+          type: "string",
+          label: "Whitepaper URL",
+          name: "paperUrl",
+          description: "Link below the concept text. Leave empty to show Whitepaper — coming soon."
+        },
+        {
+          type: "string",
+          label: "Connection to the next concept",
+          name: "connection",
+          description: "Label for the arrow to the next item. Not shown for the last item."
         },
         {
           type: "rich-text",

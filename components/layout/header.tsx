@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { Container } from "../utilities/container";
@@ -23,22 +23,11 @@ const formatHref = (href: string) => {
 export const Header = ({ data }: { data: GlobalHeader }) => {
   const router = useRouter();
   const theme = useTheme();
-  const [headerPositionCss, setHeaderPositionCss] = useState(
-    " absolute w-full top-0 left-0 bg-none"
-  );
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => {
-      window.removeEventListener("resize", checkMobile);
-    };
-  }, []);
-
+  const pagePath = router.asPath.split(/[?#]/)[0];
+  const isHomepage = pagePath === "/" || pagePath === "/home";
+  const headerPositionCss = isHomepage
+    ? " absolute w-full top-0 left-0 bg-none"
+    : " relative";
   const headerColor = {
     default: "text-black dark:text-white from-gray-50 to-white  bg-[#120f0b]",
     primary: {
@@ -73,49 +62,36 @@ export const Header = ({ data }: { data: GlobalHeader }) => {
       "border-b-3 border-yellow-300 text-yellow-700 dark:text-yellow-300 font-medium dark:border-yellow-600"
   };
 
-  const activeBackgroundClasses = {
-    blue: "text-blue-500",
-    teal: "text-teal-500",
-    green: "text-green-500",
-    red: "text-red-500",
-    pink: "text-pink-500",
-    purple: "text-purple-500",
-    orange: "text-orange-500",
-    yellow: "text-yellow-500"
-  };
   const [isClient, setIsClient] = React.useState(false);
   React.useEffect(() => {
     setIsClient(true);
   }, []);
 
-  useEffect(() => {
-    if (router.asPath !== "/") {
-      setHeaderPositionCss(" relative");
-    }
-  }, [router.asPath]);
-
   return (
     <div className={` overflow-hidden  ${headerColorCss} ${headerPositionCss}`}>
       <Container size="custom" className="py-0 relative z-10 max-w-8xl">
-        <div className="flex items-center justify-between gap-6">
-          <h4 className="select-none text-lg font-bold tracking-tight my-4 transition duration-150 ease-out transform">
+        <div className="flex items-center justify-between gap-3 sm:gap-6">
+          <div className="shrink-0 select-none text-lg font-bold tracking-tight my-4 transition duration-150 ease-out transform">
             <Link
               href="/"
               className="flex gap-1 items-center whitespace-nowrap tracking-[.002em]"
             >
-              <img
-                src={isMobile ? "/logo-large.svg" : "/logo.svg"}
-                alt="logo"
-                className="md:w-[124px] md:h-[23px] h-[36px] w-[36px]"
-              />
+              <picture>
+                <source media="(min-width: 900px)" srcSet="/logo.svg" />
+                <img
+                  src="/logo-large.svg"
+                  alt={data.name || "[[alloc] init]"}
+                  className="md:w-[124px] md:h-[23px] h-[36px] w-[36px]"
+                />
+              </picture>
             </Link>
-          </h4>
+          </div>
           <ul className="flex items-center gap-6 sm:gap-8 lg:gap-10 tracking-[.002em] -mx-4">
             {data.nav &&
               data.nav.map((item, i) => {
                 const activeItem =
                   item.href === "" || item.href === "/"
-                    ? router.asPath === "/"
+                    ? isHomepage
                     : router.asPath.includes(item.href) &&
                     isClient &&
                     item.href !== "/";
@@ -126,18 +102,16 @@ export const Header = ({ data }: { data: GlobalHeader }) => {
                     key={`${item.label}-${i}`}
                     className={`${
                       activeItem ? activeItemClasses[theme.color] : ""
-                    }`}
+                    } ${href === "/" ? "hidden md:list-item" : ""}`}
                   >
                     <Link
                       data-tina-field={tinaField(item, "label")}
                       href={href}
+                      aria-current={activeItem ? "page" : undefined}
                       className={`relative select-none	text-xs inline-block tracking-wide transition duration-150 ease-out hover:opacity-100 py-8  ${
                         activeItem ? `opacity-50` : ``
                       }`}
                       target={item.href.includes("http") ? "_blank" : "_self"}
-                      style={{
-                        display: isMobile && href === "/" ? "none" : "block"
-                      }}
                     >
                       {item.label}
                     </Link>
@@ -149,6 +123,8 @@ export const Header = ({ data }: { data: GlobalHeader }) => {
                 className="inline-block opacity-80 hover:opacity-100 transition ease-out duration-150 py-8"
                 href={data.social.twitter}
                 target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Twitter"
               >
                 <FaTwitter />
               </a>
@@ -158,6 +134,8 @@ export const Header = ({ data }: { data: GlobalHeader }) => {
                 className="inline-block opacity-80 hover:opacity-100 transition ease-out duration-150 py-8"
                 href={data.social.linkedin}
                 target="_blank"
+                rel="noopener noreferrer"
+                aria-label="LinkedIn"
               >
                 <FaLinkedin />
               </a>
