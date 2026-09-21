@@ -11,7 +11,7 @@ blocks:
   - introduction: |-
       **[[alloc] init] develops cryptographic protocols for Bitcoin.** Our primitives and metaprotocols expand what can be built on Bitcoin without changing consensus.
 
-      We're currently building **Shielded Bitcoin**, a non-custodial metaprotocol for private transfers on Bitcoin L1. It brings financial privacy to Bitcoin without moving custody, consensus, or settlement to another chain or trusted operator set.
+      We're currently building **Shielded Bitcoin**, a non-custodial metaprotocol for financial privacy on Bitcoin L1 — without relying on trusted operators, another chain, or separate consensus. Bitcoin provides publication, ordering, and settlement. Cryptography provides the privacy.
     diagramSummary: 'PIPEs provide the cryptographic primitive. L1 vaults use PIPEs to control native BTC, encrypting the signing key behind cryptographic conditions that can be satisfied with a zero-knowledge proof. Shielded Bitcoin combines these vaults with private transfers and protocol state derived from Bitcoin L1.'
     items:
       - title: Bitcoin PIPEs
