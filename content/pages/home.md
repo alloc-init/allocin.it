@@ -20,11 +20,11 @@ blocks:
         paperUrl: /uploads/pipesv2.pdf
         connection: Enable programmable vaults
         text: |
-          **Bitcoin PIPEs is a cryptographic primitive using witness encryption that expands what Bitcoin can enforce without changing Bitcoin consensus.** PIPEs encrypt a Bitcoin signing key behind an arbitrary computational statement. Provide a valid witness - such as a zero-knowledge proof - and the key can be recovered to produce an ordinary Bitcoin signature. No valid witness means no signature, and therefore no spend.
+          Bitcoin PIPEs is a cryptographic primitive based on witness encryption that expands what Bitcoin can enforce without changing consensus. PIPEs encrypt a Bitcoin signing key behind an arbitrary computational condition. Satisfy the condition with a valid witness — such as a zero-knowledge proof — and the signing key can be recovered to authorize a standard Bitcoin transaction. Without a valid witness, there is no signature and no spend.
 
-          This makes capabilities such as covenants, non-interactive ZK-proofs (NIZK), and programmable L1 vaults possible without adding new Bitcoin opcodes.
+          This enables **covenants**, **non-interactive zero-knowledge proofs** **(NIZK), and programmable L1 security vaults** without adding new Bitcoin opcodes.
 
-          Bitcoin does not need to understand or execute the application logic. Cryptography enforces the condition; Bitcoin ultimately sees and verifies a standard transaction.
+          **Bitcoin never needs to understand or execute the underlying logic.** Cryptography enforces the condition; Bitcoin verifies an ordinary signature and transaction.
       - title: Programmable Vaults
         role: Conditional spending
         summary: 'Built with PIPEs, vaults release Bitcoin when a valid proof satisfies their conditions. Those conditions can depend on shielded state reconstructed from Bitcoin history - connecting Bitcoin L1 to the metaprotocol.'
