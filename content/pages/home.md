@@ -59,10 +59,10 @@ blocks:
     color: default
     _template: featured_research
   - careerCta:
-      tag: CAREERS
-      title: Join our team
-      subtitle: We are hiring across several technical roles
-      linkUrl: 'https://allocinit.notion.site/Careers-19136974087f802392fbedbfd1ebca2b?pvs=4'
+      tag: TWITTER
+      title: Follow us on Twitter
+      subtitle: Research and updates from [[alloc] init].
+      linkUrl: 'https://x.com/allocinitxyz'
       backgroundImg: /uploads/logo-bg-primary.svg
     contactCta:
       tag: REACH OUT

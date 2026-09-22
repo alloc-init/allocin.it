@@ -74,8 +74,7 @@ export const ProtocolExplorer = ({ data }: { data: PageBlocksFeatures }) => {
           ))}
         </ol>
         <div className={styles.foundation}>
-          <strong>Bitcoin L1</strong>
-          <span>Shared foundation · Publication, ordering &amp; settlement</span>
+          <span><strong>Bitcoin L1</strong> provides publication, ordering, and settlement.</span>
         </div>
       </div>
       <div className={styles.panel}>

@@ -37,7 +37,7 @@ const CtaCard = ({
       href={href}
       target={link.isEmail ? undefined : "_blank"}
       rel={link.isEmail ? undefined : "noopener noreferrer"}
-      className={`relative group block overflow-hidden  h-[214px] ${borderColor} ${bgColor} border-[1px]`}
+      className={`relative group block overflow-hidden h-full ${borderColor} ${bgColor} border-[1px]`}
     >
       <div className="relative h-full w-full overflow-hidden">
         <img
@@ -50,7 +50,7 @@ const CtaCard = ({
           className="absolute inset-0 bg-gradient-to-t from-black/80 to-black/40 transition-opacity group-hover:opacity-75" />
 
         {/* 内容 */}
-        <div className="absolute inset-0 p-8 flex flex-col justify-between">
+        <div className="relative min-h-[214px] h-full p-8 flex flex-col justify-between gap-4">
           <div>
             <span
               className={`inline-block px-2 py-1 text-xs uppercase ${tagBgColor} ${tagTextColor} `}
