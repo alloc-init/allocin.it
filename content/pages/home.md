@@ -16,7 +16,7 @@ blocks:
     items:
       - title: Bitcoin PIPEs
         role: Cryptographic primitive
-        summary: Witness encryption locks a Bitcoin signing key behind a computational condition. A valid witness reveals the key - enabling programmable vaults on Bitcoin L1.
+        summary: 'Bitcoin PIPEs use cryptography to enforce arbitrary conditions on Bitcoin without changing consensus — enabling covenants, zero-knowledge proofs, and L1 security vaults.'
         paperUrl: /uploads/pipesv2.pdf
         connection: Enable programmable vaults
         text: |
