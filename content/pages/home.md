@@ -15,7 +15,7 @@ blocks:
     diagramSummary: |-
       PIPEs provide the cryptographic primitive for enforcing arbitrary conditions on Bitcoin without changing consensus. 
 
-      L1 security vaults use PIPEs to control native BTC, encrypting the ability to spend behind cryptographic conditions that can be satisfied with a zero-knowledge proof. 
+      Programmable security vaults on the L1 use PIPEs to control native BTC, encrypting the ability to spend behind cryptographic conditions that can be satisfied with a zero-knowledge proof. 
 
       Shielded Bitcoin builds on these vaults to enable private transfers, with protocol state derived directly from Bitcoin history.
     items:
