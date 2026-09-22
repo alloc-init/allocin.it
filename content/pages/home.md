@@ -12,12 +12,7 @@ blocks:
       **[[alloc] init] develops cryptographic protocols for Bitcoin.** Our primitives and metaprotocols expand what can be built on Bitcoin without changing consensus.
 
       We're currently building **Shielded Bitcoin**, a non-custodial metaprotocol for financial privacy on Bitcoin L1 — without relying on trusted operators, another chain, or separate consensus. 
-    diagramSummary: |-
-      PIPEs provide the cryptographic primitive for enforcing arbitrary conditions on Bitcoin without changing consensus. 
-
-      Programmable security vaults on the L1 use PIPEs to control native BTC, encrypting the ability to spend behind cryptographic conditions that can be satisfied with a zero-knowledge proof. 
-
-      Shielded Bitcoin builds on these vaults to enable private transfers, with protocol state derived directly from Bitcoin history.
+    diagramSummary: 'PIPEs provide the cryptographic primitive for enforcing arbitrary conditions on Bitcoin without changing consensus. Programmable security vaults on the L1 use PIPEs to control native BTC, encrypting the ability to spend behind cryptographic conditions that can be satisfied with a zero-knowledge proof. Shielded Bitcoin builds on these vaults to enable private transfers, with protocol state derived directly from Bitcoin history.'
     items:
       - title: Bitcoin PIPEs
         role: Cryptographic primitive
@@ -50,7 +45,7 @@ blocks:
 
           The design brings Zcash-style shielded architecture to Bitcoin, without introducing a separate blockchain or consensus. Protocol data is published to Bitcoin, making shielded state reconstructible from L1 history.
 
-          Bitcoin gets privacy without compromising what makes it Bitcoin. Shielded pools for private transfers, cryptographically controlled L1 vaults for BTC, and shielded state derived from Bitcoin history. 
+          Bitcoin gets privacy without compromising what makes it Bitcoin. Shielded pools for private transfers, cryptographically controlled L1 vaults for BTC, and shielded state derived from Bitcoin history.
 
           **No bridges. No trusted operators. No separate consensus.**
     color: default
