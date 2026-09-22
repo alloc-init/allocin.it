@@ -300,12 +300,8 @@
 }
 
 .detailsBody strong {
-  color: inherit;
-  font-weight: 700;
-}
-
-.detailsBody.highlightLead p:first-child strong:first-child {
   color: var(--protocol-accent, #e9c062);
+  font-weight: 700;
 }
 
 .detailsBody a {

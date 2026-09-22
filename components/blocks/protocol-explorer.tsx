@@ -20,9 +20,8 @@ export const ProtocolExplorer = ({ data }: { data: PageBlocksFeatures }) => {
   const panelId = useId();
   const activeIndex = selected < items.length ? selected : -1;
   const active = items[activeIndex];
-  const highlightLead = active?.title === "Bitcoin PIPEs" || active?.title === "Programmable Vaults";
   const fullText = active?.text?.children?.length > 0 && (
-    <div className={`${styles.detailsBody} ${highlightLead ? styles.highlightLead : ""} prose dark:prose-dark max-w-none`}
+    <div className={`${styles.detailsBody} prose dark:prose-dark max-w-none`}
       data-tina-field={tinaField(active, "text")}>
       <TinaMarkdown content={active.text} />
     </div>
