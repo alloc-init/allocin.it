@@ -25,8 +25,8 @@ blocks:
           This enables **covenants**, **non-interactive zero-knowledge proofs** **(NIZK), and programmable L1 security vaults** without adding new Bitcoin opcodes.
 
           **Bitcoin never needs to understand or execute the underlying logic.** Cryptography enforces the condition; Bitcoin verifies an ordinary signature and transaction.
-      - title: Programmable Vaults
-        role: Conditional spending
+      - title: Programmable Security Vaults
+        role: Conditional spending of native BTC
         summary: 'Built with PIPEs, programmable vaults control native BTC using cryptographic conditions. Funds are released when those conditions are satisfied, including through proofs derived from shielded state reconstructed from Bitcoin history. '
         connection: Connect Bitcoin L1 to shielded state
         text: |
