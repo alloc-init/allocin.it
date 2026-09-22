@@ -32,16 +32,16 @@ blocks:
           **Bitcoin never needs to understand or execute the underlying logic.** Cryptography enforces the condition; Bitcoin verifies an ordinary signature and transaction.
       - title: Programmable Vaults
         role: Conditional spending
-        summary: 'Built with PIPEs, vaults release Bitcoin when a valid proof satisfies their conditions. Those conditions can depend on shielded state reconstructed from Bitcoin history - connecting Bitcoin L1 to the metaprotocol.'
+        summary: 'Built with PIPEs, programmable vaults control native BTC using cryptographic conditions. Funds are released when those conditions are satisfied, including through proofs derived from shielded state reconstructed from Bitcoin history. '
         connection: Connect Bitcoin L1 to shielded state
         text: |
-          **PIPEs enable programmable vaults on Bitcoin L1.**
+          **PIPEs enable programmable security vaults for native BTC on Bitcoin L1.**
 
-          Bitcoin can be locked behind arbitrary cryptographic conditions and released when a valid ZK-proof is provided. Unlike bridge architectures, this eliminates the need for operators to custody funds, advance withdrawals, or coordinate disputes.
+          Bitcoin can be locked behind arbitrary cryptographic conditions and released when those conditions are satisfied — for example, by providing a valid zero-knowledge proof. Unlike bridge architectures, this removes the need for operators to custody funds, advance withdrawals, or coordinate disputes.
 
-          A valid proof allows the claimant to recover the vault key from the PIPE ciphertext and spend the Bitcoin directly on Bitcoin L1. Because the unlocking condition can depend on metaprotocol state reconstructed from Bitcoin history, the vault acts as a cryptographic boundary between Bitcoin L1 and Bitcoin metaprotocols.
+          A valid proof enables the user to recover the vault’s signing key from the PIPE ciphertext and spend the BTC directly on Bitcoin. The unlocking condition can depend on metaprotocol state reconstructed from Bitcoin history, allowing protocol state to cryptographically control when native BTC can be spent.
 
-          The result: Bitcoin controlled by cryptographic protocol rules, not operators.
+          **The result: native BTC controlled by cryptographic rules, not trusted operators.**
       - title: Shielded Bitcoin
         role: Private transfers
         summary: 'Encrypted notes and zero-knowledge proofs enable private transfers; nullifiers prevent double-spends. Programmable vaults control the L1 BTC, while shielded state is reconstructed from data published to Bitcoin.'
