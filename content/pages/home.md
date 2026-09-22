@@ -46,11 +46,13 @@ blocks:
         role: Private transfers
         summary: 'Encrypted notes and zero-knowledge proofs enable private transfers; nullifiers prevent double-spends. Programmable vaults control the L1 BTC, while shielded state is reconstructed from data published to Bitcoin.'
         text: |
-          **Shielded Bitcoin is a non-custodial metaprotocol for private Bitcoin transfers.** Encrypted notes, public nullifiers, and zero-knowledge proofs preserve the privacy of participants, amounts, and transfer relationships while preventing double-spends.
+          **Shielded Bitcoin is a non-custodial metaprotocol for financial privacy on Bitcoin L1.** Encrypted notes, public nullifiers, and zero-knowledge proofs preserve the privacy of participants, amounts, and transfer relationships while preventing double-spends.
 
           The design brings Zcash-style shielded architecture to Bitcoin, without introducing a separate blockchain or consensus. Protocol data is published to Bitcoin, making shielded state reconstructible from L1 history.
 
-          Bitcoin gets privacy without compromising what makes it Bitcoin. Shielded pools for private transfers, cryptographically controlled L1 vaults for BTC, and shielded state derived from Bitcoin history. No bridges. No trusted operators. No separate consensus.
+          Bitcoin gets privacy without compromising what makes it Bitcoin. Shielded pools for private transfers, cryptographically controlled L1 vaults for BTC, and shielded state derived from Bitcoin history. 
+
+          **No bridges. No trusted operators. No separate consensus.**
     color: default
     _template: features
   - title: FEATURED
