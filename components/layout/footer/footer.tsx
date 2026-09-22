@@ -62,17 +62,17 @@ export const Footer = ({ data, icon }) => {
           <p className="text-white/50">© 2026. ALL RIGHTS RESERVED.</p>
           <div className="flex items-center gap-3">
             <a
-              href="mailto:hello@allocin.it"
+              href="mailto:hello@allocinit.xyz"
               className="text-white text-xs uppercase hover:text-[#ffaf17]"
             >
-              hello@allocin.it
+              hello@allocinit.xyz
             </a>
             <div className="w-[1px] h-[10px] bg-white/50"></div>
             <a
-              href="https://twitter.com/alloc_init_"
+              href={data.social.twitter}
               className="text-white text-xs uppercase hover:text-[#ffaf17]"
             >
-              @alloc_init_
+              @allocinitxyz
             </a>
           </div>
           {/* <div className="flex gap-4">

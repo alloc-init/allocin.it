@@ -11,7 +11,7 @@ blocks:
   - introduction: |-
       **[[alloc] init] develops cryptographic protocols for Bitcoin.** Our primitives and metaprotocols expand what can be built on Bitcoin without changing consensus.
 
-      We're currently building **Shielded Bitcoin**, a non-custodial metaprotocol for financial privacy on Bitcoin L1 — without relying on trusted operators, another chain, or separate consensus. 
+      We're currently building **Shielded Bitcoin**, a non-custodial metaprotocol for financial privacy on Bitcoin L1 — without relying on trusted operators, another chain, or separate consensus.
     diagramSummary: 'PIPEs provide the cryptographic primitive for enforcing arbitrary conditions on Bitcoin without changing consensus. Programmable security vaults on the L1 use PIPEs to control native BTC, encrypting the ability to spend behind cryptographic conditions that can be satisfied with a zero-knowledge proof. Shielded Bitcoin builds on these vaults to enable private transfers, with protocol state derived directly from Bitcoin history.'
     items:
       - title: Bitcoin PIPEs
@@ -20,9 +20,9 @@ blocks:
         paperUrl: /uploads/pipesv2.pdf
         connection: Enable programmable vaults
         text: |
-          **Bitcoin PIPEs is a cryptographic primitive based on witness encryption that expands what Bitcoin can enforce without changing consensus**. PIPEs encrypt a Bitcoin signing key behind an arbitrary computational condition. Satisfy the condition with a valid witness — such as a zero-knowledge proof — and the signing key can be recovered to authorize a standard Bitcoin transaction. Without a valid witness, there is no signature and no spend.
+          Bitcoin PIPEs is a cryptographic primitive based on witness encryption that expands what Bitcoin can enforce without changing consensus. PIPEs encrypt a Bitcoin signing key behind an arbitrary computational condition. Satisfy the condition with a valid witness — such as a zero-knowledge proof — and the signing key can be recovered to authorize a standard Bitcoin transaction. Without a valid witness, there is no signature and no spend.
 
-          This enables **covenants**, **non-interactive zero-knowledge proofs** **(NIZK), and programmable L1 security vaults** without adding new Bitcoin opcodes.
+          This enables covenants, non-interactive zero-knowledge proofs (NIZK), and programmable L1 security vaults without adding new Bitcoin opcodes.
 
           **Bitcoin never needs to understand or execute the underlying logic.** Cryptography enforces the condition; Bitcoin verifies an ordinary signature and transaction.
       - title: Programmable Security Vaults
@@ -30,7 +30,7 @@ blocks:
         summary: 'Built with PIPEs, programmable vaults control native BTC using cryptographic conditions. Funds are released when those conditions are satisfied, including through proofs derived from shielded state reconstructed from Bitcoin history. '
         connection: Connect Bitcoin L1 to shielded state
         text: |
-          **PIPEs enable programmable security vaults for native BTC on Bitcoin L1.**
+          PIPEs enable programmable security vaults for native BTC on Bitcoin L1.
 
           Bitcoin can be locked behind arbitrary cryptographic conditions and released when those conditions are satisfied — for example, by providing a valid zero-knowledge proof. Unlike bridge architectures, this removes the need for operators to custody funds, advance withdrawals, or coordinate disputes.
 
@@ -41,7 +41,7 @@ blocks:
         role: Non-custodial financial privacy on Bitcoin
         summary: 'Encrypted notes and zero-knowledge proofs enable private transfers; nullifiers prevent double-spends. Programmable vaults control the L1 BTC, while shielded state is reconstructed from data published to Bitcoin.'
         text: |
-          **Shielded Bitcoin is a non-custodial metaprotocol for financial privacy on Bitcoin L1.** Encrypted notes, public nullifiers, and zero-knowledge proofs preserve the privacy of participants, amounts, and transfer relationships while preventing double-spends.
+          Shielded Bitcoin is a non-custodial metaprotocol for financial privacy on Bitcoin L1. Encrypted notes, public nullifiers, and zero-knowledge proofs preserve the privacy of participants, amounts, and transfer relationships while preventing double-spends.
 
           The design brings Zcash-style shielded architecture to Bitcoin, without introducing a separate blockchain or consensus. Protocol data is published to Bitcoin, making shielded state reconstructible from L1 history.
 
@@ -59,10 +59,10 @@ blocks:
     color: default
     _template: featured_research
   - careerCta:
-      tag: CAREERS
-      title: Join our team
-      subtitle: We are hiring across several technical roles
-      linkUrl: 'https://allocinit.notion.site/Careers-19136974087f802392fbedbfd1ebca2b?pvs=4'
+      tag: TWITTER
+      title: Follow us on Twitter
+      subtitle: Research and updates from [[alloc] init].
+      linkUrl: 'https://twitter.com/allocinitxyz'
       backgroundImg: /uploads/logo-bg-primary.svg
     contactCta:
       tag: REACH OUT
@@ -72,4 +72,3 @@ blocks:
       backgroundImg: /uploads/logo-bg-gray.svg
     _template: cta_section
 ---
-

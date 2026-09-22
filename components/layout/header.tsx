@@ -70,7 +70,7 @@ export const Header = ({ data }: { data: GlobalHeader }) => {
   return (
     <div className={` overflow-hidden  ${headerColorCss} ${headerPositionCss}`}>
       <Container size="custom" className="py-0 relative z-10 max-w-8xl">
-        <div className="flex items-center justify-between gap-3 sm:gap-6">
+        <div className="flex flex-col items-start justify-between sm:flex-row sm:items-center sm:gap-6">
           <div className="shrink-0 select-none text-lg font-bold tracking-tight my-4 transition duration-150 ease-out transform">
             <Link
               href="/"
@@ -86,7 +86,7 @@ export const Header = ({ data }: { data: GlobalHeader }) => {
               </picture>
             </Link>
           </div>
-          <ul className="flex items-center gap-6 sm:gap-8 lg:gap-10 tracking-[.002em] -mx-4">
+          <ul className="flex w-full flex-wrap items-center gap-x-4 sm:w-auto sm:flex-nowrap sm:gap-8 lg:gap-10 tracking-[.002em] sm:-mx-4">
             {data.nav &&
               data.nav.map((item, i) => {
                 const activeItem =
@@ -108,7 +108,7 @@ export const Header = ({ data }: { data: GlobalHeader }) => {
                       data-tina-field={tinaField(item, "label")}
                       href={href}
                       aria-current={activeItem ? "page" : undefined}
-                      className={`relative select-none	text-xs inline-block tracking-wide transition duration-150 ease-out hover:opacity-100 py-8  ${
+                      className={`relative select-none	text-xs inline-block tracking-wide transition duration-150 ease-out hover:opacity-100 py-3 sm:py-8  ${
                         activeItem ? `opacity-50` : ``
                       }`}
                       target={item.href.includes("http") ? "_blank" : "_self"}
@@ -118,9 +118,9 @@ export const Header = ({ data }: { data: GlobalHeader }) => {
                   </li>
                 );
               })}
-            <li>
+            <li className="flex items-center gap-4 sm:gap-8 lg:gap-10">
               <a
-                className="inline-block opacity-80 hover:opacity-100 transition ease-out duration-150 py-8"
+                className="inline-block opacity-80 hover:opacity-100 transition ease-out duration-150 py-3 sm:py-8"
                 href={data.social.twitter}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -128,10 +128,8 @@ export const Header = ({ data }: { data: GlobalHeader }) => {
               >
                 <FaTwitter />
               </a>
-            </li>
-            <li>
               <a
-                className="inline-block opacity-80 hover:opacity-100 transition ease-out duration-150 py-8"
+                className="inline-block opacity-80 hover:opacity-100 transition ease-out duration-150 py-3 sm:py-8"
                 href={data.social.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
