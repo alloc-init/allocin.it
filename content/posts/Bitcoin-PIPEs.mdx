@@ -8,6 +8,7 @@ author: content/authors/Misha-Komarov.md
 date: 2026-02-05T19:00:00.000Z
 ---
 
+
 # Bitcoin PIPEs v2: Covenants and ZKPs on Bitcoin via Witness Encryption
 
 **Bitcoin PIPEs v2 is a cryptographic primitive and path forward for expanding what Bitcoin can enforce without changing Bitcoin consensus.** Using witness encryption, PIPEs make control of a Bitcoin signing key conditional on satisfying an arbitrary computational statement — enabling binary covenants, non-interactive zero-knowledge proofs, programmable security vaults, and Bitcoin metaprotocols. No soft forks, no trusted operators, and no separate consensus.
@@ -108,11 +109,12 @@ These efficiency advancements establish AADP WE / PIPEs as the first plausibly c
 
 ## What PIPEs make possible
 
-PIPEs v2 started from a simple idea: make access to a Bitcoin signing key conditional on satisfying a cryptographic statement. From that primitive, binary covenants make spending conditional on what can be proven; ZK proofs enable non-interactive authorization; programmable security vaults secure native BTC behind cryptographic conditions; and metaprotocols can connect richer state to Bitcoin settlement.
+**PIPEs v2 started from a simple idea: make access to a Bitcoin signing key conditional on satisfying a cryptographic statement.** 
 
+From that primitive, binary covenants make spending conditional on what can be proven; ZK proofs enable non-interactive authorization; programmable security vaults secure native BTC behind cryptographic conditions; and metaprotocols can connect richer state to Bitcoin settlement.
 Together, these pieces point toward a broader architecture: move additional enforcement into cryptography while keeping Bitcoin consensus unchanged.
 
-There is substantial research still ahead, particularly around witness-encryption security, concrete efficiency, setup, DKG, and ciphertext availability. But PIPEs v2 gives this direction a concrete architecture and a set of measurable problems to solve.
+There is substantial research still ahead, particularly around witness encryption security, concrete efficiency, setup, DKG, and ciphertext availability. But PIPEs v2 gives this direction a concrete architecture and a set of measurable problems to solve.
 
 
 **Bitcoin remains Bitcoin. PIPEs expand what it can enforce.**
