@@ -3,6 +3,7 @@ import { client } from "../../tina/__generated__/client";
 import { useTina } from "tinacms/dist/react";
 import { Layout } from "../../components/layout";
 import { InferGetStaticPropsType } from "next";
+import { getExternalUrl } from "../../components/utilities/external-url";
 
 // Use the props returned by get static props
 export default function BlogPostPage(
@@ -32,6 +33,12 @@ export const getStaticProps = async ({ params }) => {
   const tinaProps = await client.queries.blogPostQuery({
     relativePath: `${params.filename}.mdx`
   });
+  const externalUrl = getExternalUrl(tinaProps.data.post.externalUrl);
+  if (externalUrl) {
+    return {
+      redirect: { destination: externalUrl, permanent: false }
+    };
+  }
   return {
     props: {
       ...tinaProps
@@ -49,9 +56,11 @@ export const getStaticProps = async ({ params }) => {
 export const getStaticPaths = async () => {
   const postsListData = await client.queries.postConnection();
   return {
-    paths: postsListData.data.postConnection.edges.map((post) => ({
-      params: { filename: post.node._sys.filename }
-    })),
+    paths: postsListData.data.postConnection.edges
+      .filter((post) => !getExternalUrl(post.node.externalUrl))
+      .map((post) => ({
+        params: { filename: post.node._sys.filename }
+      })),
     fallback: "blocking"
   };
 };
