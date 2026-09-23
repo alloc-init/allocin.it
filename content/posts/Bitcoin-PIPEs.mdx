@@ -8,3 +8,114 @@ author: content/authors/Misha-Komarov.md
 date: 2026-02-05T19:00:00.000Z
 ---
 
+# Bitcoin PIPEs v2: Covenants and ZKPs on Bitcoin via Witness Encryption
+
+**Bitcoin PIPEs v2 is a cryptographic primitive and path forward for expanding what Bitcoin can enforce without changing Bitcoin consensus.** Using witness encryption, PIPEs make control of a Bitcoin signing key conditional on satisfying an arbitrary computational statement — enabling binary covenants, non-interactive zero-knowledge proofs, programmable security vaults, and Bitcoin metaprotocols. No soft forks, no trusted operators, and no separate consensus.
+
+## What this blog covers
+
+This post introduces the core idea behind [Bitcoin PIPEs v2](https://x.com/allocinitxyz/status/2019411470232989918?s=20): moving spending conditions out of Bitcoin Script and into cryptography. We cover the move from functional encryption to witness encryption, binary covenants, non-interactive ZKPs, programmable security vaults, and metaprotocols, along with the security and setup assumptions that remain active areas of research.
+
+## Introduction: expanding what Bitcoin can enforce
+
+Bitcoin's intentionally constrained scripting environment is one of its defining properties, but it also limits the spending conditions that can be expressed directly in Script. Covenants, arbitrary ZK-proof verification, and conditions based on external protocol state have therefore motivated proposals such as `OP_CAT`, `OP_CTV`, `OP_CSFS`, and `OP_VAULT`, all of which require changes to Bitcoin consensus. 
+
+[Bitcoin PIPEs v2](https://x.com/allocinitxyz/status/2019411470232989918?s=20) explores a complementary approach: **rather than expanding what Bitcoin Script can evaluate, can we expand what Bitcoin can enforce through cryptography?**
+
+The core mechanism is **cryptographically conditional signing-key release**. A Bitcoin private key is encrypted under an NP statement using witness encryption. Provide a valid witness—such as a ZK proof—and the key can be recovered and used to produce an ordinary Schnorr signature. Bitcoin itself does not execute the underlying computation or understand the condition; miners and nodes ultimately verify a standard Bitcoin transaction under existing consensus rules. 
+
+This creates a useful separation: a protocol defines what must be true, a proof can establish that it is true, PIPEs control whether the signing capability becomes available, and Bitcoin verifies and settles the resulting spend.
+
+## Put the condition behind the signature
+
+At a high level, a PIPE encrypts a Bitcoin signing key under a computational statement. BTC can be sent normally to the corresponding public key, while the private key remains inaccessible until the required condition is satisfied.
+
+Once a valid witness is produced, the signing key can be decrypted and used to authorize the spend. To Bitcoin, nothing unusual has happened: nodes simply verify a Schnorr signature under the public key to which the BTC was originally sent. 
+
+This is the basic inversion behind PIPEs: **instead of asking Bitcoin to evaluate a new condition, put the condition behind the ability to produce the signature.**
+
+## Why witness encryption?
+
+Witness encryption allows information to be encrypted to a statement rather than a public key. Anyone possessing a valid witness demonstrating that the statement is true can decrypt the ciphertext.
+
+**PIPEs apply this primitive to Bitcoin signing keys.** For example, the statement might require that a particular ZK proof verifies. A valid proof makes the key recoverable; without it, the key remains inaccessible. This turns arbitrary NP predicates into potential Bitcoin authorization conditions without requiring Bitcoin Script to implement those predicates. 
+
+The current PIPEs research uses **Arithmetic Affine Determinant Programs (AADPs)** as a candidate witness-encryption construction. AADPs operate directly over arithmetic constraints, making them substantially better suited to arithmetic-heavy operations such as SNARK verification than earlier Boolean ADP approaches. 
+
+## From PIPEs v1 to PIPEs v2
+
+PIPEs v1 explored functional encryption as a way of enforcing spending conditions. The attraction was persistent enforcement: the cryptographic mechanism could evaluate a policy and produce signatures without revealing the underlying private key. In practice, efficiently computing Schnorr signatures inside these constructions proved difficult. 
+
+PIPEs v2 makes a different tradeoff. Rather than computing a signature inside the encrypted mechanism, witness encryption protects the signing key and releases it when the required witness exists. This is simpler and better aligned with existing Bitcoin primitives, but means PIPEs v2 provide **witness-gated key release rather than persistent per-signature enforcement**. 
+
+That distinction leads to one of the central concepts in PIPEs v2: the binary covenant.
+
+## Covenants via PIPEs
+
+PIPEs introduce what we call **binary NP covenants**. Instead of necessarily committing at creation to a fixed future transaction or spending path, a PIPE can authorize a spend based on the production of a valid witness to an arbitrary predicate.
+
+This shifts the covenant from prescribing *what transaction must occur* to specifying *what must be proven for a transaction to be authorized*. A witness might prove that a proposed spend has certain properties, that an exit condition has been satisfied, or that a protocol state transition is valid. 
+
+PIPEs can therefore provide **non-consensus opcode emulation** for useful covenant functionality: the capability is enforced cryptographically without adding the corresponding opcode to Bitcoin Script. This is not literal opcode equivalence. Once the PIPE releases its signing key, that key is an ordinary private key. The model is binary authorization—unlock or do not unlock—rather than persistent transaction-by-transaction enforcement.
+
+## Non-interactive ZKPs via PIPEs
+
+A ZK proof can itself serve as the witness to a PIPE. Instead of requiring Bitcoin to verify a large computation—or even implement a SNARK verifier—the computation happens elsewhere, a succinct proof attests to its validity, and the PIPE makes Bitcoin spendability conditional on that proof. 
+
+This differs from optimistic approaches to arbitrary computation on Bitcoin today. BitVM-style systems rely on assertions, challengers, dispute mechanisms, and associated interactivity and liveness assumptions. PIPEs instead target **non-interactive cryptographic authorization**: a valid proof releases the signing capability without requiring a challenge-and-response process.
+
+The tradeoff moves elsewhere. PIPEs introduce witness-encryption assumptions, large ciphertexts, significant off-chain computation, and setup and availability considerations. PIPEs can also complement rather than replace BitVM; the v2 paper describes a hybrid construction while retaining BitVM's underlying signer and challenger assumptions. 
+
+The distinction is architectural: **optimistic systems enforce correctness through the possibility of challenge, while PIPEs aim to enforce authorization directly through possession of a valid cryptographic witness.**
+
+## Programmable security vaults via PIPEs
+
+PIPEs also enable a different architecture for Bitcoin vaults. PIPEs enable **cryptographically enforced conditional spending vaults holding native BTC on Bitcoin L1.**
+
+A PIPE-controlled vault holds Bitcoin under a public key whose signing key is witness-encrypted. The BTC becomes spendable when the cryptographic condition governing the vault is satisfied—for example, a valid ZK proof, recovery condition, or valid protocol state transition.
+
+This becomes particularly useful when a vault forms the boundary between native BTC and another protocol environment. Rather than relying on a federation, multisig committee, or operator set to determine when BTC can be released, a valid proof can satisfy the PIPE condition and make the signing key recoverable.
+
+The intended architecture therefore removes several assumptions common to externally controlled vaults and bridges: **no bridge-operator custody model, no interactive challenge process for PIPE authorization, no operator liveness dependency, and no operator liquidity or exit-collateral requirement.** The authorization condition is cryptographic rather than dependent on an intermediary (or sets of intermediaries in the form of mult-sig committees et al) deciding to release the Bitcoin. 
+
+This does not mean PIPEs have no infrastructure or availability assumptions. Ciphertext storage and availability, setup, computation, and other engineering considerations remain part of the system design.
+
+## Metaprotocols via PIPEs
+
+Vaults point toward a broader application for PIPEs: connecting native BTC to Bitcoin metaprotocols without putting the metaprotocol's verification rules into Bitcoin consensus.
+
+A metaprotocol can publish data to Bitcoin and define deterministic rules for deriving higher-level state from Bitcoin history. A ZK proof can establish that a state transition is valid, while a PIPE-controlled vault makes the underlying Bitcoin responsive to that proof. Bitcoin does not need to understand the metaprotocol's state machine; it only needs to verify the resulting signature.
+
+**Consider a privacy metaprotocol** as one example. Such a protocol could use encrypted state, nullifiers, and zero-knowledge proofs for private transfers while publishing the data necessary to reconstruct canonical protocol state through Bitcoin. A ZK proof could establish that a withdrawal is valid according to that state, and that proof could satisfy the PIPE condition controlling the corresponding native BTC vault. 
+
+The architecture is not specific to privacy. Other metaprotocols could define different state-transition rules and use PIPEs to make native BTC responsive to cryptographically verified state.
+
+The broader model is straightforward: **Bitcoin provides publication, ordering, and settlement; the metaprotocol defines and verifies its state; PIPEs cryptographically connect that state to native Bitcoin ownership.** 
+
+## Security assumptions and trusted setup
+
+Moving verification out of Bitcoin consensus does not eliminate security assumptions; it changes them. The current AADP-based witness-encryption construction is **heuristic** and does not yet have a security reduction to standard falsifiable cryptographic assumptions. Further cryptanalysis and stronger theoretical foundations remain important open research problems. 
+
+There is also a separate trusted-setup consideration in the proof system. **Our reference profile uses Groth16, which requires a one-time setup ceremony, and its security claims hold only if that ceremony includes at least one honest participant.** Other proof systems make different tradeoffs between proof size, verification efficiency, and setup assumptions, so the final proving system remains an open deployment decision.
+
+PIPE key generation introduces another setup consideration. The signing key should ultimately be generated through MPC/DKG so that no individual participant learns it during construction; otherwise that participant could bypass the PIPE condition entirely. 
+
+Practicality also remains an active research problem. The reference AADP profile in the paper produces an estimated ciphertext of approximately **338 TB**. These estimates come from a modeling script rather than a complete end-to-end implementation, but they provide concrete parameters that can now be implemented, benchmarked, cryptanalyzed, and optimized. 
+
+**Update as of September 2026: active and ongoing research from our cryptography team has resulted in significant efficiency improvements, with a ciphertext reduction to below 50 TB.** Certain techniques have reduced the size of the ciphertext to less than 10 TB, an improvement of 33x, but remain subject to ongoing security analysis. Our research team remains focused on developing further efficiency improvement techniques alongside ongoing cryptanalysis and open challenges. 
+
+These efficiency advancements establish AADP WE / PIPEs as the first plausibly concrete, practical design of a witness encryption scheme that can be applied and computed end-to-end within Bitcoin's 10-minute block intervals.  
+
+## What PIPEs make possible
+
+PIPEs v2 started from a simple idea: make access to a Bitcoin signing key conditional on satisfying a cryptographic statement. From that primitive, binary covenants make spending conditional on what can be proven; ZK proofs enable non-interactive authorization; programmable security vaults secure native BTC behind cryptographic conditions; and metaprotocols can connect richer state to Bitcoin settlement.
+
+Together, these pieces point toward a broader architecture: move additional enforcement into cryptography while keeping Bitcoin consensus unchanged.
+
+There is substantial research still ahead, particularly around witness-encryption security, concrete efficiency, setup, DKG, and ciphertext availability. But PIPEs v2 gives this direction a concrete architecture and a set of measurable problems to solve.
+
+
+**Bitcoin remains Bitcoin. PIPEs expand what it can enforce.**
+
+
+Read [Bitcoin PIPEs v2: Covenants and ZKPs on Bitcoin via Witness Encryption](https://x.com/allocinitxyz/status/2019411470232989918?s=20).
