@@ -38,7 +38,7 @@ blocks:
 
           **The result: native BTC controlled by cryptographic rules, not trusted operators.**
       - title: Shielded Bitcoin
-        role: Non-custodial financial privacy on Bitcoin
+        role: Non-custodial financial privacy on Bitcoin L1
         summary: 'Encrypted notes and zero-knowledge proofs enable private transfers; nullifiers prevent double-spends. Programmable vaults control the L1 BTC, while shielded state is reconstructed from data published to Bitcoin.'
         text: |
           Shielded Bitcoin is a non-custodial metaprotocol for financial privacy on Bitcoin L1. Encrypted notes, public nullifiers, and zero-knowledge proofs preserve the privacy of participants, amounts, and transfer relationships while preventing double-spends.
