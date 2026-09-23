@@ -30,7 +30,7 @@ blocks:
         summary: 'Built with PIPEs, programmable vaults control native BTC using cryptographic conditions. Funds are released when those conditions are satisfied, including through proofs derived from shielded state reconstructed from Bitcoin history. '
         connection: Connect Bitcoin L1 to shielded state
         text: |
-          PIPEs enable programmable security vaults for native BTC on Bitcoin L1.
+          PIPEs enable programmable security vaults for native BTC on L1.
 
           Bitcoin can be locked behind arbitrary cryptographic conditions and released when those conditions are satisfied — for example, by providing a valid zero-knowledge proof. Unlike bridge architectures, this removes the need for operators to custody funds, advance withdrawals, or coordinate disputes.
 
@@ -61,7 +61,7 @@ blocks:
   - careerCta:
       tag: TWITTER
       title: Follow us on Twitter
-      subtitle: Research and updates from [[alloc] init].
+      subtitle: 'Research and updates from [[alloc] init].'
       linkUrl: 'https://twitter.com/allocinitxyz'
       backgroundImg: /uploads/logo-bg-primary.svg
     contactCta:
@@ -72,3 +72,4 @@ blocks:
       backgroundImg: /uploads/logo-bg-gray.svg
     _template: cta_section
 ---
+
