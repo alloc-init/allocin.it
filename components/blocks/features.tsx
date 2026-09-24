@@ -152,6 +152,12 @@ export const featureBlockSchema = {
         },
         {
           type: "string",
+          label: "Companion Blog URL",
+          name: "companionBlogUrl",
+          description: "Link to the companion blog post on this site or on Notion. Leave empty to hide the blog link."
+        },
+        {
+          type: "string",
           label: "Connection to the next concept",
           name: "connection",
           description: "Label for the arrow to the next item. Not shown for the last item."

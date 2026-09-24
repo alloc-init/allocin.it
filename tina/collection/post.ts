@@ -1,15 +1,11 @@
 import type { Collection } from "tinacms";
+import { getExternalUrl } from "../../components/utilities/external-url";
 
 const Post: Collection = {
   label: "Blog Posts",
   name: "post",
   path: "content/posts",
   format: "mdx",
-  ui: {
-    router: ({ document }) => {
-      return `/posts/${document._sys.filename}`;
-    },
-  },
   fields: [
     {
       type: "string",
@@ -22,6 +18,20 @@ const Post: Collection = {
       type: "string",
       label: "Subtitle",
       name: "subtitle",
+    },
+    {
+      type: "string",
+      label: "Notion / External URL",
+      name: "externalUrl",
+      description:
+        "Optional. Paste a public Notion page or another website URL. The Writings card opens it in a new tab. Leave empty for an article on this site.",
+      ui: {
+        validate: (value) => {
+          if (value?.trim() && !getExternalUrl(value)) {
+            return "Enter a complete https:// or http:// URL.";
+          }
+        },
+      },
     },
     {
       type: "string",
@@ -57,6 +67,8 @@ const Post: Collection = {
       type: "string",
       label: "Body",
       name: "_body",
+      description:
+        "Article text for this site. Can be left empty when Notion / External URL is set.",
       isBody: true,
       ui: {
         component: "textarea",

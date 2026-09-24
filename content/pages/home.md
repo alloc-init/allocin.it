@@ -18,6 +18,7 @@ blocks:
         role: Cryptographic primitive
         summary: 'Bitcoin PIPEs use cryptography to enforce arbitrary conditions on Bitcoin without changing consensus — enabling covenants, zero-knowledge proofs, and L1 security vaults.'
         paperUrl: /uploads/pipesv2.pdf
+        companionBlogUrl: https://allocinit.notion.site/Bitcoin-PIPEs-3e536974087f805585d8ee3fb232cff7
         connection: Enable programmable vaults
         text: |
           Bitcoin PIPEs is a cryptographic primitive based on witness encryption that expands what Bitcoin can enforce without changing consensus. PIPEs encrypt a Bitcoin signing key behind an arbitrary computational condition. Satisfy the condition with a valid witness — such as a zero-knowledge proof — and the signing key can be recovered to authorize a standard Bitcoin transaction. Without a valid witness, there is no signature and no spend.
@@ -40,6 +41,8 @@ blocks:
       - title: Shielded Bitcoin
         role: Non-custodial financial privacy on Bitcoin L1
         summary: 'Encrypted notes and zero-knowledge proofs enable private transfers; nullifiers prevent double-spends. Programmable vaults control the L1 BTC, while shielded state is reconstructed from data published to Bitcoin.'
+        paperUrl: /uploads/shielded-bitcoin.pdf
+        companionBlogUrl: https://allocinit.notion.site/Shielded-Bitcoin-Private-Transfers-on-Bitcoin-L1-3e436974087f80f586acf2462bc547a5
         text: |
           Shielded Bitcoin is a non-custodial metaprotocol for financial privacy on Bitcoin L1. Encrypted notes, public nullifiers, and zero-knowledge proofs preserve the privacy of participants, amounts, and transfer relationships while preventing double-spends.
 
@@ -52,9 +55,9 @@ blocks:
     _template: features
   - title: FEATURED
     researchItems:
+      - research: content/research/Shielded-Bitcoin.mdx
       - research: content/research/Bitcoin-PIPEs-v2.mdx
       - research: content/research/AADP-WE.mdx
-      - research: content/research/Bitcoin-PIPEs.mdx
     viewAllLink: /research
     color: default
     _template: featured_research

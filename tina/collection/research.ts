@@ -46,6 +46,22 @@ const Research: Collection = {
       collections: ["author"],
     },
     {
+      type: "object",
+      label: "Authors",
+      name: "authors",
+      list: true,
+      description: "For papers with multiple authors, in display order. Leave empty to use Author above.",
+      fields: [
+        {
+          type: "reference",
+          label: "Author",
+          name: "author",
+          collections: ["author"],
+          required: true,
+        },
+      ],
+    },
+    {
       type: "datetime",
       label: "Posted Date",
       name: "date",
