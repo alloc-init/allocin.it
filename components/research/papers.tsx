@@ -6,6 +6,13 @@ import { ResearchType } from "../../pages/research";
 
 export const Papers = ({ data }: { data: ResearchType[] }) => {
   const theme = useTheme();
+  const sortedPapers = [...data].sort((a, b) => {
+    const aDate = Date.parse(a.node.date || "");
+    const bDate = Date.parse(b.node.date || "");
+    if (isNaN(aDate)) return isNaN(bDate) ? 0 : 1;
+    if (isNaN(bDate)) return -1;
+    return bDate - aDate;
+  });
   const titleColorClasses = {
     blue: "group-hover:text-blue-600 dark:group-hover:text-blue-300",
     teal: "group-hover:text-teal-600 dark:group-hover:text-teal-300",
@@ -21,18 +28,17 @@ export const Papers = ({ data }: { data: ResearchType[] }) => {
     <div className="mb-12">
       <h2 className="text-2xl  mb-4 text-white">Our papers</h2>
       <div className="flex flex-wrap gap-x-8 gap-y-0">
-        {data.map((researchData) => {
+        {sortedPapers.map((researchData) => {
           const research = researchData.node;
-          const date = new Date(research.date);
+          const date = new Date(research.date || NaN);
           let formattedDate = "";
           if (!isNaN(date.getTime())) {
             formattedDate = format(date, "M/d/yyyy");
           }
           return (
-            <div className="md:w-[350px]  mb-8 last:mb-0 ">
+            <div key={research.filename} className="md:w-[350px]  mb-8 last:mb-0 ">
               <Link
                 target="_blank"
-                key={research.filename}
                 href={`/research/` + research.filename}
                 className="group md:h-[208px] dark:bg-[rgb(36,32,29)] flex flex-col px-6 sm:px-8 md:px-4 py-4  rounded-md shadow-sm transition-all duration-150 ease-out hover:shadow-md hover:to-gray-50 dark:hover:to-gray-800"
               >
