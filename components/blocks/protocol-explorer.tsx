@@ -20,12 +20,6 @@ export const ProtocolExplorer = ({ data }: { data: PageBlocksFeatures }) => {
   const panelId = useId();
   const activeIndex = selected < items.length ? selected : -1;
   const active = items[activeIndex];
-  const fullText = active?.text?.children?.length > 0 && (
-    <div className={`${styles.detailsBody} prose dark:prose-dark max-w-none`}
-      data-tina-field={tinaField(active, "text")}>
-      <TinaMarkdown content={active.text} />
-    </div>
-  );
 
   const selectConcept = (index: number) => {
     setSelected(index);
@@ -79,23 +73,45 @@ export const ProtocolExplorer = ({ data }: { data: PageBlocksFeatures }) => {
       </div>
       <div className={styles.panel}>
         <div ref={panelRef} id={panelId} role="region" aria-label="Selected concept" aria-live="polite" aria-atomic="true" className={styles.panelContent}>
-          <p className={styles.eyebrow}>{active ? active.role || "Concept" : "One shared foundation"}</p>
-          <h2 className={styles.panelTitle} data-tina-field={active ? tinaField(active, "title") : undefined}>
-            {active?.title || "How it fits together"}
-          </h2>
-          {fullText || <p className={styles.summary}
-            data-tina-field={active ? tinaField(active, "summary") : tinaField(data, "diagramSummary")}>
-            {active ? active.summary : data.diagramSummary}
-          </p>}
-          {active && (
-            <div className={styles.paper} data-tina-field={tinaField(active, "paperUrl")}>
-              {active.paperUrl?.trim() ? (
-                <a className={styles.paperLink} href={active.paperUrl}>Read the whitepaper →</a>
-              ) : (
-                <span className={styles.paperPlaceholder}>Whitepaper — coming soon</span>
-              )}
-            </div>
-          )}
+          {[null, ...items].map((item, index) => {
+            const paperUrl = item?.paperUrl?.trim();
+            const companionBlogUrl = item?.companionBlogUrl?.trim();
+
+            return (
+              <div key={index} className={styles.conceptPanel} aria-hidden={activeIndex !== index - 1}>
+                <p className={styles.eyebrow}>{item ? item.role || "Concept" : "One shared foundation"}</p>
+                <h2 className={styles.panelTitle} data-tina-field={item ? tinaField(item, "title") : undefined}>
+                  {item?.title || "How it fits together"}
+                </h2>
+                {item?.text?.children?.length > 0 ? (
+                  <div className={`${styles.detailsBody} prose dark:prose-dark max-w-none`}
+                    data-tina-field={tinaField(item, "text")}>
+                    <TinaMarkdown content={item.text} />
+                  </div>
+                ) : (
+                  <p className={styles.summary}
+                    data-tina-field={item ? tinaField(item, "summary") : tinaField(data, "diagramSummary")}>
+                    {item ? item.summary : data.diagramSummary}
+                  </p>
+                )}
+                {item && (
+                  <div className={styles.paper}>
+                    {paperUrl ? (
+                      <>Read the <a className={styles.paperLink} href={paperUrl}
+                        data-tina-field={tinaField(item, "paperUrl")}>whitepaper</a></>
+                    ) : (
+                      <span className={styles.paperPlaceholder}
+                        data-tina-field={tinaField(item, "paperUrl")}>Whitepaper — coming soon</span>
+                    )}
+                    {companionBlogUrl && (
+                      <>{paperUrl ? " and its " : ". Read the "}<a className={styles.paperLink} href={companionBlogUrl}
+                        data-tina-field={tinaField(item, "companionBlogUrl")}>companion blog</a></>
+                    )}
+                  </div>
+                )}
+              </div>
+            );
+          })}
         </div>
         <div className={styles.controls}>
           <button type="button" className={styles.arrowButton} aria-label="Previous concept"
