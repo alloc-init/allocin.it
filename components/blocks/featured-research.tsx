@@ -9,6 +9,7 @@ import Link from "next/link";
 import { Research } from "../../tina/__generated__/types";
 import { useTheme } from "../layout";
 import format from "date-fns/format";
+import { getResearchAuthors } from "../research/authors";
 
 interface ResearchItemProps {
   data: Research;
@@ -16,6 +17,7 @@ interface ResearchItemProps {
 
 const ResearchItem = ({ data }: ResearchItemProps) => {
   const research = data;
+  const authors = getResearchAuthors(research);
   const date = new Date(research.date);
   let formattedDate = "";
   if (!isNaN(date.getTime())) {
@@ -37,14 +39,16 @@ const ResearchItem = ({ data }: ResearchItemProps) => {
       <Link
         key={research.filename}
         href={`/research/` + research.filename}
-        className="group md:h-[208px] dark:bg-[rgb(36,32,29)] flex flex-col px-6 sm:px-8 md:px-4 py-4  rounded-md shadow-sm transition-all duration-150 ease-out hover:shadow-md hover:to-gray-50 dark:hover:to-gray-800"
+        className={`group ${authors.length > 1 ? "md:min-h-[208px]" : "md:h-[208px]"} dark:bg-[rgb(36,32,29)] flex flex-col px-6 sm:px-8 md:px-4 py-4  rounded-md shadow-sm transition-all duration-150 ease-out hover:shadow-md hover:to-gray-50 dark:hover:to-gray-800`}
       >
-        <div className="flex items-center justify-between">
-          <img src="/logo-large.svg" alt="" className="w-8 h-8" />
-          <div className="flex items-center gap-1">
-            <div className="p-2 bg-[rgb(24,24,24)] text-white text-xs leading-tight">
-              {research.author?.name}
-            </div>
+        <div className={`flex items-center justify-between gap-2 ${authors.length > 1 ? "mb-4" : ""}`}>
+          <img src="/logo-large.svg" alt="" className="w-8 h-8 shrink-0" />
+          <div className="flex min-w-0 flex-wrap items-center justify-end gap-1">
+            {authors.map((author) => (
+              <div key={author.name} className="p-2 bg-[rgb(24,24,24)] text-white text-xs leading-tight">
+                {author.name}
+              </div>
+            ))}
             <div className="uppercase p-2 text-xs leading-tight bg-[rgb(57,46,30)] text-yellow">
               {research.type}
             </div>
