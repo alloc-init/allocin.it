@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="title description">
+  <title id="title">Panem et Circenses — Challenges in Rome</title>
+  <desc id="description">Markus Schofnegger's presentation on witness encryption at the Eurocrypt 2026 rump session.</desc>
+  <rect width="1280" height="720" fill="#191512"/>
+  <g font-family="Arial, Helvetica, sans-serif">
+    <text x="76" y="112" fill="#eac15b" font-size="28" letter-spacing="4">EUROCRYPT 2026 · RUMP SESSION</text>
+    <path d="M76 162H1204" stroke="#393029" stroke-width="2"/>
+    <text x="76" y="300" fill="#f5f3f0" font-size="70" font-weight="700">Panem et Circenses</text>
+    <text x="76" y="387" fill="#f5f3f0" font-size="60">Challenges in Rome</text>
+    <text x="76" y="497" fill="#c7c3bd" font-size="36">Markus Schofnegger</text>
+    <path d="M76 558H1204" stroke="#393029" stroke-width="2"/>
+    <text x="76" y="633" fill="#eac15b" font-size="32" font-weight="700">[[alloc] init]</text>
+    <text x="1050" y="633" fill="#c7c3bd" font-size="28" text-anchor="end">WITNESS ENCRYPTION</text>
+  </g>
+</svg>
