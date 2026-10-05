@@ -7,7 +7,7 @@ const Research: Collection = {
   format: "mdx",
   ui: {
     router: ({ document }) => {
-      return `/research/${document._sys.filename}`;
+      return `/papers/${document._sys.filename}`;
     },
   },
   fields: [
@@ -25,8 +25,9 @@ const Research: Collection = {
     },
     {
       type: "string",
-      label: "Filename",
+      label: "Paper URL",
       name: "filename",
+      description: "Link to the paper, for example /uploads/paper.pdf or a complete https:// URL.",
       required: true,
     },
     {
@@ -44,22 +45,6 @@ const Research: Collection = {
       label: "Author",
       name: "author",
       collections: ["author"],
-    },
-    {
-      type: "object",
-      label: "Authors",
-      name: "authors",
-      list: true,
-      description: "For papers with multiple authors, in display order. Leave empty to use Author above.",
-      fields: [
-        {
-          type: "reference",
-          label: "Author",
-          name: "author",
-          collections: ["author"],
-          required: true,
-        },
-      ],
     },
     {
       type: "datetime",

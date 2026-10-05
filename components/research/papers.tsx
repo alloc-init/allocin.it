@@ -2,10 +2,10 @@ import React from "react";
 import Link from "next/link";
 import { useTheme } from "../layout";
 import format from "date-fns/format";
-import { ResearchType } from "../../pages/research";
-import { getResearchAuthors } from "./authors";
+import type { PaperListItem } from "../../pages/posts";
+import { getResearchFileUrl } from "./file-url";
 
-export const Papers = ({ data }: { data: ResearchType[] }) => {
+export const Papers = ({ data }: { data: PaperListItem[] }) => {
   const theme = useTheme();
   const sortedPapers = [...data].sort((a, b) => {
     const aDate = Date.parse(a.node.date || "");
@@ -27,11 +27,11 @@ export const Papers = ({ data }: { data: ResearchType[] }) => {
 
   return (
     <div className="mb-12">
-      <h2 className="text-2xl  mb-4 text-white">Our papers</h2>
+      <h2 className="text-2xl  mb-4 text-white">Research papers</h2>
       <div className="flex flex-wrap gap-x-8 gap-y-0">
         {sortedPapers.map((researchData) => {
           const research = researchData.node;
-          const authors = getResearchAuthors(research);
+          const author = research.author;
           const date = new Date(research.date || NaN);
           let formattedDate = "";
           if (!isNaN(date.getTime())) {
@@ -41,17 +41,18 @@ export const Papers = ({ data }: { data: ResearchType[] }) => {
             <div key={research.filename} className="w-full min-w-0 md:w-[350px]  mb-8 last:mb-0 ">
               <Link
                 target="_blank"
-                href={`/research/` + research.filename}
-                className={`group ${authors.length > 1 ? "md:min-h-[208px]" : "md:h-[208px]"} dark:bg-[rgb(36,32,29)] flex flex-col px-6 sm:px-8 md:px-4 py-4  rounded-md shadow-sm transition-all duration-150 ease-out hover:shadow-md hover:to-gray-50 dark:hover:to-gray-800`}
+                rel="noopener noreferrer"
+                href={getResearchFileUrl(research.filename)}
+                className="group md:min-h-[208px] dark:bg-[rgb(36,32,29)] flex flex-col px-6 sm:px-8 md:px-4 py-4 rounded-md shadow-sm transition-all duration-150 ease-out hover:shadow-md hover:to-gray-50 dark:hover:to-gray-800"
               >
-                <div className={`flex items-center justify-between gap-2 ${authors.length > 1 ? "mb-4" : ""}`}>
+                <div className="flex items-center justify-between gap-2 mb-4">
                   <img src="/logo-large.svg" alt="" className="w-8 h-8 shrink-0" />
                   <div className="flex min-w-0 flex-wrap items-center justify-end gap-1">
-                    {authors.map((author) => (
-                      <div key={author.name} className="p-2 bg-[rgb(24,24,24)] text-white text-xs leading-tight">
+                    {author?.name?.trim() && (
+                      <div className="p-2 bg-[rgb(24,24,24)] text-white text-xs leading-tight">
                         {author.name}
                       </div>
-                    ))}
+                    )}
                     <div className="uppercase p-2 text-xs leading-tight bg-[rgb(57,46,30)] text-yellow">
                       {research.type}
                     </div>

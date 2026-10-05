@@ -21,7 +21,6 @@ import { Prism } from "tinacms/dist/rich-text/prism";
 import type { TinaMarkdownContent, Components } from "tinacms/dist/rich-text";
 import { ResearchType } from "../../pages/papers/[filename]";
 import { tinaField } from "tinacms/dist/react";
-import { getResearchAuthors } from "./authors";
 
 const components: Components<{
   BlockQuote: {
@@ -115,7 +114,7 @@ const components: Components<{
 
 export const Paper = (props: ResearchType) => {
   const theme = useTheme();
-  const authors = getResearchAuthors(props);
+  const author = props.author;
   const titleColorClasses = {
     blue: "from-blue-400 to-blue-600 dark:from-blue-300 dark:to-blue-500",
     teal: "from-teal-400 to-teal-600 dark:from-teal-300 dark:to-teal-500",
@@ -152,40 +151,31 @@ export const Paper = (props: ResearchType) => {
           </span>
         </h2>
         <div
-          data-tina-field={tinaField(
-            props,
-            props.authors?.some((item) => item?.author?.name?.trim())
-              ? "authors"
-              : "author"
-          )}
+          data-tina-field={tinaField(props, "author")}
           className="flex flex-wrap items-center justify-center gap-y-4 mb-16"
         >
-          {authors.length > 0 && (
-            <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-4">
-              {authors.map((author, index) => (
-                <div className="flex items-center" key={`${author.name}-${index}`}>
-                  {author.avatar && (
-                    <div className="flex-shrink-0 mr-4">
-                      <img
-                        data-tina-field={tinaField(author, "avatar")}
-                        className="h-14 w-14 object-cover rounded-full shadow-sm"
-                        src={author.avatar}
-                        alt={author.name}
-                      />
-                    </div>
-                  )}
-                  <p
-                    data-tina-field={tinaField(author, "name")}
-                    className="text-base font-medium text-gray-600 group-hover:text-gray-800 dark:text-gray-200 dark:group-hover:text-white"
-                  >
-                    {author.name}
-                  </p>
+          {author?.name?.trim() && (
+            <div className="flex items-center">
+              {author.avatar && (
+                <div className="flex-shrink-0 mr-4">
+                  <img
+                    data-tina-field={tinaField(author, "avatar")}
+                    className="h-14 w-14 object-cover rounded-full shadow-sm"
+                    src={author.avatar}
+                    alt={author.name}
+                  />
                 </div>
-              ))}
+              )}
+              <p
+                data-tina-field={tinaField(author, "name")}
+                className="text-base font-medium text-gray-600 group-hover:text-gray-800 dark:text-gray-200 dark:group-hover:text-white"
+              >
+                {author.name}
+              </p>
             </div>
           )}
           <div className="flex items-center">
-            {authors.length > 0 && (
+            {author?.name?.trim() && (
               <span className="font-bold text-gray-200 dark:text-gray-500 mx-2">
                 —
               </span>

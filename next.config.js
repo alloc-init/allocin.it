@@ -20,21 +20,23 @@ module.exports = {
       }
     ];
   },
-  // async redirects() {
-
-    // return [
-
-      // {
-
-        // source: "/posts/challenges",
-
-        // destination: "https://allocinit.notion.site/challenges",
-
-        // permanent: true,
-
-      // },
-
-    // ];
-
-  // },
+  async redirects() {
+    return [
+      {
+        source: "/writings/:path*",
+        destination: "/posts/:path*",
+        permanent: true
+      },
+      {
+        source: "/research",
+        destination: "/posts",
+        permanent: true
+      },
+      {
+        source: "/research/:filename",
+        destination: "/papers/:filename",
+        permanent: true
+      }
+    ];
+  },
 };

@@ -12,7 +12,7 @@ export const Features = ({ data }: { data: PageBlocksFeatures }) => {
     <section className={styles.section}>
       <div className={styles.container}>
         <div className={styles.actions}>
-          <Link href="/research" className={styles.action}>
+          <Link href="/posts#research" className={styles.action}>
             Read Our Research →
           </Link>
           <a

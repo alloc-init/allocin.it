@@ -24,7 +24,7 @@ const Post: Collection = {
       label: "Notion / External URL",
       name: "externalUrl",
       description:
-        "Optional. Paste a public Notion page or another website URL. The Writings card opens it in a new tab. Leave empty for an article on this site.",
+        "Optional. Paste a public Notion page or another website URL. The article card opens it in a new tab. Leave empty for an article on this site.",
       ui: {
         validate: (value) => {
           if (value?.trim() && !getExternalUrl(value)) {

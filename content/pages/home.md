@@ -58,7 +58,7 @@ blocks:
       - research: content/research/Shielded-Bitcoin.mdx
       - research: content/research/Bitcoin-PIPEs-v2.mdx
       - research: content/research/AADP-WE.mdx
-    viewAllLink: /research
+    viewAllLink: /posts#research
     color: default
     _template: featured_research
   - careerCta:

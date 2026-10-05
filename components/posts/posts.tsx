@@ -2,10 +2,10 @@ import React from "react";
 import Link from "next/link";
 import { useTheme } from "../layout";
 import format from "date-fns/format";
-import { ResearchType } from "../../pages/posts";
+import type { PostListItem } from "../../pages/posts";
 import { getExternalUrl } from "../utilities/external-url";
 
-export const Posts = ({ data }: { data: ResearchType[] }) => {
+export const Posts = ({ data }: { data: PostListItem[] }) => {
   const theme = useTheme();
   const sortedPosts = [...data].sort((a, b) => {
     const aDate = Date.parse(a.node.date || "");
@@ -27,7 +27,7 @@ export const Posts = ({ data }: { data: ResearchType[] }) => {
 
   return (
     <div>
-      <h2 className="text-2xl  mb-4 text-white">Blogs</h2>
+      <h2 className="text-2xl  mb-4 text-white">Articles</h2>
       <div className="flex flex-wrap gap-x-8 gap-y-0">
         {sortedPosts.map((postData) => {
           const post = postData.node;

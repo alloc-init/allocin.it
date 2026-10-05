@@ -12,12 +12,8 @@
         "label": "HOME"
       },
       {
-        "href": "/research",
-        "label": "RESEARCH"
-      },
-      {
-        "href": "/writings",
-        "label": "WRITINGS"
+        "href": "/posts",
+        "label": "POSTS"
       },
       {
         "href": "/content",
