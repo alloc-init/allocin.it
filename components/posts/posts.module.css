@@ -1,6 +1,5 @@
 a.publicationRow {
   grid-template-columns: 10rem minmax(0, 1fr) 4.5rem;
-  min-height: 7rem;
 }
 
 .thumbnail {
@@ -53,7 +52,6 @@ a.publicationRow {
 @media (max-width: 599px) {
   a.publicationRow {
     grid-template-columns: 5rem minmax(0, 1fr) 1rem;
-    min-height: 0;
   }
 
   .thumbnail {

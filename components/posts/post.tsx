@@ -17,7 +17,6 @@ import { Container } from "../utilities/container";
 import { Section } from "../utilities/section";
 import type { BlogPostQueryQuery } from "../../tina/__generated__/types";
 import { tinaField } from "tinacms/dist/react";
-import { getExternalUrl } from "../utilities/external-url";
 import styles from "./publication.module.css";
 
 import ReactMarkdown from "react-markdown";
@@ -34,10 +33,6 @@ const markdownComponents = {
 };
 
 export const Post = (props: BlogPostQueryQuery["post"]) => {
-  const externalUrl = getExternalUrl(props.externalUrl);
-  const host = externalUrl ? new URL(externalUrl).hostname : "";
-  const isNotion = host === "notion.site" || host.endsWith(".notion.site") ||
-    host === "notion.so" || host.endsWith(".notion.so");
   const author = props.author;
   const date = new Date(props.date || NaN);
   let formattedDate = "";
@@ -81,19 +76,6 @@ export const Post = (props: BlogPostQueryQuery["post"]) => {
                 </time>
               )}
             </div>
-            {externalUrl && (
-              <a
-                data-tina-field={tinaField(props, "externalUrl")}
-                href={externalUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={styles.readLink}
-              >
-                {isNotion ? "Read on Notion" : "Read original article"}
-                <span aria-hidden="true">↗</span>
-                <span className="sr-only"> (opens in a new tab)</span>
-              </a>
-            )}
           </header>
           {props.heroImg && (
             <div data-tina-field={tinaField(props, "heroImg")} className={styles.hero}>

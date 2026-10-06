@@ -69,31 +69,7 @@
   display: none;
 }
 
-.readLink {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.75rem;
-  min-height: 2.75rem;
-  margin-top: 1.75rem;
-  padding: 0.75rem 1rem;
-  border: 1px solid #736247;
-  border-radius: 0.25rem;
-  background: #332c20;
-  color: #f2dea1;
-  font-size: 0.875rem;
-  font-weight: 500;
-  line-height: 1.4;
-  transition: background 150ms ease, border-color 150ms ease;
-}
-
-.readLink:hover {
-  border-color: #a38a5c;
-  background: #443824;
-}
-
-.backLink:focus-visible,
-.readLink:focus-visible {
+.backLink:focus-visible {
   outline: 2px solid #e7d9a5;
   outline-offset: 4px;
 }
