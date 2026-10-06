@@ -30,6 +30,13 @@ const getSource = (item: MediaCard) => {
   return host;
 };
 
+const publicationDateFormat = new Intl.DateTimeFormat("en-US", {
+  month: "short",
+  day: "numeric",
+  year: "numeric",
+  timeZone: "UTC",
+});
+
 const Arrow = () => (
   <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
     <path d="M6 18 18 6M6 6h12v12" />
@@ -158,6 +165,9 @@ export const Content = ({ data }: { data: MediaCard[] }) => {
 
 const MediaRow = ({ item }: { item: MediaCard }) => {
   const category = getCategory(item);
+  const source = getSource(item);
+  const date = new Date(item.date || NaN);
+  const hasDate = !isNaN(date.getTime());
   const host = getHost(item.url);
   const isYouTube = host === "youtube.com" || host === "youtu.be";
   const action = category === "news" ? "Read" : category === "podcast" ? "Listen" : isYouTube ? "Watch" : "Open";
@@ -182,7 +192,14 @@ const MediaRow = ({ item }: { item: MediaCard }) => {
           )}
         </div>
         <div className={styles.details}>
-          <p className={styles.source}>{getSource(item)}</p>
+          <p className={`${styles.source} ${styles.mediaMetadata}`}>
+            {hasDate && (
+              <time dateTime={date.toISOString()} className={styles.mediaDate}>
+                {publicationDateFormat.format(date)}
+              </time>
+            )}
+            {source && <span>{source}</span>}
+          </p>
           <h3>{item.title}</h3>
           {item.description && <p className={styles.description}>{item.description}</p>}
         </div>

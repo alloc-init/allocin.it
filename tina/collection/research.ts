@@ -1,16 +1,10 @@
 import type { Collection } from "tinacms";
-import { getResearchPostUrl } from "../../components/utilities/publication-url";
 
 const Research: Collection = {
   label: "Research",
   name: "research",
   path: "content/research",
   format: "mdx",
-  ui: {
-    router: ({ document }) => {
-      return getResearchPostUrl(document._sys.filename);
-    },
-  },
   fields: [
     {
       type: "string",
@@ -33,6 +27,12 @@ const Research: Collection = {
     },
     {
       type: "image",
+      name: "previewImage",
+      label: "Preview image",
+      description: "Optional thumbnail shown in Posts, such as a screenshot of the paper's abstract. Separate from the Hero Image.",
+    },
+    {
+      type: "image",
       name: "heroImg",
       label: "Hero Image",
     },
@@ -40,6 +40,7 @@ const Research: Collection = {
       type: "rich-text",
       label: "Excerpt",
       name: "excerpt",
+      description: "Short preview shown in Posts. Use the abstract or a brief summary of the paper.",
     },
     {
       type: "reference",

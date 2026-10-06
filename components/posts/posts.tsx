@@ -3,7 +3,8 @@ import Link from "next/link";
 import type { PaperListItem, PostListItem } from "../../pages/posts";
 import { getExternalUrl } from "../utilities/external-url";
 import { getResearchFileUrl } from "../research/file-url";
-import { getPostUrl, getResearchPostUrl } from "../utilities/publication-url";
+import { getPostUrl } from "../utilities/publication-url";
+import { richTextToPlainText } from "../utilities/rich-text-plain-text";
 import archive from "./content.module.css";
 import styles from "./posts.module.css";
 
@@ -18,6 +19,8 @@ type Publication = {
   category: Exclude<Category, "all">;
   title: string;
   subtitle?: string;
+  preview: string;
+  previewImage?: string;
   author?: string;
   date?: string;
   href: string;
@@ -65,10 +68,12 @@ export const Posts = ({ data, research }: { data: PostListItem[]; research: Pape
       category: "research",
       title: paper.title,
       subtitle: paper.subtitle,
+      preview: richTextToPlainText(paper.excerpt) || paper.subtitle?.trim() || "",
+      previewImage: paper.previewImage?.trim() || paper.heroImg?.trim() || undefined,
       author: paper.author?.name,
       date: paper.date,
-      href: getResearchPostUrl(paper._sys.filename),
-      newTab: false,
+      href,
+      newTab: true,
       format: /\.pdf(?:[?#]|$)/i.test(href) ? "PDF" : "Paper",
     }];
   });
@@ -81,10 +86,12 @@ export const Posts = ({ data, research }: { data: PostListItem[]; research: Pape
       category: "articles",
       title: post.title,
       subtitle: post.subtitle,
+      preview: richTextToPlainText(post.excerpt) || post.subtitle?.trim() || "",
+      previewImage: post.previewImage?.trim() || post.heroImg?.trim() || undefined,
       author: post.author?.name,
       date: post.date,
-      href: getPostUrl(post._sys.filename),
-      newTab: false,
+      href: externalUrl || getPostUrl(post._sys.filename),
+      newTab: Boolean(externalUrl),
       format: articleSource(externalUrl),
     }];
   });
@@ -97,7 +104,7 @@ export const Posts = ({ data, research }: { data: PostListItem[]; research: Pape
   });
   const query = search.trim().toLocaleLowerCase();
   const matches = publications.filter((item) =>
-    [item.title, item.subtitle, item.author].some((text) => text?.toLocaleLowerCase().includes(query))
+    [item.title, item.subtitle, item.preview, item.author].some((text) => text?.toLocaleLowerCase().includes(query))
   );
   const groups = categories
     .filter(({ id }) => category === "all" || category === id)
@@ -178,40 +185,51 @@ export const Posts = ({ data, research }: { data: PostListItem[]; research: Pape
 };
 
 const PublicationRow = ({ item }: { item: Publication }) => {
+  const RowLink = item.newTab ? "a" : Link;
   const date = new Date(item.date || NaN);
   const hasDate = !isNaN(date.getTime());
-  const shortDate = hasDate ? new Intl.DateTimeFormat("en", { month: "short", day: "numeric", timeZone: "UTC" }).format(date) : "";
+  const formattedDate = hasDate ? new Intl.DateTimeFormat("en", {
+    month: "short", day: "numeric", year: "numeric", timeZone: "UTC",
+  }).format(date) : "";
 
   return (
     <li>
-      <Link
+      <RowLink
         href={item.href}
         target={item.newTab ? "_blank" : undefined}
         rel={item.newTab ? "noopener noreferrer" : undefined}
         className={`${archive.row} ${styles.publicationRow}`}
       >
-        {hasDate ? (
-          <time dateTime={date.toISOString()} className={styles.date}>
-            <span>{shortDate}</span>
-            <span>{date.getUTCFullYear()}</span>
-          </time>
-        ) : <span aria-hidden="true" className={styles.date}>—</span>}
+        <div className={styles.thumbnail} aria-hidden="true">
+          {item.previewImage ? (
+            <img src={item.previewImage} alt="" loading="lazy" decoding="async" />
+          ) : (
+            <div className={styles.thumbnailFallback}>
+              <svg viewBox="0 0 40 48" fill="none" stroke="currentColor" strokeWidth="1.25">
+                <path d="M9 4h15l8 8v31H9zM24 4v9h8M14 21h13M14 27h13M14 33h9" />
+              </svg>
+              <span>{item.format}</span>
+            </div>
+          )}
+        </div>
         <div className={archive.details}>
-          <p className={`${archive.source} ${styles.metadata}`}>
+          <p className={`${archive.source} ${archive.mediaMetadata}`}>
+            {hasDate && (
+              <time dateTime={date.toISOString()} className={archive.mediaDate}>{formattedDate}</time>
+            )}
             {item.author && <span>{item.author}</span>}
-            <span className={styles.format}>{item.format}</span>
           </p>
           <h3>{item.title}</h3>
-          {item.subtitle && <p className={archive.description}>{item.subtitle}</p>}
+          {item.preview && <p className={`${archive.description} ${styles.preview}`}>{item.preview}</p>}
         </div>
         <span className={archive.action}>
-          <span>{item.category === "research" ? "Paper" : "Read"}</span>
+          <span>{item.category === "research" ? item.format : "Read"}</span>
           <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
             <path d={item.newTab ? "M6 18 18 6M6 6h12v12" : "M4 12h16m-6-6 6 6-6 6"} />
           </svg>
           {item.newTab && <span className="sr-only"> (opens in a new tab)</span>}
         </span>
-      </Link>
+      </RowLink>
     </li>
   );
 };

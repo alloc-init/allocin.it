@@ -211,6 +211,30 @@
   line-height: 1.4;
 }
 
+.mediaMetadata {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.45rem 0.75rem;
+  margin-bottom: 0.6rem;
+}
+
+.mediaDate {
+  display: inline-block;
+  flex: 0 0 auto;
+  max-width: 100%;
+  padding: 0.25rem 0.5rem;
+  border: 1px solid #73603d;
+  border-radius: 3px;
+  background: #352c1d;
+  color: #f4e2aa;
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.35;
+  font-variant-numeric: tabular-nums;
+  white-space: normal;
+}
+
 .details h3 {
   margin: 0;
   font-size: 1.0625rem;
@@ -313,6 +337,11 @@
   .source {
     font-size: 0.6875rem;
     overflow-wrap: anywhere;
+  }
+
+  .mediaMetadata {
+    flex-direction: column;
+    align-items: flex-start;
   }
 
   .description,

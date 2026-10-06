@@ -41,6 +41,13 @@ const MediaCard: Collection = {
       description: "For example: Blockworks, Blockspace or a YouTube channel.",
     },
     {
+      type: "datetime",
+      name: "date",
+      label: "Publication date",
+      description: "The original publication date. Leave blank if unknown.",
+      ui: { dateFormat: "MMMM DD YYYY" },
+    },
+    {
       type: "string",
       name: "description",
       label: "Description",
