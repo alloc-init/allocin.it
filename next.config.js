@@ -34,7 +34,17 @@ module.exports = {
       },
       {
         source: "/research/:filename",
-        destination: "/papers/:filename",
+        destination: "/posts/:filename-paper",
+        permanent: true
+      },
+      {
+        source: "/papers/:filename",
+        destination: "/posts/:filename-paper",
+        permanent: true
+      },
+      {
+        source: "/papers",
+        destination: "/posts#research",
         permanent: true
       }
     ];

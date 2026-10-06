@@ -1,4 +1,5 @@
 import type { Collection } from "tinacms";
+import { getResearchPostUrl } from "../../components/utilities/publication-url";
 
 const Research: Collection = {
   label: "Research",
@@ -7,7 +8,7 @@ const Research: Collection = {
   format: "mdx",
   ui: {
     router: ({ document }) => {
-      return `/papers/${document._sys.filename}`;
+      return getResearchPostUrl(document._sys.filename);
     },
   },
   fields: [

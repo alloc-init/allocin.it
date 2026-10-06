@@ -1,0 +1,52 @@
+a.publicationRow {
+  grid-template-columns: 6rem minmax(0, 1fr) 4.5rem;
+  min-height: 7rem;
+}
+
+.date {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  color: #b5ab9b;
+  font-size: 0.8125rem;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.5;
+}
+
+.date > span:last-child {
+  color: #91897d;
+  font-size: 0.75rem;
+}
+
+.metadata {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.35rem 0.75rem;
+}
+
+.format {
+  color: #d4c891;
+  font-size: 0.6875rem;
+}
+
+.metadata > .format:not(:first-child) {
+  padding-left: 0.75rem;
+  border-left: 1px solid #4c4339;
+}
+
+@media (max-width: 599px) {
+  a.publicationRow {
+    grid-template-columns: 3.5rem minmax(0, 1fr) 1rem;
+    min-height: 0;
+  }
+
+  .date {
+    margin-top: 0.1rem;
+    font-size: 0.75rem;
+  }
+
+  .date > span:last-child {
+    font-size: 0.6875rem;
+  }
+}
