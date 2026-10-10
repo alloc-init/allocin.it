@@ -1,0 +1,109 @@
+.publication {
+  padding-top: clamp(2rem, 6vw, 4rem);
+  padding-bottom: clamp(3rem, 7vw, 6rem);
+  color: #f5f2ed;
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 2.75rem;
+  color: #b5ab9b;
+  font-size: 0.8125rem;
+  transition: color 150ms ease;
+}
+
+.backLink:hover {
+  color: #e7d9a5;
+}
+
+.header {
+  margin-top: 1.75rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid #393029;
+}
+
+.eyebrow {
+  margin: 0 0 0.75rem;
+  color: #d4c891;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.title {
+  margin: 0;
+  max-width: 22ch;
+  color: #f5f2ed;
+  font-size: clamp(1.875rem, 4vw, 2.75rem);
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+  overflow-wrap: anywhere;
+  text-wrap: balance;
+}
+
+.description {
+  margin: 1rem 0 0;
+  max-width: 65ch;
+  color: #c6beb0;
+  font-size: clamp(1rem, 2vw, 1.125rem);
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+.metadata {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.35rem 0.65rem;
+  margin-top: 1.25rem;
+  color: #a89f92;
+  font-size: 0.8125rem;
+  line-height: 1.6;
+}
+
+.metadata:empty {
+  display: none;
+}
+
+.backLink:focus-visible {
+  outline: 2px solid #e7d9a5;
+  outline-offset: 4px;
+}
+
+.hero {
+  margin-top: 2rem;
+}
+
+.hero img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 0.25rem;
+}
+
+.body {
+  margin-top: 2rem;
+  overflow-wrap: anywhere;
+}
+
+.body:empty {
+  display: none;
+}
+
+.body pre {
+  overflow-x: auto;
+}
+
+@media (max-width: 599px) {
+  .header {
+    margin-top: 1.25rem;
+  }
+
+  .title {
+    max-width: none;
+  }
+}

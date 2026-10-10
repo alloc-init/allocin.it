@@ -10,7 +10,7 @@ export default function ContentPage({ mediaCards }: InferGetStaticPropsType<type
   return (
     <Layout>
       <Section>
-        <Container size="large" width="small">
+        <Container size="small" width="medium" className="w-full sm:py-16">
           <Content data={mediaCards} />
         </Container>
       </Section>

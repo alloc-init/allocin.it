@@ -5,11 +5,6 @@ const Research: Collection = {
   name: "research",
   path: "content/research",
   format: "mdx",
-  ui: {
-    router: ({ document }) => {
-      return `/research/${document._sys.filename}`;
-    },
-  },
   fields: [
     {
       type: "string",
@@ -25,9 +20,16 @@ const Research: Collection = {
     },
     {
       type: "string",
-      label: "Filename",
+      label: "Paper URL",
       name: "filename",
+      description: "Link to the paper, for example /uploads/paper.pdf or a complete https:// URL.",
       required: true,
+    },
+    {
+      type: "image",
+      name: "previewImage",
+      label: "Preview image",
+      description: "Optional thumbnail shown in Posts, such as a screenshot of the paper's abstract. Separate from the Hero Image.",
     },
     {
       type: "image",
@@ -38,28 +40,13 @@ const Research: Collection = {
       type: "rich-text",
       label: "Excerpt",
       name: "excerpt",
+      description: "Short preview shown in Posts. Use the abstract or a brief summary of the paper.",
     },
     {
       type: "reference",
       label: "Author",
       name: "author",
       collections: ["author"],
-    },
-    {
-      type: "object",
-      label: "Authors",
-      name: "authors",
-      list: true,
-      description: "For papers with multiple authors, in display order. Leave empty to use Author above.",
-      fields: [
-        {
-          type: "reference",
-          label: "Author",
-          name: "author",
-          collections: ["author"],
-          required: true,
-        },
-      ],
     },
     {
       type: "datetime",

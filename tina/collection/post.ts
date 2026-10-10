@@ -24,7 +24,7 @@ const Post: Collection = {
       label: "Notion / External URL",
       name: "externalUrl",
       description:
-        "Optional. Paste a public Notion page or another website URL. The Writings card opens it in a new tab. Leave empty for an article on this site.",
+        "Optional. Opens this public Notion page or external article directly from Posts. Leave empty to publish the full text on this site.",
       ui: {
         validate: (value) => {
           if (value?.trim() && !getExternalUrl(value)) {
@@ -40,6 +40,12 @@ const Post: Collection = {
     },
     {
       type: "image",
+      name: "previewImage",
+      label: "Preview image",
+      description: "Optional thumbnail shown in Posts, such as a screenshot of the article. Separate from the Hero Image displayed inside the article.",
+    },
+    {
+      type: "image",
       name: "heroImg",
       label: "Hero Image",
     },
@@ -47,6 +53,7 @@ const Post: Collection = {
       type: "rich-text",
       label: "Excerpt",
       name: "excerpt",
+      description: "Short preview shown in Posts. Use a brief summary of the article.",
     },
     {
       type: "reference",

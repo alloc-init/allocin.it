@@ -12,12 +12,12 @@
  */
 
 import React from "react";
+import Link from "next/link";
 import { Container } from "../utilities/container";
 import { Section } from "../utilities/section";
-import { useTheme } from "../layout";
-import format from "date-fns/format";
-import { PostType } from "../../pages/posts/[filename]";
+import type { BlogPostQueryQuery } from "../../tina/__generated__/types";
 import { tinaField } from "tinacms/dist/react";
+import styles from "./publication.module.css";
 
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
@@ -32,107 +32,69 @@ const markdownComponents = {
   ),
 };
 
-export const Post = (props: PostType) => {
-  const theme = useTheme();
-
-  const titleColorClasses = {
-    blue: "from-blue-400 to-blue-600 dark:from-blue-300 dark:to-blue-500",
-    teal: "from-teal-400 to-teal-600 dark:from-teal-300 dark:to-teal-500",
-    green: "from-green-400 to-green-600",
-    red: "from-red-400 to-red-600",
-    pink: "from-pink-300 to-pink-500",
-    purple:
-      "from-purple-400 to-purple-600 dark:from-purple-300 dark:to-purple-500",
-    orange:
-      "from-orange-300 to-orange-600 dark:from-orange-200 dark:to-orange-500",
-    yellow:
-      "from-yellow-400 to-yellow-500 dark:from-yellow-300 dark:to-yellow-500",
-  };
-
-  const date = new Date(props.date);
+export const Post = (props: BlogPostQueryQuery["post"]) => {
+  const author = props.author;
+  const date = new Date(props.date || NaN);
   let formattedDate = "";
 
   if (!isNaN(date.getTime())) {
-    formattedDate = format(date, "MMM dd, yyyy");
+    formattedDate = new Intl.DateTimeFormat("en-US", {
+      month: "short",
+      day: "2-digit",
+      year: "numeric",
+      timeZone: "UTC",
+    }).format(date);
   }
 
   return (
     <Section className="flex-1">
-      {props.heroImg && (
-        <div className="px-4 w-full">
-          <div
-            data-tina-field={tinaField(props, "heroImg")}
-            className="relative max-w-4xl lg:max-w-5xl mx-auto mt-4"
-          >
-            <img
-              src={props.heroImg}
-              className="absolute block w-full h-auto blur-2xl brightness-150 contrast-[0.9] dark:brightness-150 saturate-200 opacity-50 dark:opacity-30 mix-blend-multiply dark:mix-blend-hard-light"
-              aria-hidden="true"
-              alt=""
-            />
-            <img
-              src={props.heroImg}
-              alt={props.title}
-              className="relative z-10 mb-14 block rounded-lg w-full h-auto opacity-100"
-            />
-          </div>
-        </div>
-      )}
-
-      <Container width="small" className="flex-1 pb-2 pt-0" size="large">
-        <h2
-          data-tina-field={tinaField(props, "title")}
-          className="w-full relative mb-2 text-4xl tracking-normal text-left title-font"
-        >
-          <span
-            className={`bg-clip-text text-transparent dark:text-white bg-gradient-to-r ${
-              titleColorClasses[theme.color]
-            }`}
-          >
-            {props.title}
-          </span>
-        </h2>
-
-        <div
-          data-tina-field={tinaField(props, "author")}
-          className="flex items-center justify-start mb-16"
-        >
-          {props.author && (
-            <>
-              <p
-                data-tina-field={tinaField(props.author, "name")}
-                className="text-base font-medium text-gray-600 group-hover:text-gray-800 dark:text-gray-200 dark:group-hover:text-white"
-              >
-                {props.author.name}
+      <Container width="small" size="custom" className={styles.publication}>
+        <article>
+          <Link href="/posts#articles" className={styles.backLink}>
+            <span aria-hidden="true">←</span> Articles
+          </Link>
+          <header className={styles.header}>
+            <p className={styles.eyebrow}>Article</p>
+            <h1 data-tina-field={tinaField(props, "title")} className={styles.title}>
+              {props.title}
+            </h1>
+            {props.subtitle && (
+              <p data-tina-field={tinaField(props, "subtitle")} className={styles.description}>
+                {props.subtitle}
               </p>
-              <span className="font-bold text-gray-200 dark:text-gray-500 mx-2">
-                —
-              </span>
-            </>
+            )}
+            <div className={styles.metadata}>
+              {author?.name?.trim() && (
+                <span data-tina-field={tinaField(props, "author")}>
+                  <span data-tina-field={tinaField(author, "name")}>{author.name}</span>
+                </span>
+              )}
+              {author?.name?.trim() && formattedDate && <span aria-hidden="true">·</span>}
+              {formattedDate && (
+                <time dateTime={date.toISOString()} data-tina-field={tinaField(props, "date")}>
+                  {formattedDate}
+                </time>
+              )}
+            </div>
+          </header>
+          {props.heroImg && (
+            <div data-tina-field={tinaField(props, "heroImg")} className={styles.hero}>
+              <img src={props.heroImg} alt={props.title} />
+            </div>
           )}
-
-          <p
-            data-tina-field={tinaField(props, "date")}
-            className="text-base text-gray-400 group-hover:text-gray-500 dark:text-gray-300 dark:group-hover:text-gray-150"
+          <div
+            data-tina-field={tinaField(props, "_body")}
+            className={`prose dark:prose-dark w-full max-w-none ${styles.body}`}
           >
-            {formattedDate}
-          </p>
-        </div>
-      </Container>
-
-      <Container className="flex-1 pt-4" width="small" size="large">
-        <div
-          data-tina-field={tinaField(props, "_body")}
-          className="prose dark:prose-dark w-full max-w-none"
-        >
-          <ReactMarkdown
-            remarkPlugins={[remarkGfm, remarkMath]}
-            rehypePlugins={[rehypeKatex]}
-            components={markdownComponents}
-          >
-            {props._body ?? ""}
-          </ReactMarkdown>
-        </div>
+            <ReactMarkdown
+              remarkPlugins={[remarkGfm, remarkMath]}
+              rehypePlugins={[rehypeKatex]}
+              components={markdownComponents}
+            >
+              {props._body ?? ""}
+            </ReactMarkdown>
+          </div>
+        </article>
       </Container>
     </Section>
   );

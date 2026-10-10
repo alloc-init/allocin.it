@@ -1,87 +1,235 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { useTheme } from "../layout";
-import format from "date-fns/format";
-import { ResearchType } from "../../pages/posts";
+import type { PaperListItem, PostListItem } from "../../pages/posts";
 import { getExternalUrl } from "../utilities/external-url";
+import { getResearchFileUrl } from "../research/file-url";
+import { getPostUrl } from "../utilities/publication-url";
+import { richTextToPlainText } from "../utilities/rich-text-plain-text";
+import archive from "./content.module.css";
+import styles from "./posts.module.css";
 
-export const Posts = ({ data }: { data: ResearchType[] }) => {
-  const theme = useTheme();
-  const sortedPosts = [...data].sort((a, b) => {
-    const aDate = Date.parse(a.node.date || "");
-    const bDate = Date.parse(b.node.date || "");
+const categories = [
+  { id: "research", label: "Research papers" },
+  { id: "articles", label: "Articles" },
+] as const;
+type Category = "all" | (typeof categories)[number]["id"];
+
+type Publication = {
+  id: string;
+  category: Exclude<Category, "all">;
+  title: string;
+  subtitle?: string;
+  preview: string;
+  previewImage?: string;
+  author?: string;
+  date?: string;
+  href: string;
+  newTab: boolean;
+  format: string;
+};
+
+const articleSource = (url?: string) => {
+  if (!url) return "Article";
+  const host = new URL(url).hostname;
+  return host === "notion.site" || host.endsWith(".notion.site") || host === "www.notion.so"
+    ? "Notion"
+    : "External article";
+};
+
+export const Posts = ({ data, research }: { data: PostListItem[]; research: PaperListItem[] }) => {
+  const [category, setCategory] = useState<Category>("all");
+  const [search, setSearch] = useState("");
+
+  useEffect(() => {
+    let scrollFrame: number;
+    const showLinkedSection = () => {
+      const id = window.location.hash.slice(1);
+      if (id === "posts-heading" || categories.some((item) => item.id === id)) {
+        setCategory("all");
+        setSearch("");
+        window.cancelAnimationFrame(scrollFrame);
+        scrollFrame = window.requestAnimationFrame(() => document.getElementById(id)?.scrollIntoView());
+      }
+    };
+    showLinkedSection();
+    window.addEventListener("hashchange", showLinkedSection);
+    return () => {
+      window.removeEventListener("hashchange", showLinkedSection);
+      window.cancelAnimationFrame(scrollFrame);
+    };
+  }, []);
+
+  const papers: Publication[] = research.flatMap((edge) => {
+    const paper = edge?.node;
+    if (!paper) return [];
+    const href = getResearchFileUrl(paper.filename);
+    return [{
+      id: `research:${paper._sys.filename}`,
+      category: "research",
+      title: paper.title,
+      subtitle: paper.subtitle,
+      preview: richTextToPlainText(paper.excerpt) || paper.subtitle?.trim() || "",
+      previewImage: paper.previewImage?.trim() || paper.heroImg?.trim() || undefined,
+      author: paper.author?.name,
+      date: paper.date,
+      href,
+      newTab: true,
+      format: /\.pdf(?:[?#]|$)/i.test(href) ? "PDF" : "Paper",
+    }];
+  });
+  const articles: Publication[] = data.flatMap((edge) => {
+    const post = edge?.node;
+    if (!post) return [];
+    const externalUrl = getExternalUrl(post.externalUrl);
+    return [{
+      id: `post:${post._sys.filename}`,
+      category: "articles",
+      title: post.title,
+      subtitle: post.subtitle,
+      preview: richTextToPlainText(post.excerpt) || post.subtitle?.trim() || "",
+      previewImage: post.previewImage?.trim() || post.heroImg?.trim() || undefined,
+      author: post.author?.name,
+      date: post.date,
+      href: externalUrl || getPostUrl(post._sys.filename),
+      newTab: Boolean(externalUrl),
+      format: articleSource(externalUrl),
+    }];
+  });
+  const publications = [...papers, ...articles].sort((a, b) => {
+    const aDate = Date.parse(a.date || "");
+    const bDate = Date.parse(b.date || "");
     if (isNaN(aDate)) return isNaN(bDate) ? 0 : 1;
     if (isNaN(bDate)) return -1;
     return bDate - aDate;
   });
-  const titleColorClasses = {
-    blue: "group-hover:text-blue-600 dark:group-hover:text-blue-300",
-    teal: "group-hover:text-teal-600 dark:group-hover:text-teal-300",
-    green: "group-hover:text-green-600 dark:group-hover:text-green-300",
-    red: "group-hover:text-red-600 dark:group-hover:text-red-300",
-    pink: "group-hover:text-pink-600 dark:group-hover:text-pink-300",
-    purple: "group-hover:text-purple-600 dark:group-hover:text-purple-300",
-    orange: "group-hover:text-orange-600 dark:group-hover:text-orange-300",
-    yellow: "group-hover:text-yellow-500 dark:group-hover:text-yellow-300"
+  const query = search.trim().toLocaleLowerCase();
+  const matches = publications.filter((item) =>
+    [item.title, item.subtitle, item.preview, item.author].some((text) => text?.toLocaleLowerCase().includes(query))
+  );
+  const groups = categories
+    .filter(({ id }) => category === "all" || category === id)
+    .map((group) => ({ ...group, items: matches.filter((item) => item.category === group.id) }))
+    .filter((group) => group.items.length);
+  const resultCount = groups.reduce((count, group) => count + group.items.length, 0);
+
+  const selectCategory = (next: Category) => {
+    setCategory(next);
+    window.history.replaceState(window.history.state, "", `#${next === "all" ? "posts-heading" : next}`);
   };
 
   return (
-    <div>
-      <h2 className="text-2xl  mb-4 text-white">Blogs</h2>
-      <div className="flex flex-wrap gap-x-8 gap-y-0">
-        {sortedPosts.map((postData) => {
-          const post = postData.node;
-          const externalUrl = getExternalUrl(post.externalUrl);
-          const date = new Date(post.date || NaN);
-          let formattedDate = "";
-          if (!isNaN(date.getTime())) {
-            formattedDate = format(date, "M/d/yyyy");
-          }
-          return (
-            <div key={post._sys.filename} className="w-full min-w-0 md:w-[350px] mb-8 last:mb-0">
-              <Link
-                href={externalUrl || `/posts/` + post._sys.filename}
-                target={externalUrl ? "_blank" : undefined}
-                rel={externalUrl ? "noopener noreferrer" : undefined}
-                className="group md:min-h-[208px] dark:bg-[rgb(36,32,29)] flex flex-col px-6 sm:px-8 md:px-4 py-4  rounded-md shadow-sm transition-all duration-150 ease-out hover:shadow-md hover:to-gray-50 dark:hover:to-gray-800"
-              >
-                <div className="flex items-center justify-between gap-2">
-                  <img src="/logo-large.svg" alt="" className="w-8 h-8 shrink-0" />
-                  <div className="flex min-w-0 flex-wrap items-center justify-end gap-1">
-                    {post.author?.name && (
-                      <div className="p-2 bg-[rgb(24,24,24)] text-white text-xs leading-tight">
-                        {post.author.name}
-                      </div>
-                    )}
-                    {post.type && (
-                      <div className="uppercase p-2 text-xs leading-tight bg-[rgb(57,46,30)] text-yellow">
-                        {post.type}
-                      </div>
-                    )}
-                  </div>
-                </div>
-                <h3
-                  className={`text-gray-700 mt-4 md:mt-6 dark:text-white text-2xl lg:text-2xl font-semibold title-font  transition-all duration-150 ease-out ${
-                    titleColorClasses[theme.color]
-                  }`}
-                >
-                  {post.title}{" "}
-                </h3>
-                <p className="text-gray-500 text-sm ">{post.subtitle}</p>
-              </Link>
-              {formattedDate !== "" && (
-                <div className="mt-2 flex items-center w-full gap-2">
-                  <p
-                    className="text-xs text-gray-400 group-hover:text-gray-500 dark:text-gray-600 dark:group-hover:text-gray-150">
-                    {formattedDate}
-                  </p>
-                  <div className="flex-1 border-t-[1px] border-gray-600 dark:border-gray-700"></div>
-                </div>
-              )}
+    <div id="posts-heading" className={archive.archive}>
+      <header className={archive.header}>
+        <h1>Posts</h1>
+        <p>Research papers, ideas and updates from our team.</p>
+      </header>
+      <div className={archive.toolbar}>
+        <div className={archive.filters} role="group" aria-label="Filter posts by format">
+          {[{ id: "all" as const, label: "All" }, ...categories].map(({ id, label }) => (
+            <button
+              key={id}
+              type="button"
+              aria-pressed={category === id}
+              aria-controls="posts-results"
+              onClick={() => selectCategory(id)}
+              className={archive.filter}
+            >
+              {label}
+              <span className={archive.count}>
+                {id === "all" ? matches.length : matches.filter((item) => item.category === id).length}
+              </span>
+            </button>
+          ))}
+        </div>
+        <div className={archive.search}>
+          <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+            <circle cx="10.5" cy="10.5" r="6.5" />
+            <path d="m16 16 4.5 4.5" />
+          </svg>
+          <label htmlFor="posts-search" className="sr-only">Search posts</label>
+          <input
+            id="posts-search"
+            type="search"
+            placeholder="Search posts…"
+            value={search}
+            onChange={(event) => setSearch(event.target.value)}
+            aria-controls="posts-results"
+          />
+        </div>
+      </div>
+      <p className={query ? archive.resultSummary : "sr-only"} role="status" aria-live="polite" aria-atomic="true">
+        {resultCount} {resultCount === 1 ? "result" : "results"}{query ? ` for “${search.trim()}”` : ""}
+      </p>
+      <div id="posts-results">
+        {groups.map(({ id, label, items }) => (
+          <section key={id} id={id} aria-labelledby={`${id}-heading`} className={archive.section}>
+            <div className={archive.sectionHeading}>
+              <h2 id={`${id}-heading`}>{label}</h2>
+              <span>{items.length} {items.length === 1 ? "item" : "items"}</span>
             </div>
-          );
-        })}
+            <ul className={archive.list}>
+              {items.map((item) => <PublicationRow key={item.id} item={item} />)}
+            </ul>
+          </section>
+        ))}
+        {!resultCount && (
+          <div className={archive.empty}>
+            <h2>No matching posts</h2>
+            <p>Try another author, title or topic.</p>
+            <button type="button" onClick={() => { selectCategory("all"); setSearch(""); }}>Clear filters</button>
+          </div>
+        )}
       </div>
     </div>
+  );
+};
+
+const PublicationRow = ({ item }: { item: Publication }) => {
+  const RowLink = item.newTab ? "a" : Link;
+  const date = new Date(item.date || NaN);
+  const hasDate = !isNaN(date.getTime());
+  const formattedDate = hasDate ? new Intl.DateTimeFormat("en", {
+    month: "short", day: "numeric", year: "numeric", timeZone: "UTC",
+  }).format(date) : "";
+
+  return (
+    <li>
+      <RowLink
+        href={item.href}
+        target={item.newTab ? "_blank" : undefined}
+        rel={item.newTab ? "noopener noreferrer" : undefined}
+        className={`${archive.row} ${styles.publicationRow}`}
+      >
+        <div className={styles.thumbnail} aria-hidden="true">
+          {item.previewImage ? (
+            <img src={item.previewImage} alt="" loading="lazy" decoding="async" />
+          ) : (
+            <div className={styles.thumbnailFallback}>
+              <svg viewBox="0 0 40 48" fill="none" stroke="currentColor" strokeWidth="1.25">
+                <path d="M9 4h15l8 8v31H9zM24 4v9h8M14 21h13M14 27h13M14 33h9" />
+              </svg>
+              <span>{item.format}</span>
+            </div>
+          )}
+        </div>
+        <div className={archive.details}>
+          <p className={`${archive.source} ${archive.mediaMetadata}`}>
+            {hasDate && (
+              <time dateTime={date.toISOString()} className={archive.mediaDate}>{formattedDate}</time>
+            )}
+            {item.author && <span>{item.author}</span>}
+          </p>
+          <h3>{item.title}</h3>
+          {item.preview && <p className={`${archive.description} ${styles.preview}`}>{item.preview}</p>}
+        </div>
+        <span className={archive.action}>
+          <span>{item.category === "research" ? item.format : "Read"}</span>
+          <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+            <path d={item.newTab ? "M6 18 18 6M6 6h12v12" : "M4 12h16m-6-6 6 6-6 6"} />
+          </svg>
+          {item.newTab && <span className="sr-only"> (opens in a new tab)</span>}
+        </span>
+      </RowLink>
+    </li>
   );
 };

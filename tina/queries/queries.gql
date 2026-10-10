@@ -41,6 +41,7 @@ query mediaCardsQuery($after: String) {
                 image
                 publisher
                 description
+                date
                 url
                 order
             }
@@ -121,13 +122,10 @@ query blogPostQuery($relativePath: String!) {
 }
 
 # ————————————————————————————
-# paperQuery: single research + author
+# paperQuery: destination for a research redirect
 # ————————————————————————————
 query paperQuery($relativePath: String!) {
-    ...LayoutQueryFragment
-
     research(relativePath: $relativePath) {
-        ...ResearchParts
-        author { ...AuthorParts }
+        filename
     }
 }
