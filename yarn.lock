@@ -3847,22 +3847,22 @@
   integrity sha512-M8Bzy7CCMvUjRiuoHVH9mRjyUVczRs8v8RcUEphLFGc445ZP4KQ15Y1sLqhQqJi/HgGJrxfCHnEnIX0x9mVrBg==
 
 "@tinacms/app@^2.5.13":
-  version "2.5.13"
-  resolved "https://registry.yarnpkg.com/@tinacms/app/-/app-2.5.13.tgz#71240316b5682b9818b23ad1101b731e9f150d53"
-  integrity sha512-zVmvM1c0CkR6abkFnzG+g1ixiTR2OQy+GHu+MuUVpN1ZipIK41xWnYtLFF6eyeAqTnJV+7pNPZwtDCkk687/5Q==
+  version "2.5.15"
+  resolved "https://registry.yarnpkg.com/@tinacms/app/-/app-2.5.15.tgz#d65e25ec68dc75ca688ebe386d8d1546769af91f"
+  integrity sha512-uN+7yghJy++MBe4clAyY4i4yfAIByFbnkJnlo0kV4rvHwltcUIydYjL7K8PakCPciUBCBBpxm75fQomq9dayCA==
   dependencies:
     "@graphiql/toolkit" "^0.11.3"
     "@monaco-editor/loader" "^1.7.0"
     "@radix-ui/react-popover" "^1.1.18"
-    "@tinacms/mdx" "^2.2.2"
-    final-form "^5.0.1"
+    "@tinacms/mdx" "^2.3.0"
+    final-form "4.20.10"
     graphiql "^4.1.2"
     graphql "15.8.0"
     lucide-react "^0.424.0"
     react "^18.3.1"
     react-dom "^18.3.1"
     react-router-dom "^6.30.3"
-    tinacms "^3.13.0"
+    tinacms "^3.14.4"
     zod "^3.24.2"
 
 "@tinacms/bridge@^0.3.1":
@@ -3980,6 +3980,32 @@
     readable-stream "^4.7.0"
     yup "^1.6.1"
 
+"@tinacms/graphql@^4.0.0":
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/@tinacms/graphql/-/graphql-4.0.0.tgz#873cecf909ad00d1936f7d8bdbf9d48cf92a01f4"
+  integrity sha512-DFgnQ1Eqhtxy/OzrnkMT0jaq2NJFj3jWSrwt9IzLVte6Z28x8cRq6R+ZY8WOzKhYtQZTIQeomWkXjEFj77U86A==
+  dependencies:
+    "@iarna/toml" "^2.2.5"
+    "@tinacms/mdx" "^2.3.0"
+    "@tinacms/schema-tools" "^2.10.1"
+    abstract-level "^1.0.4"
+    date-fns "4.1.0"
+    es-toolkit "^1.42.0"
+    fast-glob "^3.3.3"
+    fs-extra "^11.3.0"
+    glob-parent "^6.0.2"
+    graphql "15.8.0"
+    gray-matter "^4.0.3"
+    isomorphic-git "^1.29.0"
+    js-sha1 "^0.6.0"
+    js-yaml "^3.15.1"
+    jsonpath-plus "^10.3.0"
+    many-level "^2.0.0"
+    micromatch "4.0.8"
+    normalize-path "^3.0.0"
+    readable-stream "^4.7.0"
+    yup "^1.6.1"
+
 "@tinacms/mdx@1.8.1":
   version "1.8.1"
   resolved "https://registry.npmjs.org/@tinacms/mdx/-/mdx-1.8.1.tgz"
@@ -4049,6 +4075,40 @@
     unist-util-visit "4.1.2"
     vfile-message "3.1.4"
 
+"@tinacms/mdx@^2.3.0":
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/@tinacms/mdx/-/mdx-2.3.0.tgz#94fa219a397d143b46b0913169d3f2efaee8c964"
+  integrity sha512-5k+I8tPZzJwybmg1NBvn4bOoWsciuoRGtJdXelfdKx2/I5d60WIviSijsSrNJdHTFzT6wjZgyOkRWup0HqbI4Q==
+  dependencies:
+    "@tinacms/schema-tools" "^2.10.1"
+    acorn "^8.16.0"
+    ccount "2.0.1"
+    emoji-regex "9.2.2"
+    estree-util-is-identifier-name "2.1.0"
+    esutils "2.0.3"
+    mdast-util-compact "4.1.1"
+    mdast-util-directive "2.2.4"
+    mdast-util-from-markdown "1.3.0"
+    mdast-util-gfm "2.0.2"
+    mdast-util-mdx-jsx "2.1.2"
+    mdast-util-to-markdown "1.5.0"
+    micromark-extension-gfm "2.0.3"
+    micromark-factory-mdx-expression "1.0.7"
+    micromark-factory-space "1.0.0"
+    micromark-factory-whitespace "1.0.0"
+    micromark-util-character "1.1.0"
+    micromark-util-symbol "1.0.1"
+    micromark-util-types "1.1.0"
+    parse-entities "4.0.1"
+    remark "14.0.2"
+    remark-gfm "^2.0.0"
+    remark-mdx "2.3.0"
+    stringify-entities "4.0.3"
+    unist-util-source "4.0.2"
+    unist-util-stringify-position "3.0.3"
+    unist-util-visit "4.1.2"
+    vfile-message "3.1.4"
+
 "@tinacms/metrics@^2.1.3":
   version "2.1.3"
   resolved "https://registry.yarnpkg.com/@tinacms/metrics/-/metrics-2.1.3.tgz#34537a6f3ba00c38770d6956bdf99c5598985681"
@@ -4067,6 +4127,15 @@
   version "2.10.0"
   resolved "https://registry.yarnpkg.com/@tinacms/schema-tools/-/schema-tools-2.10.0.tgz#1b81f085701e8ea38725783d75665addad26a610"
   integrity sha512-y8AeJrvmZnYgljk/b/wM85g7YWtdKx28G4o0I4fBtFRiDfXWnvC+m2HXt99mffgu49SA6AjmPDwDl8BrJaygYA==
+  dependencies:
+    picomatch-browser "2.2.6"
+    url-pattern "^1.0.3"
+    zod "^3.24.2"
+
+"@tinacms/schema-tools@^2.10.1":
+  version "2.10.1"
+  resolved "https://registry.yarnpkg.com/@tinacms/schema-tools/-/schema-tools-2.10.1.tgz#450504919e4e9c8a02ae463aba26b5ce1f2eb693"
+  integrity sha512-jhLOC6r2OMjKp/2jpdFPbVyXPL1Vjbc+cFXASa/hM/FvFIkgFYWqxSbklsjP/26IEa5qXwZbMJ+nZExHoTUncg==
   dependencies:
     picomatch-browser "2.2.6"
     url-pattern "^1.0.3"
@@ -4091,6 +4160,18 @@
   dependencies:
     "@tinacms/graphql" "^2.4.10"
     "@tinacms/schema-tools" "^2.9.0"
+    memory-level "^1.0.0"
+    search-index "4.0.0"
+    sqlite-level "^2.1.0"
+    stopword "^3.1.4"
+
+"@tinacms/search@^1.2.26":
+  version "1.2.26"
+  resolved "https://registry.yarnpkg.com/@tinacms/search/-/search-1.2.26.tgz#9e042221ecdd465f792352302253bf1af6027c52"
+  integrity sha512-kC78flxc+5vIAVJhWUrZlH7FirqKWl42Jz6Fz1zY5wCPvmkH4R77XYgQtmXzUVjYX+a/feZU1uR2aRk9FTI6iQ==
+  dependencies:
+    "@tinacms/graphql" "^4.0.0"
+    "@tinacms/schema-tools" "^2.10.1"
     memory-level "^1.0.0"
     search-index "4.0.0"
     sqlite-level "^2.1.0"
@@ -6232,15 +6313,15 @@ emoji-regex-xs@^1.0.0:
   resolved "https://registry.npmjs.org/emoji-regex-xs/-/emoji-regex-xs-1.0.0.tgz"
   integrity sha512-LRlerrMYoIDrT6jgpeZ2YYl/L8EulRTt5hQcYjy5AInh7HWXKimpqx68aknBFpGL2+/IcogTcaydJEgaTmOpDg==
 
+emoji-regex@9.2.2, emoji-regex@^9.2.2:
+  version "9.2.2"
+  resolved "https://registry.npmjs.org/emoji-regex/-/emoji-regex-9.2.2.tgz"
+  integrity sha512-L18DaJsXSUk2+42pv8mLs5jJT2hqFkFE4j21wOmgbUqsZ2hL72NsUU785g9RXgo3s0ZNgVl42TiHp3ZtOv/Vyg==
+
 emoji-regex@^8.0.0:
   version "8.0.0"
   resolved "https://registry.npmjs.org/emoji-regex/-/emoji-regex-8.0.0.tgz"
   integrity sha512-MSjYzcWNOA0ewAHpz0MxpYFvwg6yjy1NG3xteoqz644VCo/RPgnr1/GGt+ic3iJTzQ8Eu3TdM14SawnVUmGE6A==
-
-emoji-regex@^9.2.2:
-  version "9.2.2"
-  resolved "https://registry.npmjs.org/emoji-regex/-/emoji-regex-9.2.2.tgz"
-  integrity sha512-L18DaJsXSUk2+42pv8mLs5jJT2hqFkFE4j21wOmgbUqsZ2hL72NsUU785g9RXgo3s0ZNgVl42TiHp3ZtOv/Vyg==
 
 encodeurl@~1.0.2:
   version "1.0.2"
@@ -6522,7 +6603,7 @@ estree-walker@^2.0.2:
   resolved "https://registry.npmjs.org/estree-walker/-/estree-walker-2.0.2.tgz"
   integrity sha512-Rfkk/Mp/DL7JVje3u18FxFujQlTNR2q6QfMSMB7AvCBx91NGj/ba3kCfza0f6dVDbw7YlRf/nDrn7pQrCCyQ/w==
 
-esutils@^2.0.2:
+esutils@2.0.3, esutils@^2.0.2:
   version "2.0.3"
   resolved "https://registry.npmjs.org/esutils/-/esutils-2.0.3.tgz"
   integrity sha512-kVscqXk4OCp68SZ0dkgEKVi6/8ij300KBWTJq32P/dYeWTSwK41WyTxalN1eRmA5Z9UU/LX9D7FWSmV9SAYx6g==
@@ -11316,6 +11397,86 @@ tinacms@^3.13.0:
     react-dnd-html5-backend "^16.0.1"
     react-dropzone "14.2.3"
     react-final-form "^7.0.1"
+    react-router-dom "^6.30.3"
+    react-use "^17.6.0"
+    tailwind-merge "^2.6.0"
+    webfontloader "1.6.28"
+    yup "^1.6.1"
+    zod "^3.24.2"
+
+tinacms@^3.14.4:
+  version "3.14.4"
+  resolved "https://registry.yarnpkg.com/tinacms/-/tinacms-3.14.4.tgz#8544981d3fa88badd122c963fbc8d98671b89d11"
+  integrity sha512-I21cDWToIgy25EMnOFfUGxl8hdeBMmKzxfXM3HHnNafWToI4DC7DXrm69syyBO6ZVSaZjOC8hP2rLbiapXuqLg==
+  dependencies:
+    "@ariakit/react" "^0.4.15"
+    "@dnd-kit/core" "^6.1.0"
+    "@dnd-kit/sortable" "^8.0.0"
+    "@dnd-kit/utilities" "^3.2.2"
+    "@floating-ui/dom" "^1.6.13"
+    "@floating-ui/react-dom" "^2.1.2"
+    "@graphql-inspector/core" "^6.2.1"
+    "@radix-ui/react-dialog" "^1.1.18"
+    "@radix-ui/react-dropdown-menu" "^2.1.19"
+    "@radix-ui/react-popover" "^1.1.18"
+    "@radix-ui/react-select" "^2.3.2"
+    "@radix-ui/react-separator" "^1.1.11"
+    "@radix-ui/react-slot" "^1.3.0"
+    "@radix-ui/react-toolbar" "^1.1.14"
+    "@radix-ui/react-tooltip" "^1.2.11"
+    "@react-hook/window-size" "^3.1.1"
+    "@tanstack/react-table" "^8.21.3"
+    "@tinacms/bridge" "^0.3.1"
+    "@tinacms/mdx" "^2.3.0"
+    "@tinacms/schema-tools" "^2.10.1"
+    "@tinacms/search" "^1.2.26"
+    "@udecode/cmdk" "^0.2.1"
+    "@udecode/cn" "^48.0.3"
+    "@udecode/plate" "^48.0.3"
+    "@udecode/plate-autoformat" "^48.0.0"
+    "@udecode/plate-basic-marks" "^48.0.0"
+    "@udecode/plate-block-quote" "^48"
+    "@udecode/plate-break" "^48"
+    "@udecode/plate-code-block" "^48.0.0"
+    "@udecode/plate-combobox" "^48"
+    "@udecode/plate-dnd" "^48.0.0"
+    "@udecode/plate-floating" "^48.0.0"
+    "@udecode/plate-heading" "^48"
+    "@udecode/plate-highlight" "^48"
+    "@udecode/plate-horizontal-rule" "^48"
+    "@udecode/plate-indent-list" "^48.0.0"
+    "@udecode/plate-link" "^48.0.0"
+    "@udecode/plate-list" "^48.0.0"
+    "@udecode/plate-node-id" "^48.0.0"
+    "@udecode/plate-reset-node" "^48"
+    "@udecode/plate-resizable" "^48"
+    "@udecode/plate-selection" "^48.0.0"
+    "@udecode/plate-slash-command" "^48.0.0"
+    "@udecode/plate-table" "^48.0.0"
+    "@udecode/plate-trailing-block" "^48.0.0"
+    class-variance-authority "^0.7.1"
+    clsx "^2.1.1"
+    cmdk "^1.0.4"
+    color-string "^1.9.1"
+    date-fns "4.1.0"
+    es-toolkit "^1.42.0"
+    final-form "4.20.10"
+    final-form-arrays "^3.1.0"
+    final-form-set-field-data "^1.0.2"
+    graphql "15.8.0"
+    graphql-tag "^2.12.6"
+    is-hotkey "^0.2.0"
+    lucide-react "^0.424.0"
+    mermaid "^11.16.1"
+    posthog-js "^1.347.1"
+    prism-react-renderer "^2.4.1"
+    prop-types "15.7.2"
+    react-colorful "^5.6.1"
+    react-day-picker "^9.13.0"
+    react-dnd "^16.0.1"
+    react-dnd-html5-backend "^16.0.1"
+    react-dropzone "14.2.3"
+    react-final-form "^6.5.9"
     react-router-dom "^6.30.3"
     react-use "^17.6.0"
     tailwind-merge "^2.6.0"
