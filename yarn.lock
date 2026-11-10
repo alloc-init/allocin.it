@@ -4050,9 +4050,9 @@
     vfile-message "3.1.4"
 
 "@tinacms/metrics@^2.1.3":
-  version "2.1.3"
-  resolved "https://registry.yarnpkg.com/@tinacms/metrics/-/metrics-2.1.3.tgz#34537a6f3ba00c38770d6956bdf99c5598985681"
-  integrity sha512-A3H2lv5fKZSpNCRASGkkq29w4RAtiJ3bMwmbDBR7JNQlOVub4hWlxMPI8Pz2BA3so8ghIWYK6NCofbhErH1pow==
+  version "2.1.4"
+  resolved "https://registry.yarnpkg.com/@tinacms/metrics/-/metrics-2.1.4.tgz#e737730ce6ea1a74ffb27f9e0302cce9e7cb3d5c"
+  integrity sha512-Q9J4skaueRCTS5Tf2LFGzMdRDmOlDrA11y6EMd8u2/jrzQZw4XMXVhTq9aAbJ6ICmQ5PAzzSdPzMkne/XgJD6w==
 
 "@tinacms/schema-tools@1.9.1":
   version "1.9.1"
