@@ -24,6 +24,10 @@ const config = defineConfig({
   clientId: process.env.NEXT_PUBLIC_TINA_CLIENT_ID!,
   branch,
   token: process.env.TINA_TOKEN!,
+  cmsCallback: (cms) => {
+    cms.flags.set("branch-switcher", true);
+    return cms;
+  },
   media: {
     // If you wanted cloudinary do this
     // loadCustomStore: async () => {

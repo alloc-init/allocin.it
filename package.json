@@ -2,6 +2,9 @@
   "name": "@tinacms/starter",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "22.x || 24.x"
+  },
   "scripts": {
     "dev": "tinacms dev -c \"next dev\"",
     "build": "tinacms build && next build",
@@ -11,7 +14,7 @@
   },
   "devDependencies": {
     "@svgr/webpack": "^8.1.0",
-    "@tinacms/cli": "^2.7.0",
+    "@tinacms/cli": "^4.0.5",
     "@types/js-cookie": "^3.0.0",
     "@types/node": "^16.11.7",
     "@types/react": "^18.2.0",
@@ -40,7 +43,7 @@
     "remark-math": "^6.0.0",
     "styled-jsx": "^5.1.1",
     "tailwindcss": "^3.2.4",
-    "tinacms": "^2.8.3",
+    "tinacms": "^3.15.2",
     "typescript": "^5.0.0"
   }
 }
