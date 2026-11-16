@@ -2,6 +2,7 @@ import * as React from "react";
 import { GoCircleSlash } from "react-icons/go";
 import { Button, wrapFieldsWithMeta } from "tinacms";
 import { Popover, Transition } from "@headlessui/react";
+import { ColorPickerInput } from "./color";
 import { Icon, IconOptions } from "../../components/utilities/icon";
 import { BiChevronRight } from "react-icons/bi";
 
@@ -133,3 +134,42 @@ export const IconPickerInput = wrapFieldsWithMeta(({ input }) => {
     </div>
   );
 });
+
+export const iconSchema = {
+  type: "object",
+  label: "Icon",
+  name: "icon",
+  fields: [
+    {
+      type: "string",
+      label: "Icon",
+      name: "name",
+      ui: {
+        component: IconPickerInput,
+      },
+    },
+    {
+      type: "string",
+      label: "Color",
+      name: "color",
+      ui: {
+        component: ColorPickerInput,
+      },
+    },
+    {
+      name: "style",
+      label: "Style",
+      type: "string",
+      options: [
+        {
+          label: "Circle",
+          value: "circle",
+        },
+        {
+          label: "Float",
+          value: "float",
+        },
+      ],
+    },
+  ],
+};
