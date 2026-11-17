@@ -1,4 +1,5 @@
 import type { Collection } from "tinacms";
+import { ContentLinkInput } from "../fields/content-link";
 
 const MediaCard: Collection = {
   label: "Content",
@@ -10,6 +11,27 @@ const MediaCard: Collection = {
     order: 100,
   },
   fields: [
+    {
+      type: "string",
+      name: "url",
+      label: "Link",
+      description: "The full https:// or http:// link to the video, podcast or news item.",
+      required: true,
+      ui: {
+        component: ContentLinkInput,
+        validate: (value) => {
+          try {
+            const url = new URL(value);
+            if (url.protocol === "https:" || url.protocol === "http:") {
+              return;
+            }
+          } catch {
+            // Invalid URLs use the same message as unsupported protocols.
+          }
+          return "Enter a complete https:// or http:// link.";
+        },
+      },
+    },
     {
       type: "string",
       name: "title",
@@ -52,26 +74,6 @@ const MediaCard: Collection = {
       name: "description",
       label: "Description",
       ui: { component: "textarea" },
-    },
-    {
-      type: "string",
-      name: "url",
-      label: "Link",
-      description: "The full https:// or http:// link to the video, podcast or news item.",
-      required: true,
-      ui: {
-        validate: (value) => {
-          try {
-            const url = new URL(value);
-            if (url.protocol === "https:" || url.protocol === "http:") {
-              return;
-            }
-          } catch {
-            // Invalid URLs use the same message as unsupported protocols.
-          }
-          return "Enter a complete https:// or http:// link.";
-        },
-      },
     },
     {
       type: "number",
