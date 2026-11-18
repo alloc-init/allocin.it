@@ -108,7 +108,7 @@ export const ContentLinkInput: React.FC = wrapFieldsWithMeta(function ContentLin
           void fill(value);
         }}
       />
-      <p className="mt-2 text-xs text-gray-600">Paste a public link to fill this card using YouTube or Jina Reader.</p>
+      <p className="mt-2 text-xs text-gray-600">Paste a YouTube or X post link to fill this card. For other links, enter the details manually.</p>
       <Button
         type="button"
         size="small"

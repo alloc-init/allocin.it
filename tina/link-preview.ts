@@ -1,5 +1,5 @@
 import { type LinkMetadata, publicLinkUrl } from "./link-metadata";
-import { fetchReaderPreview } from "./reader-link-preview";
+import { fetchXPreview } from "./x-link-preview";
 import { fetchYoutubeEmbed, fetchYoutubeSource } from "./youtube-link-preview";
 
 // Limit each provider separately so a slow response still leaves time for the fallback.
@@ -42,8 +42,10 @@ export async function fetchLinkMetadata(rawUrl: string, signal: AbortSignal): Pr
         };
       }
     }
+  } else if (/^(?:(?:www|mobile)\.)?(?:x|twitter)\.com$/.test(url.hostname)) {
+    preview = await tryPreview(signal, 10000, (s) => fetchXPreview(url, s));
   } else {
-    preview = await tryPreview(signal, 28000, (s) => fetchReaderPreview(url, s));
+    throw new Error("Autofill supports YouTube and X. Enter the details for other links manually.");
   }
   if (preview) return preview;
   throw new Error("Couldn't read details from this link. You can fill in the fields manually.");

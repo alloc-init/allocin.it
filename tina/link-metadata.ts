@@ -57,11 +57,3 @@ export function publicationDay(value: unknown): string | undefined {
   const parsed = new Date(day);
   if (Number.isFinite(parsed.getTime()) && parsed.toISOString().startsWith(day)) return day;
 }
-
-export function categoryFor(url: URL, kind: string): LinkMetadata["category"] {
-  const spotifyPodcast = url.hostname === "open.spotify.com" && /^\/(?:intl-[^/]+\/)?(?:episode|show)\//.test(url.pathname);
-  const podcastPath = /\/podcasts?(?:\/|$)/i.test(url.pathname);
-  if (spotifyPodcast || podcastPath || url.hostname === "podcasts.apple.com" || kind.includes("podcast")) return "podcast";
-  if (kind.startsWith("video")) return "media";
-  if (kind === "article") return "news";
-}
